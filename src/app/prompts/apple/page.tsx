@@ -1,0 +1,74 @@
+import { generateFinancialAnalysis } from "@/server/analysis/generateFinancialAnalysis";
+import { generateNewsSummary } from "@/server/analysis/generateNewsSummary";
+import { generateShouldBuyAction } from "@/server/analysis/generateShouldBuyAction";
+import { getBasicFinancials } from "@/server/stocks/getBasicFinancials";
+import { getCompanyNews } from "@/server/stocks/getCompanyNews";
+import { getStockPrice } from "@/server/stocks/getStockPrice";
+import { getStockProfile } from "@/server/stocks/getStockProfile";
+
+import ReactMarkdown from "react-markdown";
+
+const newsAnalysisResponse = {
+  "response": "### Resumen de Noticias para Day-Trading\n\n**Eventos Clave:**\n\n*   **China Smartphone Sales:** Apple recuperó el primer puesto en ventas de smartphones en China. Potencialmente positivo a corto plazo, sugiriendo un aumento en la demanda de iPhones en un mercado clave.\n*   **Analistas y WWDC:** Después de la WWDC, analistas como Citi mantienen una recomendación de \"Compra\" para AAPL, con un precio objetivo de $240. Esto podría generar optimismo en el corto plazo.\n*   **Inversión de Texas Instruments:** Texas Instruments planea invertir más de $60 mil millones en la fabricación de semiconductores en EE. UU. Aunque no directamente relacionado con Apple, este evento podría indicar un entorno favorable para la industria tecnológica en general.\n*   **Resultados del Q1:** Los resultados del primer trimestre de Apple superaron ligeramente las expectativas, pero las preocupaciones sobre las políticas comerciales y la presión sobre los márgenes generaron una reacción negativa. Tim Cook mencionó nuevos lanzamientos y el crecimiento de servicios, pero se reconocieron desafíos. El impacto a corto plazo fue negativo tras el anuncio, pero el futuro depende del desempeño de sus lanzamientos.\n*   **Comentarios de Trump:** Donald Trump afirma que Apple comprará muchas de sus tarjetas doradas. No tiene un impacto directo en la operación de la empresa.\n*   **Comparativa de Amazon vs Apple:** Un artículo compara a Amazon y Apple, destacando el mejor desempeño de Amazon en el mercado de valores. Esto podría generar cierta presión para Apple.\n*   **AI y Buffett:** Se publican noticias donde se analiza si Apple y otras empresas de tecnología cumplen con los criterios de inversión de Warren Buffett.\n*   **WWDC 2025:** Apple presentó una nueva interfaz \"Liquid Glass\", pero las actualizaciones de IA no impresionaron a los inversores. Esto podría tener un impacto negativo en el corto plazo.\n*   **Anuncio de Alibaba:** Alibaba lanza nuevos modelos de IA Qwen3 para la arquitectura MLX de Apple. Podría ser un impulso positivo, reflejando la colaboración tecnológica entre ambas empresas.\n*   **Trump Mobile:** La familia Trump planea lanzar un servicio de telefonía móvil y un smartphone. No está directamente relacionado con las operaciones principales de Apple, pero podría generar especulación en el mercado.\n*   **Acciones de India a EE. UU.:** Foxconn está enviando el 97% de las exportaciones de iPhones desde India a EE. UU., como respuesta a los aranceles. Podría afectar la rentabilidad y las relaciones comerciales.\n*   **Demandas en su contra:** Apple enfrenta una demanda antimonopolio relacionada con iCloud y ha sido multada en los Países Bajos por abuso de su posición en la App Store. Estos eventos son negativos a corto plazo, ya que podrían generar problemas legales y regulatorios.\n*   **Análisis de analistas y recomendaciones:** Goldman Sachs y Morgan Stanley recomiendan comprar acciones de Apple, y Wedbush reitera su precio objetivo. El sentimiento de los analistas es positivo.\n*   **Otras noticias:** Se mencionan otros temas como las caídas en el mercado de valores y la competencia en el mercado.\n\n**Sentimiento y Volatilidad:**\n\nEl sentimiento general es mixto. Hay noticias positivas, como el liderazgo de ventas en China y las recomendaciones de compra de los analistas, pero estas se ven mitigadas por las preocupaciones sobre la innovación en IA, las presiones sobre los márgenes y los riesgos regulatorios. Además, la reacción del mercado ante las actualizaciones de la WWDC fue en general negativa. Se espera que haya volatilidad a corto plazo, influenciada por el desempeño de la demanda de iPhones en China, los anuncios de los analistas y la reacción a las nuevas funciones de Apple. Las noticias sobre las acciones de Trump y las disputas legales también podrían afectar el sentimiento del mercado.\n\n**Síntesis para Day-Trading:**\n\nLos day traders deben vigilar de cerca la reacción del mercado a la recuperación de Apple en China, así como las recomendaciones de compra de los analistas. El enfoque en la innovación de IA y la respuesta a la WWDC 2025 son cruciales. Estar atento a la evolución de la demanda de iPhones y cualquier indicio de cambio en el mercado de valores también será importante. Prestar atención a la posición de la empresa en los mercados de China y EE.UU. y al progreso de sus disputas legales para identificar oportunidades o riesgos a corto plazo.\n",
+  "inputTokens": 50709,
+  "outputTokens": 950
+};
+
+const financialAnalysisResponse = {
+  "response": "### Análisis Financiero y de Mercado\n\n**Datos Financieros Básicos:**\n\nLos datos financieros básicos de Apple (AAPL) presentados en BasicFinancials revelan una compañía sólida pero con algunos signos de preocupación. El *revenueGrowthTTMYoy* de 4.91% y *epsGrowthQuarterlyYoy* de 7.68% indican un crecimiento, aunque el *epsGrowthTTMYoy* de -0.36% es negativo, sugiriendo presión en las ganancias en el último año. La empresa tiene un *netProfitMarginTTM* del 24.3%, indicando una rentabilidad considerable, aunque el *currentRatioAnnual* de 0.8673 y *quickRatioAnnual* de 0.826 sugieren que la liquidez a corto plazo podría ser un área de atención. Además, los retornos de precio en periodos más largos son negativos (13WeekPriceReturnDaily: -8.5794, 26WeekPriceReturnDaily: -20.7133), lo que refleja el desempeño del precio en los últimos meses. El *bookValuePerShareAnnual* de 3.7673 y el *pb* de 43.8911 denotan un valor en libros relativamente bajo en comparación con el precio de mercado, lo que podría sugerir que el precio de la acción está sobrevalorado. La solidez financiera es buena, con márgenes de ganancia sólidos, pero las presiones sobre las ganancias y la liquidez son factores a vigilar.\n\n**Datos de Cotización (Quote):**\n\nEl precio actual de la acción de Apple (AAPL) es de $196.36, con un cambio positivo de $0.72 y un porcentaje de variación de 0.368% respecto al cierre anterior. El precio de apertura fue de $196.55, y ha oscilado entre $195.07 y $197.57 en la sesión actual. La tendencia a corto plazo es ligeramente alcista, reflejada en el pequeño incremento porcentual. La volatilidad es moderada, dada la diferencia entre el máximo y el mínimo del día.\n\n**Integración del Resumen de Noticias:**\n\nEl resumen de noticias para day-trading presenta un sentimiento mixto para Apple. El liderazgo en ventas de smartphones en China y las recomendaciones de compra de analistas (Citi, Goldman Sachs, Morgan Stanley, Wedbush) son positivas y podrían impulsar el precio al alza. Sin embargo, las preocupaciones sobre la innovación en IA, la reacción negativa del mercado a las actualizaciones de la WWDC 2025, la presión sobre los márgenes, los riesgos regulatorios y las demandas antimonopolio (iCloud, App Store) ejercen presión negativa. La información noticiosa refuerza la importancia de monitorear la reacción del mercado a la demanda de iPhones en China y el impacto de los lanzamientos. La comparación con Amazon y las posibles implicaciones de las acciones de Trump pueden generar incertidumbre. La inversión de Texas Instruments no está directamente relacionada, pero señala un entorno favorable para la industria tecnológica. Los riesgos regulatorios y legales son negativos y deben ser monitoreados.\n\n**Recomendación para Day-Trading:**\n\nConsiderando el análisis de los datos financieros y de cotización, así como el resumen de noticias, recomiendo una estrategia **cautelosamente alcista (comprar con precaución)** para day-trading en Apple (AAPL).\n\n*   **Justificación:** El ligero movimiento alcista en el precio actual, combinado con la recuperación de ventas en China y las recomendaciones de compra de algunos analistas, sugiere un potencial de subida a corto plazo. Los datos financieros, aunque con algunas señales de alarma, muestran una empresa rentable y sólida. Sin embargo, las noticias sobre la innovación en IA y los riesgos regulatorios exigen cautela.\n*   **Niveles:**\n    *   **Entrada:** $196.40 (ligeramente por encima del precio actual)\n    *   **Stop-Loss:** $195.50 (por debajo del mínimo del día, para limitar pérdidas en caso de retroceso)\n    *   **Objetivo:** $197.80 (alcanzar el máximo del día, considerando la volatilidad)\n*   **Tiempo:** Se espera que el ciclo de inversión a corto plazo se complete en la sesión de hoy, en respuesta a las noticias y a la reacción del mercado. Se deberá monitorear la evolución de las noticias en China y el desempeño de Apple.\n",
+  "inputTokens": 138973,
+  "outputTokens": 970
+}
+
+const shouldBuyActionResponse = {
+  "response": "```json\n{\n  \"action\": \"buy\",\n  \"entryPrice\": {\n    \"min\": 196.30,\n    \"max\": 196.60\n  },\n  \"desiredPrice\": 197.80,\n  \"exitStrategies\": {\n    \"197.20\": 0.5,\n    \"197.80\": 0.3,\n    \"198.30\": 0.2\n  },\n  \"stopLoss\": 195.50,\n  \"analysis\": \"Recomendación de compra cautelosa basada en el ligero impulso alcista actual, las recomendaciones positivas de analistas y la recuperación en ventas en China. Se establecen estrategias de salida escalonadas para asegurar ganancias y se define un stop-loss para limitar las pérdidas.\",\n  \"estimatedTime\": \"Durante la sesión de trading (hasta el cierre del mercado)\",\n  \"profit\": \"0.7%\",\n  \"loss\": \"0.4%\"\n}\n```",
+  "inputTokens": 1881,
+  "outputTokens": 234
+}
+
+const inputCost = 0.075;
+const outputCost = 0.3;
+
+function getCost(inputTokens: number, costPerM: number) {
+  return costPerM * inputTokens / 1e6;
+}
+
+export default async function ApplePage() {
+  const symbol = "AAPL";
+
+  // const [newsInfo, stockInfo] = await Promise.all([getCompanyNews(symbol), getStockProfile(symbol)]);
+  // const summaryResponse = await generateNewsSummary(newsInfo, stockInfo);
+  // const response = await generateFinancialAnalysis(newsResponse, basicFinancials, stockPrice);
+  // const {response: financialAnalysis, inputTokens: financialInputTokens, outputTokens: financialOutputTokens} = response;
+  // const response = await generateShouldBuyAction(financialAnalysis, stockInfo);
+  // const {response: shouldBuyAction, inputTokens: shouldBuyInputTokens, outputTokens: shouldBuyOutputTokens} = response;
+
+  const stockInfo = await getStockProfile(symbol);
+
+
+  const {response: newsSummary, inputTokens: newsInputTokens, outputTokens: newsOutputTokens} = newsAnalysisResponse;
+  const {response: financialAnalysis, inputTokens: financialInputTokens, outputTokens: financialOutputTokens} = financialAnalysisResponse;
+  const {response: shouldBuyAction, inputTokens: shouldBuyInputTokens, outputTokens: shouldBuyOutputTokens} = shouldBuyActionResponse;
+
+  const newsCost = getCost(newsInputTokens, inputCost) + getCost(newsOutputTokens, outputCost);
+  const financialCost = getCost(financialInputTokens, inputCost) + getCost(financialOutputTokens, outputCost);
+  const shouldBuyCost = getCost(shouldBuyInputTokens, inputCost) + getCost(shouldBuyOutputTokens, outputCost);
+  const totalCost = newsCost + financialCost + shouldBuyCost;
+
+  // const newsPrompt = "Hola, estoy deshabilidado"
+  return <div className="flex flex-col gap-4 p-4">
+    <h1 className="text-2xl font-bold">Recomendación de inversión para {symbol} - {stockInfo.name} (coste total: ${totalCost.toFixed(4)})</h1>
+    <details>
+      <summary className="text-xl font-bold">News Analysis ({newsInputTokens} tokens -&gt; {newsOutputTokens} tokens | cost: ${newsCost.toFixed(4)})</summary>
+      <ReactMarkdown>{newsSummary}</ReactMarkdown>
+    </details>
+    <details>
+      <summary className="text-xl font-bold">Financial Analysis ({financialInputTokens} tokens -&gt; {financialOutputTokens} tokens | cost: ${financialCost.toFixed(4)})</summary>
+      <ReactMarkdown>{financialAnalysis}</ReactMarkdown>
+    </details>
+    <details>
+      <summary className="text-xl font-bold">Should Buy Action ({shouldBuyInputTokens} tokens -&gt; {shouldBuyOutputTokens} tokens | cost: ${shouldBuyCost.toFixed(4)})</summary>
+      <ReactMarkdown>{shouldBuyAction}</ReactMarkdown>
+    </details>
+  </div>;
+}
