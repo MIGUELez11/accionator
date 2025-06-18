@@ -11,6 +11,10 @@ export const PROMPTS = {
     path: () => import("./financial_analysis_prompt.md"),
     replaces: ["News", "BasicFinancials", "Quote"],
   },
+  SHOULD_BUY_ACTION: {
+    path: () => import("./should_buy_action_prompt.md"),
+    replaces: ["Analysis", "StockInfo"],
+  },
 } as const;
 
 export type PromptsNames = keyof typeof PROMPTS;
