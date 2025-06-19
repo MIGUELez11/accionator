@@ -1,5 +1,5 @@
 import { CompanyProfile2 } from "finnhub-ts";
-import { getFinnhubClient } from "./getFinnhubClient";
+import { getFinnhubClient } from "./clients/getFinnhubClient";
 
 export type StockProfile = CompanyProfile2
 

@@ -1,4 +1,4 @@
-import { getFinnhubClient } from "./getFinnhubClient";
+import { getFinnhubClient } from "./clients/getFinnhubClient";
 import type { CompanyNews as FinnhubCompanyNews } from "finnhub-ts";
 
 export type CompanyNews = FinnhubCompanyNews[];

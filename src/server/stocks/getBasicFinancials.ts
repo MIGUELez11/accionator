@@ -1,4 +1,4 @@
-import { getFinnhubClient } from "./getFinnhubClient";
+import { getFinnhubClient } from "./clients/getFinnhubClient";
 import type { BasicFinancials as FinnhubBasicFinancials } from "finnhub-ts";
 
 export type BasicFinancials = FinnhubBasicFinancials;

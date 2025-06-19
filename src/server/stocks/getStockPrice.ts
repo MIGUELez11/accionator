@@ -1,4 +1,4 @@
-import { getFinnhubClient } from "./getFinnhubClient";
+import { getFinnhubClient } from "./clients/getFinnhubClient";
 
 export interface StockPrice {
   price?: number;
