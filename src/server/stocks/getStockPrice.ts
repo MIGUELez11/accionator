@@ -1,3 +1,4 @@
+import { withCache } from "../cache/withCache";
 import { getFinnhubClient } from "./clients/getFinnhubClient";
 
 export interface StockPrice {
@@ -11,17 +12,19 @@ export interface StockPrice {
 }
 
 export async function getStockPrice(symbol: string): Promise<StockPrice> {
-  const finnhubClient = await getFinnhubClient();
+  return withCache(`stock-price:${symbol}`, 10 * 60, async () => {
+    const finnhubClient = await getFinnhubClient();
 
-  const quote = await finnhubClient.quote(symbol);
+    const quote = await finnhubClient.quote(symbol);
 
-  return {
-    price: quote.data.c,
-    change: quote.data.d,
-    percentChange: quote.data.dp,
-    openPrice: quote.data.o,
-    high: quote.data.h,
-    low: quote.data.l,
-    previousClose: quote.data.pc,
-  };
+    return {
+      price: quote.data.c,
+      change: quote.data.d,
+      percentChange: quote.data.dp,
+      openPrice: quote.data.o,
+      high: quote.data.h,
+      low: quote.data.l,
+      previousClose: quote.data.pc,
+    };
+  });
 }

@@ -1,3 +1,4 @@
+import { withCache } from "../cache/withCache";
 import { getFinnhubClient } from "./clients/getFinnhubClient";
 import type { CompanyNews as FinnhubCompanyNews } from "finnhub-ts";
 
@@ -8,19 +9,21 @@ function parseDate(date: Date) {
 }
 
 export async function getCompanyNews(symbol: string): Promise<CompanyNews> {
-  const finnhubClient = await getFinnhubClient();
+  return withCache(`stock-company-news:${symbol}`, 10 * 60, async () => {
+    const finnhubClient = await getFinnhubClient();
 
-  const today = new Date();
-  const oneYearAgo = new Date(
-    today.getFullYear() - 1,
-    today.getMonth(),
-    today.getDate()
-  );
+    const today = new Date();
+    const oneYearAgo = new Date(
+      today.getFullYear() - 1,
+      today.getMonth(),
+      today.getDate()
+    );
 
-  const response = await finnhubClient.companyNews(
-    symbol,
-    parseDate(oneYearAgo),
-    parseDate(today)
-  );
-  return response.data;
+    const response = await finnhubClient.companyNews(
+      symbol,
+      parseDate(oneYearAgo),
+      parseDate(today)
+    );
+    return response.data;
+  });
 }
