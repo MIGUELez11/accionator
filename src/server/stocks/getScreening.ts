@@ -51,7 +51,9 @@ const screeners = {
   },
 } as const satisfies Record<string, ScreeningParams>;
 
-export function getScreening(screener: keyof typeof screeners) {
+export type Screeners = keyof typeof screeners;
+
+export function getScreening(screener: Screeners) {
   return withCache(`screener:${screener}`, 60 * 60, async () => {
     const client = await getFinancialmodelingprepClient();
 
