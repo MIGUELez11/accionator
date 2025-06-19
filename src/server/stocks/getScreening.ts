@@ -48,7 +48,9 @@ const screeners = {
   }
 } as const satisfies Record<string, ScreeningParams>;
 
-export async function getScreening(screener: keyof typeof screeners) {
+export type Screeners = keyof typeof screeners;
+
+export async function getScreening(screener: Screeners) {
   const client = await getFinancialmodelingprepClient();
 
   return client.stockScreener(screeners[screener]);
