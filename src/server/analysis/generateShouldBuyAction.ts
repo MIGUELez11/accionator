@@ -8,5 +8,5 @@ export async function generateShouldBuyAction(analysis: string, stockInfo: Stock
     StockInfo: JSON.stringify(stockInfo),
   });
 
-  return getAnalysis(prompt);
+  return getAnalysis(prompt, true);
 }

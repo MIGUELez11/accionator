@@ -5,7 +5,7 @@ import { BussinessInfo } from "./components/BussinessInfo";
 import { Recommendations } from "./components/Recommendations";
 import { getActionRecommendations } from "@/server/stocks/getActionRecommendations";
 import { StockChart } from "./components/StockChart";
-// import { AIAnalysis } from "./components/AIAnalysis";
+import { AIAnalysis } from "./components/AIAnalysis";
 
 export default async function AnalysisPage({
   params,
@@ -47,9 +47,9 @@ export default async function AnalysisPage({
         </div>
         <Recommendations recommendations={recommendations} />
       </div>
-      {/* <div className="grid grid-cols-1 gap-4 px-4">
+      <div className="grid grid-cols-1 gap-4 px-4">
         <AIAnalysis symbol={stockProfile.ticker!} />
-      </div> */}
+      </div>
     </div>
   );
 }

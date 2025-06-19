@@ -51,15 +51,15 @@ Tu respuesta debe ser un objeto JSON válido siguiendo exactamente esta plantill
   },
   "desiredPrice": number,
   "exitStrategies": {
-      "numericPrice1": numericPercentage,
-      "numericPrice2": numericPercentage,
-      "numericPrice3": numericPercentage
+      "numericPrice1": number // percentage (0.x),
+      "numericPrice2": number // percentage (0.x),
+      "numericPrice3": number // percentage (0.x)
   },
   "stopLoss": number,
   "analysis": string,
   "estimatedTime": string,
-  "profit": numericPercentage,
-  "loss": numericPercentage
+  "profit": number // percentage (0.x),
+  "loss": number // percentage (0.x)
 }
 
 No agregues ningún otro texto o comentarios fuera del objeto JSON.
