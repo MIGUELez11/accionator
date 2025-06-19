@@ -10,6 +10,6 @@ export async function getStockProfile(symbol: string): Promise<StockProfile> {
 
     const response = await finnhubClient.companyProfile2(symbol);
 
-    return response.data;
+    return { ...response.data, marketCapitalization: (response.data.marketCapitalization ?? 0) * 1e3 };
   });
 }
