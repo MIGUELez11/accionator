@@ -1,9 +1,3 @@
-import { generateFinancialAnalysis } from "@/server/analysis/generateFinancialAnalysis";
-import { generateNewsSummary } from "@/server/analysis/generateNewsSummary";
-import { generateShouldBuyAction } from "@/server/analysis/generateShouldBuyAction";
-import { getBasicFinancials } from "@/server/stocks/getBasicFinancials";
-import { getCompanyNews } from "@/server/stocks/getCompanyNews";
-import { getStockPrice } from "@/server/stocks/getStockPrice";
 import { getStockProfile } from "@/server/stocks/getStockProfile";
 
 import ReactMarkdown from "react-markdown";
@@ -35,25 +29,7 @@ function getCost(inputTokens: number, costPerM: number) {
 
 export default async function ApplePage() {
   const symbol = "TSLA";
-
-  // const [newsInfo, stockInfo, basicFinancials, stockPrice] = await Promise.all([getCompanyNews(symbol), getStockProfile(symbol), getBasicFinancials(symbol), getStockPrice(symbol)]);
-  // const summaryResponse = await generateNewsSummary(newsInfo, stockInfo);
-  // const {response: newsSummary, inputTokens: newsInputTokens, outputTokens: newsOutputTokens} = summaryResponse;
-
-  // const financialAnalysisResponse = await generateFinancialAnalysis(newsSummary, basicFinancials, stockPrice);
-  // const {response: financialAnalysis, inputTokens: financialInputTokens, outputTokens: financialOutputTokens} = financialAnalysisResponse;
-
-  // const shouldBuyActionResponse = await generateShouldBuyAction(financialAnalysis, stockInfo);
-  // const {response: shouldBuyAction, inputTokens: shouldBuyInputTokens, outputTokens: shouldBuyOutputTokens} = shouldBuyActionResponse;
-
-  // console.log("summaryResponse", summaryResponse);
-  // console.log("financialAnalysisResponse", financialAnalysisResponse);
-  // console.log("shouldBuyActionResponse", shouldBuyActionResponse);
-
   const stockInfo = await getStockProfile(symbol);
-
-  const basicFinancials = await getBasicFinancials(symbol);
-  const stockPrice = await getStockPrice(symbol);
 
   const {response: newsSummary, inputTokens: newsInputTokens, outputTokens: newsOutputTokens} = newsAnalysisResponse;
   const {response: financialAnalysis, inputTokens: financialInputTokens, outputTokens: financialOutputTokens} = financialAnalysisResponse;
@@ -64,7 +40,6 @@ export default async function ApplePage() {
   const shouldBuyCost = getCost(shouldBuyInputTokens, inputCost) + getCost(shouldBuyOutputTokens, outputCost);
   const totalCost = newsCost + financialCost + shouldBuyCost;
 
-  // const newsPrompt = "Hola, estoy deshabilidado"
   return <div className="flex flex-col gap-4 p-4">
     <h1 className="text-2xl font-bold">Recomendación de inversión para {symbol} - {stockInfo.name} (coste total: ${totalCost.toFixed(4)})</h1>
     <details>

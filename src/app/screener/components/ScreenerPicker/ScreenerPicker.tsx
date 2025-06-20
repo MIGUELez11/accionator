@@ -3,13 +3,10 @@
 import {
   ActivityIcon,
   BuildingIcon,
-  ChartBarIcon,
   SproutIcon,
-  TrendingUpDownIcon,
   TrendingUpIcon,
 } from "lucide-react";
 import { ScreenerType, ScreenerTypeProps } from "./components/ScreenerType";
-import { useState } from "react";
 
 const screeners = {
   highVolumeMovers: {

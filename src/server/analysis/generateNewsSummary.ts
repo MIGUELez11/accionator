@@ -1,4 +1,3 @@
-import { getResponseFromAI } from "../ai/getResponseFromAI";
 import { CompanyNews } from "../stocks/getCompanyNews";
 import { StockProfile } from "../stocks/getStockProfile";
 import { getAnalysis } from "./utils/getAnalysis";

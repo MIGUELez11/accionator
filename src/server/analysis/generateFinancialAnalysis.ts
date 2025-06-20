@@ -1,5 +1,4 @@
 import { BasicFinancials } from "../stocks/getBasicFinancials";
-import { CompanyNews } from "../stocks/getCompanyNews";
 import { StockPrice } from "../stocks/getStockPrice";
 import { getAnalysis } from "./utils/getAnalysis";
 import { getPrompt } from "./utils/getPrompt";

@@ -29,7 +29,6 @@ export default async function AnalysisPage({
         symbol={stockProfile.ticker!}
         name={stockProfile.name!}
         logo={stockProfile.logo!}
-        change={stockPrice.change!}
         price={stockPrice.price!}
         percentChange={stockPrice.percentChange!}
       />

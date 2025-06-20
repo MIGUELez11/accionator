@@ -55,7 +55,7 @@ class FinancialModelingPrepClient {
 
   private async fetch<
     P extends Record<string, number | string>,
-    R extends Object
+    R extends object
   >(endpoint: `v3/${string}`, params: P): Promise<R> {
     const searchUrl = new URL(this.url.toString() + endpoint);
     const searchParams = new URLSearchParams({

@@ -26,7 +26,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-function SortingButton({ column }: { column: Column<any, any> }) {
+function SortingButton<TData, TValue>({ column }: { column: Column<TData, TValue> }) {
   const sortedDirection = column.getIsSorted();
   return (
     <div>

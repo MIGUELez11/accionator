@@ -1,9 +1,3 @@
-import { generateFinancialAnalysis } from "@/server/analysis/generateFinancialAnalysis";
-import { generateNewsSummary } from "@/server/analysis/generateNewsSummary";
-import { generateShouldBuyAction } from "@/server/analysis/generateShouldBuyAction";
-import { getBasicFinancials } from "@/server/stocks/getBasicFinancials";
-import { getCompanyNews } from "@/server/stocks/getCompanyNews";
-import { getStockPrice } from "@/server/stocks/getStockPrice";
 import { getStockProfile } from "@/server/stocks/getStockProfile";
 
 import ReactMarkdown from "react-markdown";
@@ -35,14 +29,6 @@ function getCost(inputTokens: number, costPerM: number) {
 
 export default async function ApplePage() {
   const symbol = "AAPL";
-
-  // const [newsInfo, stockInfo] = await Promise.all([getCompanyNews(symbol), getStockProfile(symbol)]);
-  // const summaryResponse = await generateNewsSummary(newsInfo, stockInfo);
-  // const response = await generateFinancialAnalysis(newsResponse, basicFinancials, stockPrice);
-  // const {response: financialAnalysis, inputTokens: financialInputTokens, outputTokens: financialOutputTokens} = response;
-  // const response = await generateShouldBuyAction(financialAnalysis, stockInfo);
-  // const {response: shouldBuyAction, inputTokens: shouldBuyInputTokens, outputTokens: shouldBuyOutputTokens} = response;
-
   const stockInfo = await getStockProfile(symbol);
 
 

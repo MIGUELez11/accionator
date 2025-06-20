@@ -12,8 +12,9 @@ export function getFinnhubClient() {
       try {
         JSON.parse(input);
         return true;
-      } catch (error) { }
-      return false;
+      } catch {
+        return false;
+      }
     },
   });
 }
