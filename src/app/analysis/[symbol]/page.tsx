@@ -1,11 +1,11 @@
-import { getStockProfile } from "@/server/stocks/getStockProfile";
-import { StockHeader } from "./components/StockHeader";
-import { getStockPrice } from "@/server/stocks/getStockPrice";
-import { BussinessInfo } from "./components/BussinessInfo";
-import { Recommendations } from "./components/Recommendations";
-import { getActionRecommendations } from "@/server/stocks/getActionRecommendations";
-import { StockChart } from "./components/StockChart";
-import { AIAnalysis } from "./components/AIAnalysis";
+import { getActionRecommendations } from '@/server/stocks/getActionRecommendations';
+import { getStockPrice } from '@/server/stocks/getStockPrice';
+import { getStockProfile } from '@/server/stocks/getStockProfile';
+import { AIAnalysis } from './components/AIAnalysis';
+import { BussinessInfo } from './components/BussinessInfo';
+import { Recommendations } from './components/Recommendations';
+import StockChart from './components/StockChart';
+import { StockHeader } from './components/StockHeader';
 
 export default async function AnalysisPage({ params }: { params: Promise<{ symbol: string }> }) {
   const { symbol } = await params;

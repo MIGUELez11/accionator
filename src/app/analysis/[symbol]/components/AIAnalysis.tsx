@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { InfoCard } from "./InfoCard";
-import { Button } from "@/components/ui/button";
-import { useQuery } from "@tanstack/react-query";
-import { aiAnalysisQuery } from "@/queries/aiAnalysisQuery";
-import { EconomicIndicator } from "./EconomicIndicator";
-import { Separator } from "@/components/ui/separator";
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { aiAnalysisQuery } from '@/queries/aiAnalysisQuery';
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+import { EconomicIndicator } from './EconomicIndicator';
+import { InfoCard } from './InfoCard';
 
 function useAIAnalysis(symbol: string) {
   const [shouldGenerate, setShouldGenerate] = useState(false);
@@ -27,8 +27,7 @@ function useAIAnalysis(symbol: string) {
 }
 
 export function AIAnalysis({ symbol }: { symbol: string }) {
-  const { generateAnalysis, shouldGenerate, data, isLoading, error } =
-    useAIAnalysis(symbol);
+  const { generateAnalysis, shouldGenerate, data, isLoading, error } = useAIAnalysis(symbol);
 
   if (!shouldGenerate) {
     return (
@@ -54,10 +53,7 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
     return (
       <InfoCard title="Recomendación IA">
         <div className="h-full w-full px-4">
-          <p>
-            Error al generar análisis{" "}
-            {error.message ? error.message : "error desconocido"}
-          </p>
+          <p>Error al generar análisis {error.message ? error.message : 'error desconocido'}</p>
         </div>
       </InfoCard>
     );
@@ -73,38 +69,22 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
     );
   }
 
-  const inputTokens =
-    data.action.inputTokens +
-    data.financialAnalysis.inputTokens +
-    data.newsSummary.inputTokens;
-  const outputTokens =
-    data.action.outputTokens +
-    data.financialAnalysis.outputTokens +
-    data.newsSummary.outputTokens;
+  const inputTokens = data.action.inputTokens + data.financialAnalysis.inputTokens + data.newsSummary.inputTokens;
+  const outputTokens = data.action.outputTokens + data.financialAnalysis.outputTokens + data.newsSummary.outputTokens;
   const pricePerMillionInputTokens = 0.1;
   const pricePerMillionOutputTokens = 0.4;
-  const price =
-    (inputTokens / 1e6) * pricePerMillionInputTokens +
-    (outputTokens / 1e6) * pricePerMillionOutputTokens;
+  const price = (inputTokens / 1e6) * pricePerMillionInputTokens + (outputTokens / 1e6) * pricePerMillionOutputTokens;
 
   return (
-    <InfoCard
-      title={`Recomendación IA${price ? ` (${price.toFixed(4)}$)` : ""}`}
-    >
-      <div className="flex flex-col gap-6 p-6">
-        <div className="flex flex-col gap-4">
-          <h3 className="text-lg font-medium">Recomendación</h3>
-          <div className="grid grid-cols-2 gap-4">
+    <InfoCard title={`Recomendación IA${price ? ` (${price.toFixed(4)}$)` : ''}`}>
+      <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4 px-6">
+          <h3 className="text-lg font-medium">Plan de acción ({data.action.response.estimatedTime})</h3>
+          <div className="grid grid-cols-3 gap-4">
             <EconomicIndicator
               title="Acción"
-              value={
-                data.action.response.action === "buy" ? "Comprar" : "No comprar"
-              }
-              className={
-                data.action.response.action === "buy"
-                  ? "text-green-600"
-                  : "text-red-600"
-              }
+              value={data.action.response.action === 'buy' ? 'Comprar' : 'No comprar'}
+              className={data.action.response.action === 'buy' ? 'text-green-600' : 'text-red-600'}
             />
             <EconomicIndicator
               title="Rango de entrada"
@@ -130,25 +110,18 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
               value={`${(data.action.response.loss * 100).toFixed(2)}%`}
               className="text-red-600"
             />
-            <EconomicIndicator
-              title="Tiempo estimado"
-              value={data.action.response.estimatedTime}
-            />
           </div>
         </div>
 
         <Separator className="my-2" />
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 px-6">
           <h3 className="text-lg font-medium">Estrategia de salida</h3>
           <div className="grid gap-3">
             {Object.entries(data.action.response.exitStrategies)
-              .sort(([priceA], [priceB]) => Number(priceB) - Number(priceA))
+              .sort(([priceA], [priceB]) => Number(priceA) - Number(priceB))
               .map(([price, percentage], index) => (
-                <div
-                  key={price}
-                  className="flex items-center justify-between p-3 rounded-lg bg-gray-50"
-                >
+                <div key={price} className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                   <div className="flex items-center gap-3">
                     <div className="flex items-center justify-center w-6 h-6 text-sm font-medium text-white bg-blue-500 rounded-full">
                       {index + 1}
@@ -159,9 +132,7 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-medium text-green-600">
-                      {(Number(percentage) * 100).toFixed(2)}%
-                    </p>
+                    <p className="font-medium text-green-600">{(Number(percentage) * 100).toFixed(2)}%</p>
                     <p className="text-sm text-gray-500">Vender</p>
                   </div>
                 </div>
