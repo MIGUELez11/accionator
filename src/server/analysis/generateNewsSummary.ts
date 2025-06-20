@@ -5,7 +5,7 @@ import { getPrompt } from "./utils/getPrompt";
 
 export async function generateNewsSummary(
   news: CompanyNews,
-  stockInfo: StockProfile
+  stockInfo: StockProfile,
 ) {
   const prompt = await getPrompt("NEWS_SUMMARY", {
     News: JSON.stringify(news),

@@ -15,14 +15,21 @@ async function getAnalysis(symbol: string) {
   const stockPrice = await getStockPrice(symbol);
 
   const newsSummary = await generateNewsSummary(news, stockProfile);
-  const financialAnalysis = await generateFinancialAnalysis(newsSummary.response, basicFinancials, stockPrice);
-  const action = await generateShouldBuyAction(financialAnalysis.response, stockProfile);
+  const financialAnalysis = await generateFinancialAnalysis(
+    newsSummary.response,
+    basicFinancials,
+    stockPrice,
+  );
+  const action = await generateShouldBuyAction(
+    financialAnalysis.response,
+    stockProfile,
+  );
 
   const response = {
     newsSummary,
     financialAnalysis,
     action,
-  }
+  };
 
   return response;
 }
@@ -35,9 +42,13 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Symbol is required" }, { status: 400 });
   }
 
-  const response = await withCache(`ai-analysis:${symbol}`, 60 * 60 * 24, async () => {
-    return await getAnalysis(symbol);
-  });
+  const response = await withCache(
+    `ai-analysis:${symbol}`,
+    60 * 60 * 24,
+    async () => {
+      return await getAnalysis(symbol);
+    },
+  );
 
   return NextResponse.json(response);
 }

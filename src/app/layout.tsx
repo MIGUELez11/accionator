@@ -31,9 +31,7 @@ export default function RootLayout({
       >
         <Providers>
           <TopBar />
-          <div className="max-w-7xl w-full mx-auto">
-            {children}
-          </div>
+          <div className="max-w-7xl w-full mx-auto">{children}</div>
         </Providers>
       </body>
     </html>

@@ -16,13 +16,13 @@ export async function getCompanyNews(symbol: string): Promise<CompanyNews> {
     const oneYearAgo = new Date(
       today.getFullYear() - 1,
       today.getMonth(),
-      today.getDate()
+      today.getDate(),
     );
 
     const response = await finnhubClient.companyNews(
       symbol,
       parseDate(oneYearAgo),
-      parseDate(today)
+      parseDate(today),
     );
     return response.data;
   });

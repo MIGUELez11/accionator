@@ -26,7 +26,11 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-function SortingButton<TData, TValue>({ column }: { column: Column<TData, TValue> }) {
+function SortingButton<TData, TValue>({
+  column,
+}: {
+  column: Column<TData, TValue>;
+}) {
   const sortedDirection = column.getIsSorted();
   return (
     <div>
@@ -54,6 +58,12 @@ export function DataTable<TData, TValue>({
     enableMultiSort: true,
   });
 
+  const handleSorting = <TData, TValue>(column: Column<TData, TValue>) => {
+    if (column.getCanSort()) {
+      return column.getToggleSortingHandler();
+    }
+  };
+
   return (
     <div className="rounded-md border">
       <Table>
@@ -65,16 +75,20 @@ export function DataTable<TData, TValue>({
                   <TableHead key={header.id}>
                     {header.isPlaceholder ? null : (
                       <div
-                        onClick={
-                          header.column.getCanSort()
-                            ? header.column.getToggleSortingHandler()
-                            : undefined
-                        }
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            handleSorting(header.column)?.(e);
+                          }
+                        }}
+                        onClick={handleSorting(header.column)}
                         className="cursor-pointer flex gap-2 items-center"
                       >
                         {flexRender(
                           header.column.columnDef.header,
-                          header.getContext()
+                          header.getContext(),
                         )}
                         <SortingButton column={header.column} />
                       </div>

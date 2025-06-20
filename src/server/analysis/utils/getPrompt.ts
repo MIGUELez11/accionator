@@ -2,7 +2,7 @@ import { PROMPTS, PromptsNames, PromptReplaces } from "../prompts";
 
 export async function getPrompt<T extends PromptsNames>(
   promptName: T,
-  replaces: Record<PromptReplaces<T>, string>
+  replaces: Record<PromptReplaces<T>, string>,
 ) {
   const { default: prompt } = await PROMPTS[promptName].path();
 
@@ -20,7 +20,7 @@ export async function getPrompt<T extends PromptsNames>(
       `<${key} />`,
       `<${key}>
   ${value}
-</${key}>`
+</${key}>`,
     );
   }
 

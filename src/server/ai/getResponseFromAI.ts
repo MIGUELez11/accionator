@@ -2,7 +2,7 @@ import { models, Models } from "./models";
 
 export async function getResponseFromAI(
   prompt: string,
-  model: Models = "gemini"
+  model: Models = "gemini",
 ) {
   const modelObject = models[model];
 

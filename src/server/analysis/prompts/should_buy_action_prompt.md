@@ -6,7 +6,7 @@
   - Incluir un breve resumen de la estrategia que justifique la decisión tomada y explique de forma concisa por qué se ha elegido esa opción.
   - Indicar el tiempo estimado para cerrar la posición, las ganancias esperadas y las posibles pérdidas.
 
-  Utiliza la siguiente estructura para entregar tu respuesta, asegurándote de que sea un objeto JSON válido y sin incluir comentarios adicionales:
+Utiliza la siguiente estructura para entregar tu respuesta, asegurándote de que sea un objeto JSON válido y sin incluir comentarios adicionales:
 </SystemPrompt>
 
 <JSONFormat>
@@ -44,22 +44,22 @@ La información generada será analizada por personal humano que tomará como in
 Tu respuesta debe ser un objeto JSON válido siguiendo exactamente esta plantilla:
 
 {
-  "action": "buy" | "doNotBuy",
-  "entryPrice": {
-    "min": number,
-    "max": number
-  },
-  "desiredPrice": number,
-  "exitStrategies": {
-      "numericPrice1": number // percentage (0.x),
-      "numericPrice2": number // percentage (0.x),
-      "numericPrice3": number // percentage (0.x)
-  },
-  "stopLoss": number,
-  "analysis": string,
-  "estimatedTime": string,
-  "profit": number // percentage (0.x),
-  "loss": number // percentage (0.x)
+"action": "buy" | "doNotBuy",
+"entryPrice": {
+"min": number,
+"max": number
+},
+"desiredPrice": number,
+"exitStrategies": {
+"numericPrice1": number // percentage (0.x),
+"numericPrice2": number // percentage (0.x),
+"numericPrice3": number // percentage (0.x)
+},
+"stopLoss": number,
+"analysis": string,
+"estimatedTime": string,
+"profit": number // percentage (0.x),
+"loss": number // percentage (0.x)
 }
 
 No agregues ningún otro texto o comentarios fuera del objeto JSON.

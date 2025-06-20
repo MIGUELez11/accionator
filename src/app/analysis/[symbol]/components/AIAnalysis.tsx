@@ -41,45 +41,70 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
   }
 
   if (isLoading) {
-    return <InfoCard title="Recomendación IA">
-      <div className="h-full w-full px-4">
-        <p>Generando análisis...</p>
-      </div>
-    </InfoCard>
+    return (
+      <InfoCard title="Recomendación IA">
+        <div className="h-full w-full px-4">
+          <p>Generando análisis...</p>
+        </div>
+      </InfoCard>
+    );
   }
 
   if (error) {
-    return <InfoCard title="Recomendación IA">
-      <div className="h-full w-full px-4">
-        <p>Error al generar análisis {error.message ? error.message : "error desconocido"}</p>
-      </div>
-    </InfoCard>
+    return (
+      <InfoCard title="Recomendación IA">
+        <div className="h-full w-full px-4">
+          <p>
+            Error al generar análisis{" "}
+            {error.message ? error.message : "error desconocido"}
+          </p>
+        </div>
+      </InfoCard>
+    );
   }
 
   if (!data) {
-    return <InfoCard title="Recomendación IA">
-      <div className="h-full w-full px-4">
-        <p>No se encontró ningún análisis</p>
-      </div>
-    </InfoCard>
+    return (
+      <InfoCard title="Recomendación IA">
+        <div className="h-full w-full px-4">
+          <p>No se encontró ningún análisis</p>
+        </div>
+      </InfoCard>
+    );
   }
 
-  const inputTokens = data.action.inputTokens + data.financialAnalysis.inputTokens + data.newsSummary.inputTokens;
-  const outputTokens = data.action.outputTokens + data.financialAnalysis.outputTokens + data.newsSummary.outputTokens;
+  const inputTokens =
+    data.action.inputTokens +
+    data.financialAnalysis.inputTokens +
+    data.newsSummary.inputTokens;
+  const outputTokens =
+    data.action.outputTokens +
+    data.financialAnalysis.outputTokens +
+    data.newsSummary.outputTokens;
   const pricePerMillionInputTokens = 0.1;
   const pricePerMillionOutputTokens = 0.4;
-  const price = (inputTokens / 1e6) * pricePerMillionInputTokens + (outputTokens / 1e6) * pricePerMillionOutputTokens;
+  const price =
+    (inputTokens / 1e6) * pricePerMillionInputTokens +
+    (outputTokens / 1e6) * pricePerMillionOutputTokens;
 
   return (
-    <InfoCard title={`Recomendación IA${price ? ` (${price.toFixed(4)}$)` : ""}`}>
+    <InfoCard
+      title={`Recomendación IA${price ? ` (${price.toFixed(4)}$)` : ""}`}
+    >
       <div className="flex flex-col gap-6 p-6">
         <div className="flex flex-col gap-4">
           <h3 className="text-lg font-medium">Recomendación</h3>
           <div className="grid grid-cols-2 gap-4">
             <EconomicIndicator
               title="Acción"
-              value={data.action.response.action === "buy" ? "Comprar" : "No comprar"}
-              className={data.action.response.action === "buy" ? "text-green-600" : "text-red-600"}
+              value={
+                data.action.response.action === "buy" ? "Comprar" : "No comprar"
+              }
+              className={
+                data.action.response.action === "buy"
+                  ? "text-green-600"
+                  : "text-red-600"
+              }
             />
             <EconomicIndicator
               title="Rango de entrada"
@@ -134,7 +159,9 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-medium text-green-600">{(Number(percentage) * 100).toFixed(2)}%</p>
+                    <p className="font-medium text-green-600">
+                      {(Number(percentage) * 100).toFixed(2)}%
+                    </p>
                     <p className="text-sm text-gray-500">Vender</p>
                   </div>
                 </div>
@@ -143,5 +170,5 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
         </div>
       </div>
     </InfoCard>
-  )
+  );
 }

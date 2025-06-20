@@ -40,7 +40,7 @@ function getParams<T extends Record<string, number | string>>(params: T) {
 
       return acc;
     },
-    {} as Record<keyof T, string>
+    {} as Record<keyof T, string>,
   );
 }
 
@@ -55,7 +55,7 @@ class FinancialModelingPrepClient {
 
   private async fetch<
     P extends Record<string, number | string>,
-    R extends object
+    R extends object,
   >(endpoint: `v3/${string}`, params: P): Promise<R> {
     const searchUrl = new URL(this.url.toString() + endpoint);
     const searchParams = new URLSearchParams({
@@ -76,7 +76,7 @@ class FinancialModelingPrepClient {
   async stockScreener(params: ScreeningParams) {
     return this.fetch<ScreeningParams, StockScreenerResponse[]>(
       "v3/stock-screener",
-      params
+      params,
     );
   }
 }

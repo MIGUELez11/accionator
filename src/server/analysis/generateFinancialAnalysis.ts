@@ -6,7 +6,7 @@ import { getPrompt } from "./utils/getPrompt";
 export async function generateFinancialAnalysis(
   newsSummary: string,
   basicFinancials: BasicFinancials,
-  stockPrice: StockPrice
+  stockPrice: StockPrice,
 ) {
   const prompt = await getPrompt("FINANCIAL_ANALYSIS", {
     News: newsSummary,

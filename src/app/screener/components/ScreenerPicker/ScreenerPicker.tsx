@@ -31,7 +31,13 @@ const screeners = {
   },
 } as const satisfies Record<string, ScreenerTypeProps>;
 
-export function ScreenerPicker({value: selectedScreener, onChange}: {value: string | null, onChange: (screener: string) => void}) {
+export function ScreenerPicker({
+  value: selectedScreener,
+  onChange,
+}: {
+  value: string | null;
+  onChange: (screener: string) => void;
+}) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {Object.entries(screeners).map(([key, value]) => (

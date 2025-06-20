@@ -5,7 +5,7 @@ import type { BasicFinancials as FinnhubBasicFinancials } from "finnhub-ts";
 export type BasicFinancials = FinnhubBasicFinancials;
 
 export async function getBasicFinancials(
-  symbol: string
+  symbol: string,
 ): Promise<BasicFinancials> {
   return withCache(`stock-basic-financials:${symbol}`, 10 * 60, async () => {
     const finnhubClient = await getFinnhubClient();

@@ -7,7 +7,7 @@ function jsonParser(response: string): object {
 
 export async function getAnalysis<T extends boolean = false>(
   prompt: string,
-  parseResponse: T = false as T
+  parseResponse: T = false as T,
 ): Promise<{
   response: T extends true ? object : string;
   inputTokens: number;

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { ReactNode } from "react";
 import { getQueryClient } from "./getQueryClient";
@@ -13,5 +13,5 @@ export default function Providers({ children }: { children: ReactNode }) {
       {children}
       <ReactQueryDevtools />
     </QueryClientProvider>
-  )
+  );
 }
