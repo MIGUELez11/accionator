@@ -1,20 +1,25 @@
+"use client";
+
 import { ActionRecommendations } from "@/server/stocks/getActionRecommendations";
 import { InfoCard } from "./InfoCard";
 import { ResponsiveBar } from '@nivo/bar';
+import { useMemo } from "react";
 
 export function Recommendations({ recommendations }: { recommendations: ActionRecommendations }) {
+  const data = useMemo(() => recommendations.map(rec => ({
+    date: new Date(rec.period!).toLocaleDateString('es-ES', { month: 'short', year: 'numeric' }),
+    'Strong Buy': rec.strongBuy!,
+    'Buy': rec.buy!,
+    'Hold': rec.hold!,
+    'Sell': rec.sell!,
+    'Strong Sell': rec.strongSell!
+  })), [recommendations])
+
   return (
     <InfoCard title="Recomendaciones de analistas">
       <div className="h-[400px] w-full">
         <ResponsiveBar
-          data={recommendations.map(rec => ({
-            date: new Date(rec.period!).toLocaleDateString('es-ES', { month: 'short', year: 'numeric' }),
-            'Strong Buy': rec.strongBuy!,
-            'Buy': rec.buy!,
-            'Hold': rec.hold!,
-            'Sell': rec.sell!,
-            'Strong Sell': rec.strongSell!
-          }))}
+          data={data}
           keys={['Strong Buy', 'Buy', 'Hold', 'Sell', 'Strong Sell']}
           indexBy="date"
           margin={{ top: 30, right: 140, bottom: 50, left: 50 }}
