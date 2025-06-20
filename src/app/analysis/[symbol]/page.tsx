@@ -10,7 +10,7 @@ import { AIAnalysis } from "./components/AIAnalysis";
 export default async function AnalysisPage({
   params,
 }: {
-  params: { symbol: string };
+  params: Promise<{ symbol: string }>;
 }) {
   const { symbol } = await params;
 
