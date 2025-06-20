@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@google/genai": "^1.5.1",
+    "@next/eslint-plugin-next": "^15.3.4",
     "@nivo/bar": "^0.99.0",
     "@nivo/core": "^0.99.0",
     "@radix-ui/react-dialog": "^1.1.14",

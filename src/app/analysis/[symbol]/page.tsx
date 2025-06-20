@@ -7,11 +7,7 @@ import { getActionRecommendations } from "@/server/stocks/getActionRecommendatio
 import { StockChart } from "./components/StockChart";
 import { AIAnalysis } from "./components/AIAnalysis";
 
-export default async function AnalysisPage({
-  params,
-}: {
-  params: Promise<{ symbol: string }>;
-}) {
+export default async function AnalysisPage({ params }: { params: Promise<{ symbol: string }> }) {
   const { symbol } = await params;
 
   const stockProfile = await getStockProfile(symbol);
