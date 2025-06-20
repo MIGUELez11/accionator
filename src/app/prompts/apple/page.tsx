@@ -1,5 +1,3 @@
-import { getStockProfile } from "@/server/stocks/getStockProfile";
-
 import ReactMarkdown from "react-markdown";
 
 const newsAnalysisResponse = {
@@ -29,8 +27,7 @@ function getCost(inputTokens: number, costPerM: number) {
 
 export default async function ApplePage() {
   const symbol = "AAPL";
-  const stockInfo = await getStockProfile(symbol);
-
+  const stockName = "Apple Inc.";
 
   const {response: newsSummary, inputTokens: newsInputTokens, outputTokens: newsOutputTokens} = newsAnalysisResponse;
   const {response: financialAnalysis, inputTokens: financialInputTokens, outputTokens: financialOutputTokens} = financialAnalysisResponse;
@@ -43,7 +40,7 @@ export default async function ApplePage() {
 
   // const newsPrompt = "Hola, estoy deshabilidado"
   return <div className="flex flex-col gap-4 p-4">
-    <h1 className="text-2xl font-bold">Recomendación de inversión para {symbol} - {stockInfo.name} (coste total: ${totalCost.toFixed(4)})</h1>
+    <h1 className="text-2xl font-bold">Recomendación de inversión para {symbol} - {stockName} (coste total: ${totalCost.toFixed(4)})</h1>
     <details>
       <summary className="text-xl font-bold">News Analysis ({newsInputTokens} tokens -&gt; {newsOutputTokens} tokens | cost: ${newsCost.toFixed(4)})</summary>
       <ReactMarkdown>{newsSummary}</ReactMarkdown>
