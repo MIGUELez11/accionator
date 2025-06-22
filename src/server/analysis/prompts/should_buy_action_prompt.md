@@ -24,7 +24,7 @@ Utiliza la siguiente estructura para entregar tu respuesta, asegurándote de que
     },
     "stopLoss": number,
     "analysis": "Texto que resume y justifica la recomendación",
-    "estimatedtime": "Duración estimada para cerrar la posición (por ejemplo, '2 días')",
+    "estimatedTime": "Duración estimada para cerrar la posición (por ejemplo, '2 días')",
     "profit": "Porcentaje estimado de ganancias",
     "loss": "Porcentaje estimado de pérdidas"
   }
