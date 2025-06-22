@@ -13,7 +13,7 @@ export interface StockPrice {
 
 export async function getStockPrice(symbol: string): Promise<StockPrice> {
   return withCache(`stock-price:${symbol}`, 10 * 60, async () => {
-    const finnhubClient = await getFinnhubClient();
+    const finnhubClient = getFinnhubClient();
 
     const quote = await finnhubClient.quote(symbol);
 
