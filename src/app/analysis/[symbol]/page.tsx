@@ -1,8 +1,10 @@
 import { getActionRecommendations } from '@/server/stocks/getActionRecommendations';
+import { getCompanyNews } from '@/server/stocks/getCompanyNews';
 import { getStockPrice } from '@/server/stocks/getStockPrice';
 import { getStockProfile } from '@/server/stocks/getStockProfile';
 import { AIAnalysis } from './components/AIAnalysis';
 import { BussinessInfo } from './components/BussinessInfo';
+import { NewsCarousel } from './components/NewsCarousel/NewsCarousel';
 import { Recommendations } from './components/Recommendations';
 import StockChart from './components/StockChart';
 import { StockHeader } from './components/StockHeader';
@@ -17,7 +19,8 @@ export default async function AnalysisPage({ params }: { params: Promise<{ symbo
   }
 
   const stockPrice = await getStockPrice(stockProfile.ticker);
-  const recommendations = await getActionRecommendations(symbol);
+  const recommendations = await getActionRecommendations(stockProfile.ticker);
+  const news = await getCompanyNews(stockProfile.ticker);
 
   return (
     <div className="flex flex-col gap-4 pb-10">
@@ -42,6 +45,7 @@ export default async function AnalysisPage({ params }: { params: Promise<{ symbo
         </div>
         <Recommendations recommendations={recommendations} />
       </div>
+      <NewsCarousel news={news} />
       <div className="grid grid-cols-1 gap-4 px-4">
         <AIAnalysis symbol={stockProfile.ticker!} />
       </div>
