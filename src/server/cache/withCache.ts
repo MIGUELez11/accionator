@@ -1,19 +1,31 @@
-import { getCache } from "./getCache";
-import { setCache } from "./setCache";
+import { Effect } from 'effect';
+import { getCache } from './getCache';
+import { setCache } from './setCache';
 
-export async function withCache<T>(
-  key: string,
-  ttl: number = 60 * 60 * 24,
-  fn: () => Promise<T>,
-): Promise<T> {
-  const cached = await getCache(key);
+function withCacheEffect<T>(key: string, ttl: number = 60 * 60 * 24, fn: () => Promise<T>): Effect.Effect<T, Error> {
+  return Effect.gen(function* () {
+    const cached = yield* getCache<T>(key);
 
-  if (cached) {
-    return cached as T;
-  }
+    if (cached) {
+      return cached;
+    }
 
-  const result = await fn();
-  await setCache(key, result, ttl);
+    const result =
+      yield *
+      Effect.tryPromise({
+        try: () => fn(),
+        catch: (error) =>
+          new Error(`Error calling function: ${error instanceof Error ? error.message : 'Unknown error'}`, {
+            cause: error,
+          }),
+      });
 
-  return result;
+    yield * setCache(key, result, ttl);
+
+    return result;
+  });
+}
+
+export function withCache<T>(key: string, ttl: number = 60 * 60 * 24, fn: () => Promise<T>): Promise<T> {
+  return Effect.runPromise(withCacheEffect(key, ttl, fn));
 }

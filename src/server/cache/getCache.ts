@@ -1,10 +1,12 @@
-import { getCacheClient } from "./getCacheClient";
+import { Effect } from 'effect';
+import { getCacheClient } from './getCacheClient';
 
-export function getCache(key: string) {
+export function getCache<T>(key: string): Effect.Effect<T | null, Error> {
   const client = getCacheClient();
-  const value = client.get(key).catch((e) => {
-    throw new Error(`Error getting cache: ${e.message}`, { cause: e });
-  });
 
-  return value;
+  return Effect.tryPromise({
+    try: () => client.get<T>(key),
+    catch: (error) =>
+      new Error(`Error getting cache: ${error instanceof Error ? error.message : 'Unknown error'}`, { cause: error }),
+  });
 }
