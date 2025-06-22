@@ -1,0 +1,24 @@
+import { NavBarLink } from "./components/NavBarLink";
+
+const pages = {
+  screener: {
+    href: "/screener",
+    label: "Screener",
+  },
+  analysis: {
+    href: "/analysis/:symbol",
+    label: "Analysis",
+  },
+};
+
+export function NavBar() {
+  return (
+    <div className="flex flex-row gap-6">
+      {Object.entries(pages).map(([key, value]) => (
+        <NavBarLink href={value.href} key={key}>
+          {value.label}
+        </NavBarLink>
+      ))}
+    </div>
+  );
+}

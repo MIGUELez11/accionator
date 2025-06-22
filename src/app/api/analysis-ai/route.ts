@@ -1,0 +1,54 @@
+import { generateFinancialAnalysis } from "@/server/analysis/generateFinancialAnalysis";
+import { generateNewsSummary } from "@/server/analysis/generateNewsSummary";
+import { generateShouldBuyAction } from "@/server/analysis/generateShouldBuyAction";
+import { withCache } from "@/server/cache/withCache";
+import { getBasicFinancials } from "@/server/stocks/getBasicFinancials";
+import { getCompanyNews } from "@/server/stocks/getCompanyNews";
+import { getStockPrice } from "@/server/stocks/getStockPrice";
+import { getStockProfile } from "@/server/stocks/getStockProfile";
+import { NextRequest, NextResponse } from "next/server";
+
+async function getAnalysis(symbol: string) {
+  const news = await getCompanyNews(symbol);
+  const stockProfile = await getStockProfile(symbol);
+  const basicFinancials = await getBasicFinancials(symbol);
+  const stockPrice = await getStockPrice(symbol);
+
+  const newsSummary = await generateNewsSummary(news, stockProfile);
+  const financialAnalysis = await generateFinancialAnalysis(
+    newsSummary.response,
+    basicFinancials,
+    stockPrice,
+  );
+  const action = await generateShouldBuyAction(
+    financialAnalysis.response,
+    stockProfile,
+  );
+
+  const response = {
+    newsSummary,
+    financialAnalysis,
+    action,
+  };
+
+  return response;
+}
+
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+
+  const symbol = searchParams.get("symbol");
+  if (!symbol) {
+    return NextResponse.json({ error: "Symbol is required" }, { status: 400 });
+  }
+
+  const response = await withCache(
+    `ai-analysis:${symbol}`,
+    60 * 60 * 24,
+    async () => {
+      return await getAnalysis(symbol);
+    },
+  );
+
+  return NextResponse.json(response);
+}
