@@ -3,7 +3,7 @@ import { getCompanyNews } from '@/server/stocks/getCompanyNews';
 import { getStockPrice } from '@/server/stocks/getStockPrice';
 import { getStockProfile } from '@/server/stocks/getStockProfile';
 import { AIAnalysis } from './components/AIAnalysis';
-import { BusinessInfo } from './components/BussinessInfo';
+import { BusinessInfo } from './components/BusinessInfo';
 import { NewsCarousel } from './components/NewsCarousel/NewsCarousel';
 import { Recommendations } from './components/Recommendations';
 import StockChart from './components/StockChart';
