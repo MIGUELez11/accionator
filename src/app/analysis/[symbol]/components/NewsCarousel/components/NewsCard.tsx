@@ -26,13 +26,11 @@ export default function NewsCard({ new: newData }: NewsCardProps) {
         <div className="h-24 w-24 min-w-24 min-h-24 rounded-md bg-gray-200" />
       )}
 
-      <div className="flex flex-col gap-2 h-24">
-        <div className="flex flex-col gap-1">
-          <h3 className="font-bold line-clamp-1">{newData.headline}</h3>
-          <p className="text-gray-500">
-            {newData.source} · {unixToDate(newData.datetime)}
-          </p>
-        </div>
+      <div className="flex flex-col gap-1 h-24">
+        <h3 className="font-bold line-clamp-1">{newData.headline}</h3>
+        <p className="text-gray-500">
+          {newData.source} · {unixToDate(newData.datetime)}
+        </p>
         <p className="text-sm text-wrap line-clamp-2">{newData.summary}</p>
       </div>
     </a>
