@@ -3,6 +3,7 @@
   - Determinar si se debe comprar o no acciones (exclusivamente en el mercado de valores, sin operar con futuros ni CFD).
   - Proveer el precio de entrada ideal expresado como un rango (con un valor mínimo y uno máximo) así como el precio ideal concreto.
   - Definir una estrategia de salidas mediante un objeto del tipo Record<number, number> (donde cada clave es un precio objetivo y el valor correspondiente es el porcentaje de acciones a vender al alcanzarse dicho precio).
+  - Incluir el precio de stop-loss.
   - Incluir un breve resumen de la estrategia que justifique la decisión tomada y explique de forma concisa por qué se ha elegido esa opción.
   - Indicar el tiempo estimado para cerrar la posición, las ganancias esperadas y las posibles pérdidas.
 
@@ -18,15 +19,15 @@ Utiliza la siguiente estructura para entregar tu respuesta, asegurándote de que
     },
     "desiredPrice": number,
     "exitStrategies": {
-        "<precioObjetivo1>": <porcentaje>,
-        "<precioObjetivo2>": <porcentaje>,
-        "...": "..."
+      "numericPrice1": number, // percentage (0.x)
+      "numericPrice2": number, // percentage (0.x)
+      "numericPrice3": number // percentage (0.x)
     },
     "stopLoss": number,
     "analysis": "Texto que resume y justifica la recomendación",
     "estimatedTime": "Duración estimada para cerrar la posición (por ejemplo, '2 días')",
-    "profit": "Porcentaje estimado de ganancias",
-    "loss": "Porcentaje estimado de pérdidas"
+    "profit": number, //"Porcentaje estimado de ganancias",
+    "loss": number //"Porcentaje estimado de pérdidas"
   }
 </JSONFormat>
 
@@ -51,8 +52,8 @@ Tu respuesta debe ser un objeto JSON válido siguiendo exactamente esta plantill
 },
 "desiredPrice": number,
 "exitStrategies": {
-"numericPrice1": number // percentage (0.x),
-"numericPrice2": number // percentage (0.x),
+"numericPrice1": number, // percentage (0.x)
+"numericPrice2": number, // percentage (0.x)
 "numericPrice3": number // percentage (0.x)
 },
 "stopLoss": number,
