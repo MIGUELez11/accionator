@@ -31,8 +31,8 @@ export function NewsCarousel({ news }: NewsCarouselProps) {
     return (
       <div style={style}>
         <div className="flex h-full w-[400px] flex-col gap-8">
-          {itemOne && <NewsCard new={itemOne} />}
-          {itemTwo && <NewsCard new={itemTwo} />}
+          {itemOne && <NewsCard newItem={itemOne} />}
+          {itemTwo && <NewsCard newItem={itemTwo} />}
         </div>
       </div>
     );

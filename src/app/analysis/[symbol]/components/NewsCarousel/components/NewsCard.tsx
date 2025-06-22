@@ -2,7 +2,7 @@ import type { CompanyNews } from '@/server/stocks/getCompanyNews';
 import { useState } from 'react';
 
 interface NewsCardProps {
-  new: CompanyNews[number];
+  newItem: CompanyNews[number];
 }
 
 function unixToDate(unix?: number) {
@@ -14,7 +14,7 @@ function unixToDate(unix?: number) {
 }
 
 function WrapWithLink({ children, href }: { children: React.ReactNode; href?: string }) {
-  const isSecure = !href || href.startsWith('https://');
+  const isSecure = href && href.startsWith('https://');
 
   if (!isSecure) {
     return children;
@@ -45,18 +45,18 @@ function ImageRenderer({ src, title }: { src?: string; title?: string }) {
   );
 }
 
-export default function NewsCard({ new: newData }: NewsCardProps) {
+export default function NewsCard({ newItem }: NewsCardProps) {
   return (
-    <WrapWithLink href={newData.url}>
+    <WrapWithLink href={newItem.url}>
       <div className="flex gap-4">
-        <ImageRenderer src={newData.image} title={newData.headline} />
+        <ImageRenderer src={newItem.image} title={newItem.headline} />
 
         <div className="flex flex-col gap-1 h-24">
-          <h3 className="font-bold line-clamp-1">{newData.headline}</h3>
+          <h3 className="font-bold line-clamp-1">{newItem.headline}</h3>
           <p className="text-gray-500">
-            {newData.source} · {unixToDate(newData.datetime)}
+            {newItem.source} · {unixToDate(newItem.datetime)}
           </p>
-          <p className="text-sm text-wrap line-clamp-2">{newData.summary}</p>
+          <p className="text-sm text-wrap line-clamp-2">{newItem.summary}</p>
         </div>
       </div>
     </WrapWithLink>
