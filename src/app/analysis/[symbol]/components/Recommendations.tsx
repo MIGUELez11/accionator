@@ -9,7 +9,7 @@ export function Recommendations({ recommendations }: { recommendations: ActionRe
   const data = useMemo(
     () =>
       recommendations.map((rec) => ({
-        date: new Date(rec.period!).toLocaleDateString('es-ES', {
+        date: new Date(rec.period!).toLocaleDateString(undefined, {
           month: 'short',
           year: 'numeric',
         }),
