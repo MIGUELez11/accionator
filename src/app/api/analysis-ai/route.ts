@@ -6,6 +6,7 @@ import { getBasicFinancials } from "@/server/stocks/getBasicFinancials";
 import { getCompanyNews } from "@/server/stocks/getCompanyNews";
 import { getStockPrice } from "@/server/stocks/getStockPrice";
 import { getStockProfile } from "@/server/stocks/getStockProfile";
+import { Effect } from 'effect';
 import { NextRequest, NextResponse } from "next/server";
 
 async function getAnalysis(symbol: string) {
@@ -14,16 +15,11 @@ async function getAnalysis(symbol: string) {
   const basicFinancials = await getBasicFinancials(symbol);
   const stockPrice = await getStockPrice(symbol);
 
-  const newsSummary = await generateNewsSummary(news, stockProfile);
-  const financialAnalysis = await generateFinancialAnalysis(
-    newsSummary.response,
-    basicFinancials,
-    stockPrice,
+  const newsSummary = await Effect.runPromise(generateNewsSummary(news, stockProfile));
+  const financialAnalysis = await Effect.runPromise(
+    generateFinancialAnalysis(newsSummary.response, basicFinancials, stockPrice),
   );
-  const action = await generateShouldBuyAction(
-    financialAnalysis.response,
-    stockProfile,
-  );
+  const action = await Effect.runPromise(generateShouldBuyAction(financialAnalysis.response, stockProfile));
 
   const response = {
     newsSummary,

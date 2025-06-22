@@ -1,18 +1,21 @@
-import { BasicFinancials } from "../stocks/getBasicFinancials";
-import { StockPrice } from "../stocks/getStockPrice";
-import { getAnalysis } from "./utils/getAnalysis";
-import { getPrompt } from "./utils/getPrompt";
+import { Effect } from 'effect';
+import { BasicFinancials } from '../stocks/getBasicFinancials';
+import { StockPrice } from '../stocks/getStockPrice';
+import { AnalysisResponse, getAnalysis } from './utils/getAnalysis';
+import { getPrompt } from './utils/getPrompt';
 
-export async function generateFinancialAnalysis(
+export function generateFinancialAnalysis(
   newsSummary: string,
   basicFinancials: BasicFinancials,
   stockPrice: StockPrice,
-) {
-  const prompt = await getPrompt("FINANCIAL_ANALYSIS", {
-    News: newsSummary,
-    BasicFinancials: JSON.stringify(basicFinancials),
-    Quote: JSON.stringify(stockPrice),
-  });
+): Effect.Effect<AnalysisResponse, Error> {
+  return Effect.gen(function* () {
+    const prompt = yield* getPrompt('FINANCIAL_ANALYSIS', {
+      News: newsSummary,
+      BasicFinancials: JSON.stringify(basicFinancials),
+      Quote: JSON.stringify(stockPrice),
+    });
 
-  return getAnalysis(prompt);
+    return yield* getAnalysis(prompt);
+  });
 }

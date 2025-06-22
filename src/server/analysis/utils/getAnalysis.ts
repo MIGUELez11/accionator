@@ -1,28 +1,33 @@
 import { countTokens } from "@/server/ai/countTokens";
 import { getResponseFromAI } from "@/server/ai/getResponseFromAI";
+import { Effect } from 'effect';
 
 function jsonParser(response: string): object {
-  return JSON.parse(response.replace(/```json\n/g, "").replace(/\n```/g, ""));
+  return JSON.parse(response.replace(/```json\n/g, '').replace(/\n```/g, ''));
 }
 
-export async function getAnalysis<T extends boolean = false>(
-  prompt: string,
-  parseResponse: T = false as T,
-): Promise<{
+export interface AnalysisResponse<T extends boolean = false> {
   response: T extends true ? object : string;
   inputTokens: number;
   outputTokens: number;
-}> {
-  const response = await getResponseFromAI(prompt);
+}
 
-  const promptTokens = await countTokens(prompt);
-  const responseTokens = await countTokens(response);
+export function getAnalysis<T extends boolean = false>(
+  prompt: string,
+  parseResponse: T = false as T,
+): Effect.Effect<AnalysisResponse<T>, Error> {
+  return Effect.gen(function* () {
+    const response = yield* getResponseFromAI(prompt);
 
-  return {
-    response: (parseResponse
-      ? jsonParser(response)
-      : response) as T extends true ? object : string,
-    inputTokens: promptTokens,
-    outputTokens: responseTokens,
-  };
+    const promptTokens = yield* countTokens(prompt);
+    const responseTokens = yield* countTokens(response);
+
+    const responseObject: AnalysisResponse<T> = {
+      response: (parseResponse ? jsonParser(response) : response) as T extends true ? object : string,
+      inputTokens: promptTokens,
+      outputTokens: responseTokens,
+    };
+
+    return responseObject;
+  });
 }

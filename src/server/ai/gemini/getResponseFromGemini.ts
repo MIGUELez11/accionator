@@ -1,11 +1,26 @@
-import { DEFAULT_MODEL, getAiClient } from "./getAiClient";
+import { Effect } from 'effect';
+import { DEFAULT_MODEL, getAiClient } from './getAiClient';
 
-export async function getResponseFromGemini(prompt: string) {
-  const ai = getAiClient();
-  const response = await ai.models.generateContent({
-    model: DEFAULT_MODEL,
-    contents: prompt,
+export function getResponseFromGemini(prompt: string): Effect.Effect<string, Error> {
+  return Effect.gen(function* () {
+    const ai = yield* getAiClient();
+
+    if (!prompt.length) {
+      return yield* Effect.fail(new Error('Prompt is empty'));
+    }
+
+    const response = yield* Effect.tryPromise({
+      try: () =>
+        ai.models.generateContent({
+          model: DEFAULT_MODEL,
+          contents: prompt,
+        }),
+      catch: (error) =>
+        new Error(`Error getting response from Gemini: ${error instanceof Error ? error.message : 'Unknown error'}`, {
+          cause: error,
+        }),
+    });
+
+    return response.text ?? '';
   });
-
-  return response.text ?? "";
 }

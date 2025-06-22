@@ -1,16 +1,14 @@
-import { models, Models } from "./models";
+import { Effect } from 'effect';
+import { models, Models } from './models';
 
-export async function getResponseFromAI(
-  prompt: string,
-  model: Models = "gemini",
-) {
-  const modelObject = models[model];
+export function getResponseFromAI(prompt: string, model: Models = 'gemini'): Effect.Effect<string, Error> {
+  return Effect.gen(function* () {
+    const modelObject = models[model];
 
-  if (!modelObject) {
-    throw new Error(`Model ${model} not found`);
-  }
+    if (!modelObject) {
+      return yield* Effect.fail(new Error(`Model ${model} not found`));
+    }
 
-  const response = await modelObject.generate(prompt);
-
-  return response;
+    return yield* modelObject.generate(prompt);
+  });
 }
