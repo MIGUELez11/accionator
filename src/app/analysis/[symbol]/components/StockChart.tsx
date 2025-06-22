@@ -33,13 +33,8 @@ function TradingViewWidget({ symbol }: { symbol: string }) {
     const containerRef = container.current;
 
     return () => {
-      const children = containerRef?.children;
-
-      script.remove();
-      if (children?.length) {
-        for (const child of children) {
-          child.remove();
-        }
+      if (containerRef) {
+        containerRef.innerHTML = '';
       }
     };
   }, [symbol]);
