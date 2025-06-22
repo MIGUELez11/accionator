@@ -79,7 +79,10 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
     <InfoCard title={`Recomendación IA${price ? ` (${price.toFixed(4)}$)` : ''}`}>
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-4 px-6">
-          <h3 className="text-lg font-medium">Plan de acción ({data.action.response.estimatedTime})</h3>
+          <div className="flex flex-col gap-1">
+            <h3 className="text-lg font-medium">Plan de acción ({data.action.response.estimatedTime})</h3>
+            {data.action.response.analysis ? <p>{data.action.response.analysis}</p> : null}
+          </div>
           <div className="grid grid-cols-3 gap-4">
             <EconomicIndicator
               title="Acción"
@@ -113,32 +116,36 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
           </div>
         </div>
 
-        <Separator className="my-2" />
+        {Object.keys(data.action.response.exitStrategies).length ? (
+          <>
+            <Separator className="my-2" />
 
-        <div className="flex flex-col gap-4 px-6">
-          <h3 className="text-lg font-medium">Estrategia de salida</h3>
-          <div className="grid gap-3">
-            {Object.entries(data.action.response.exitStrategies)
-              .sort(([priceA], [priceB]) => Number(priceA) - Number(priceB))
-              .map(([price, percentage], index) => (
-                <div key={price} className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center justify-center w-6 h-6 text-sm font-medium text-white bg-blue-500 rounded-full">
-                      {index + 1}
+            <div className="flex flex-col gap-4 px-6">
+              <h3 className="text-lg font-medium">Estrategia de salida</h3>
+              <div className="grid gap-3">
+                {Object.entries(data.action.response.exitStrategies)
+                  .sort(([priceA], [priceB]) => Number(priceA) - Number(priceB))
+                  .map(([price, percentage], index) => (
+                    <div key={price} className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                      <div className="flex items-center gap-3">
+                        <div className="flex items-center justify-center w-6 h-6 text-sm font-medium text-white bg-blue-500 rounded-full">
+                          {index + 1}
+                        </div>
+                        <div>
+                          <p className="font-medium">${Number(price).toFixed(2)}</p>
+                          <p className="text-sm text-gray-500">Precio objetivo</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-medium text-green-600">{(Number(percentage) * 100).toFixed(2)}%</p>
+                        <p className="text-sm text-gray-500">Vender</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-medium">${Number(price).toFixed(2)}</p>
-                      <p className="text-sm text-gray-500">Precio objetivo</p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-medium text-green-600">{(Number(percentage) * 100).toFixed(2)}%</p>
-                    <p className="text-sm text-gray-500">Vender</p>
-                  </div>
-                </div>
-              ))}
-          </div>
-        </div>
+                  ))}
+              </div>
+            </div>
+          </>
+        ) : null}
       </div>
     </InfoCard>
   );
