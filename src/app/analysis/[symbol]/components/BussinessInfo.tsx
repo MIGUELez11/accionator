@@ -3,7 +3,7 @@ import { GlobeIcon, MapPinIcon } from 'lucide-react';
 import { EconomicIndicator } from './EconomicIndicator';
 import { InfoCard } from './InfoCard';
 
-export interface BussinessInfoProps {
+export interface BusinessInfoProps {
   exchange: string;
   sector: string;
   capitalization: number;
@@ -14,24 +14,24 @@ export interface BussinessInfoProps {
 
 function getCapitalization(capitalization: number) {
   if (capitalization > 1e12) {
-    return (capitalization / 1e12).toFixed(2).toLocaleString() + 'T';
+    return (capitalization / 1e12).toFixed(2) + 'T';
   }
   if (capitalization > 1e9) {
-    return (capitalization / 1e9).toFixed(2).toLocaleString() + 'B';
+    return (capitalization / 1e9).toFixed(2) + 'B';
   }
   if (capitalization > 1e6) {
-    return (capitalization / 1e6).toFixed(2).toLocaleString() + 'M';
+    return (capitalization / 1e6).toFixed(2) + 'M';
   }
   if (capitalization > 1e3) {
-    return (capitalization / 1e3).toFixed(2).toLocaleString() + 'K';
+    return (capitalization / 1e3).toFixed(2) + 'K';
   }
 
-  return capitalization.toFixed(2).toLocaleString();
+  return capitalization.toFixed(2);
 }
 
-export function BussinessInfo({ exchange, sector, capitalization, currency, website, country }: BussinessInfoProps) {
+export function BusinessInfo({ exchange, sector, capitalization, currency, website, country }: BusinessInfoProps) {
   return (
-    <InfoCard title="Bussiness Info" className="h-[264px] overflow-hidden pb-0">
+    <InfoCard title="Business Info" className="h-[264px] overflow-hidden pb-0">
       <div className="grid grid-cols-2 gap-4 px-6">
         <EconomicIndicator title="Exchange" value={exchange} />
         <EconomicIndicator title="Sector" value={sector} />
