@@ -12,7 +12,7 @@ function Wrapper({
   selectedScreener,
   setSelectedScreener,
 }: {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   selectedScreener: string | null;
   setSelectedScreener: (screener: string) => void;
 }) {
@@ -30,6 +30,10 @@ function Wrapper({
 export default function ScreenerPage() {
   const [selectedScreener, setSelectedScreener] = useState<string | null>(null);
   const { data, isLoading, error } = useQuery(screenerQuery(selectedScreener));
+
+  if (!selectedScreener) {
+    return <Wrapper selectedScreener={selectedScreener} setSelectedScreener={setSelectedScreener} />;
+  }
 
   if (selectedScreener && isLoading) {
     return (
