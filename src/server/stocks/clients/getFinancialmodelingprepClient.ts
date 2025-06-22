@@ -34,7 +34,7 @@ export interface StockScreenerResponse {
 function getParams<T extends Record<string, number | string>>(params: T) {
   return Object.entries(params).reduce<Record<keyof T, string>>(
     (acc, [key, value]) => {
-      if (value) {
+      if (value !== undefined && value !== null) {
         acc[key as keyof T] = value.toString();
       }
 
