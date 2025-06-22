@@ -1,14 +1,18 @@
-import "server-only";
-import { GoogleGenAI } from "@google/genai";
+import 'server-only';
 
-export function getAiClient() {
+import { GoogleGenAI } from '@google/genai';
+import { Effect } from 'effect';
+
+export function getAiClient(): Effect.Effect<GoogleGenAI, Error> {
   if (!process.env.GEMINI_API_KEY) {
-    throw new Error("GEMINI_API_KEY is not set");
+    return Effect.fail(new Error('GEMINI_API_KEY is not set'));
   }
 
-  return new GoogleGenAI({
+  const client = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY,
   });
+
+  return Effect.succeed(client);
 }
 
-export const DEFAULT_MODEL = "gemini-2.0-flash-lite";
+export const DEFAULT_MODEL = 'gemini-2.0-flash-lite';

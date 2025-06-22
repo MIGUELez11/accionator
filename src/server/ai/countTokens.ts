@@ -1,13 +1,14 @@
-import { models, Models } from "./models";
+import { Effect } from 'effect';
+import { models, Models } from './models';
 
-export async function countTokens(prompt: string, model: Models = "gemini") {
-  const modelObject = models[model];
+export function countTokens(prompt: string, model: Models = 'gemini'): Effect.Effect<number, Error> {
+  return Effect.gen(function* () {
+    const modelObject = models[model];
 
-  if (!modelObject) {
-    throw new Error(`Model ${model} not found`);
-  }
+    if (!modelObject) {
+      return yield* Effect.fail(new Error(`Model ${model} not found`));
+    }
 
-  const response = await modelObject.countTokens(prompt);
-
-  return response;
+    return yield* modelObject.countTokens(prompt);
+  });
 }
