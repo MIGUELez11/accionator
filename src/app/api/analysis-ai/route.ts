@@ -1,13 +1,14 @@
-import { generateFinancialAnalysis } from "@/server/analysis/generateFinancialAnalysis";
-import { generateNewsSummary } from "@/server/analysis/generateNewsSummary";
-import { generateShouldBuyAction } from "@/server/analysis/generateShouldBuyAction";
-import { withCache } from "@/server/cache/withCache";
-import { getBasicFinancials } from "@/server/stocks/getBasicFinancials";
-import { getCompanyNews } from "@/server/stocks/getCompanyNews";
-import { getStockPrice } from "@/server/stocks/getStockPrice";
-import { getStockProfile } from "@/server/stocks/getStockProfile";
+import { withRequiredUser } from '@/lib/requireUser';
+import { generateFinancialAnalysis } from '@/server/analysis/generateFinancialAnalysis';
+import { generateNewsSummary } from '@/server/analysis/generateNewsSummary';
+import { generateShouldBuyAction } from '@/server/analysis/generateShouldBuyAction';
+import { withCache } from '@/server/cache/withCache';
+import { getBasicFinancials } from '@/server/stocks/getBasicFinancials';
+import { getCompanyNews } from '@/server/stocks/getCompanyNews';
+import { getStockPrice } from '@/server/stocks/getStockPrice';
+import { getStockProfile } from '@/server/stocks/getStockProfile';
 import { Effect } from 'effect';
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from 'next/server';
 
 async function getAnalysis(symbol: string) {
   const news = await getCompanyNews(symbol);
@@ -31,21 +32,17 @@ async function getAnalysis(symbol: string) {
   return response;
 }
 
-export async function GET(request: NextRequest) {
+export const GET = withRequiredUser(async (request) => {
   const { searchParams } = new URL(request.url);
 
-  const symbol = searchParams.get("symbol");
+  const symbol = searchParams.get('symbol');
   if (!symbol) {
-    return NextResponse.json({ error: "Symbol is required" }, { status: 400 });
+    return NextResponse.json({ error: 'Symbol is required' }, { status: 400 });
   }
 
-  const response = await withCache(
-    `ai-analysis:${symbol}`,
-    60 * 60 * 24,
-    async () => {
-      return await getAnalysis(symbol);
-    },
-  );
+  const response = await withCache(`ai-analysis:${symbol}`, 60 * 60 * 24, async () => {
+    return await getAnalysis(symbol);
+  });
 
   return NextResponse.json(response);
-}
+});
