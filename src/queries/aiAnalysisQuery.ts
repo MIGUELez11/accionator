@@ -30,6 +30,7 @@ interface AIAnalysisResponse {
   newsSummary: SummaryResponse;
   financialAnalysis: SummaryResponse;
   action: SummaryResponse<true, ShouldBuyActionResponse>;
+  date: Date;
 }
 
 export const aiAnalysisQuery = (symbol: string) =>

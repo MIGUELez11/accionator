@@ -94,8 +94,33 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
     </Button>
   );
 
+  let title = 'Recomendación IA';
+
+  if (price) {
+    title += ` (${price.toFixed(4)}$)`;
+  }
+
+  if (data.date) {
+    title += ` | ${new Date(data.date).toLocaleDateString('es-ES', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    })}`;
+  }
+
+  let action;
+  if (data.action.response.action === 'buy') {
+    action = 'Comprar';
+  } else if (data.action.response.action === 'doNotBuy') {
+    action = 'No comprar';
+  } else {
+    action = data.action.response.action;
+  }
+
   return (
-    <InfoCard title={`Recomendación IA${price ? ` (${price.toFixed(4)}$)` : ''}`} rightIcon={refreshButton}>
+    <InfoCard title={title} rightIcon={refreshButton}>
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-4 px-6">
           <div className="flex flex-col gap-1">
@@ -105,7 +130,7 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
           <div className="grid grid-cols-3 gap-4">
             <EconomicIndicator
               title="Acción"
-              value={data.action.response.action === 'buy' ? 'Comprar' : 'No comprar'}
+              value={action}
               className={data.action.response.action === 'buy' ? 'text-green-600' : 'text-red-600'}
             />
             <EconomicIndicator
