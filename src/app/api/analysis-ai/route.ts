@@ -25,6 +25,7 @@ async function getAnalysis(symbol: string) {
     newsSummary,
     financialAnalysis,
     action,
+    date: new Date(),
   };
 
   return response;
