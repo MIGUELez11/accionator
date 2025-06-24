@@ -11,6 +11,7 @@
     "check": "next lint --fix && prettier --write ."
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.23.0",
     "@google/genai": "^1.5.1",
     "@next/eslint-plugin-next": "^15.3.4",
     "@nivo/bar": "^0.99.0",
