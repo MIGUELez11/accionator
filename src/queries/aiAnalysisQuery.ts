@@ -1,10 +1,9 @@
-import { queryOptions } from "@tanstack/react-query";
+import { callNextApi } from '@/lib/callNextApi';
+import { queryOptions } from '@tanstack/react-query';
 
 interface SummaryResponse<
   parseAsObject = false,
-  R extends parseAsObject extends false
-    ? string
-    : object = parseAsObject extends false ? string : object,
+  R extends parseAsObject extends false ? string : object = parseAsObject extends false ? string : object,
 > {
   response: R;
   inputTokens: number;
@@ -12,7 +11,7 @@ interface SummaryResponse<
 }
 
 interface ShouldBuyActionResponse {
-  action: "buy" | "doNotBuy";
+  action: 'buy' | 'doNotBuy';
   entryPrice: {
     min: number;
     max: number;
@@ -35,8 +34,8 @@ interface AIAnalysisResponse {
 
 export const aiAnalysisQuery = (symbol: string) =>
   queryOptions({
-    queryKey: ["aiAnalysis", symbol],
-    queryFn: (): Promise<AIAnalysisResponse> =>
-      fetch(`/api/analysis-ai?symbol=${symbol}`).then((res) => res.json()),
+    queryKey: ['aiAnalysis', symbol],
+    queryFn: callNextApi<AIAnalysisResponse>(`/api/analysis-ai?symbol=${symbol}`),
     staleTime: 1000 * 60 * 60 * 24,
+    retry: false,
   });
