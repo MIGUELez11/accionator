@@ -1,7 +1,7 @@
 import posthog from 'posthog-js';
 
 posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
-  api_host: '/ingest',
+  api_host: '/relay-XHg9/',
   ui_host: 'https://eu.posthog.com',
   capture_pageview: 'history_change',
   capture_pageleave: true, // Enable pageleave capture
