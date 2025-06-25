@@ -1,4 +1,4 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   webpack: (config) => {
@@ -25,6 +25,20 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/relay-XHg9/static/(.*)',
+        destination: 'https://eu-assets.i.posthog.com/static/$1',
+      },
+      {
+        source: '/relay-XHg9/(.*)',
+        destination: 'https://eu.i.posthog.com/$1',
+      },
+    ];
+  },
+  // This is required to support PostHog trailing slash API requests
+  skipTrailingSlashRedirect: true,
 };
 
 export default nextConfig;
