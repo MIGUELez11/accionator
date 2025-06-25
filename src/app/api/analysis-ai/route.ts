@@ -3,6 +3,7 @@ import { generateFinancialAnalysis } from '@/server/analysis/generateFinancialAn
 import { generateNewsSummary } from '@/server/analysis/generateNewsSummary';
 import { generateShouldBuyAction } from '@/server/analysis/generateShouldBuyAction';
 import { withCache } from '@/server/cache/withCache';
+import { withPosthog } from '@/server/posthog/logPosthogApiCall';
 import { getBasicFinancials } from '@/server/stocks/getBasicFinancials';
 import { getCompanyNews } from '@/server/stocks/getCompanyNews';
 import { getStockPrice } from '@/server/stocks/getStockPrice';
@@ -32,17 +33,19 @@ async function getAnalysis(symbol: string) {
   return response;
 }
 
-export const GET = withRequiredUser(async (request) => {
-  const { searchParams } = new URL(request.url);
+export const GET = withRequiredUser(
+  withPosthog(async (request) => {
+    const { searchParams } = new URL(request.url);
 
-  const symbol = searchParams.get('symbol');
-  if (!symbol) {
-    return NextResponse.json({ error: 'Symbol is required' }, { status: 400 });
-  }
+    const symbol = searchParams.get('symbol');
+    if (!symbol) {
+      return NextResponse.json({ error: 'Symbol is required' }, { status: 400 });
+    }
 
-  const response = await withCache(`ai-analysis:${symbol}`, 60 * 60 * 24, async () => {
-    return await getAnalysis(symbol);
-  });
+    const response = await withCache(`ai-analysis:${symbol}`, 60 * 60 * 24, async () => {
+      return await getAnalysis(symbol);
+    });
 
-  return NextResponse.json(response);
-});
+    return NextResponse.json(response);
+  }),
+);
