@@ -1,17 +1,19 @@
+'use client';
+
 import { RedirectToHome } from '@/components/RedirectToHome';
 import { TopBar } from '@/components/TopBar';
-import { SignedIn, SignedOut } from '@clerk/nextjs';
+import { Authenticated, Unauthenticated } from 'convex/react';
 
 export default function ProtectedLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <SignedIn>
+      <Authenticated>
         <TopBar />
         <div className="max-w-7xl w-full mx-auto">{children}</div>
-      </SignedIn>
-      <SignedOut>
+      </Authenticated>
+      <Unauthenticated>
         <RedirectToHome />
-      </SignedOut>
+      </Unauthenticated>
     </>
   );
 }

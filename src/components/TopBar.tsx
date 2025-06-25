@@ -1,4 +1,7 @@
-import { UserButton as ClerkUserButton, SignedIn, SignedOut, SignInButton, SignUpButton } from '@clerk/nextjs';
+'use client';
+
+import { UserButton as ClerkUserButton, SignInButton, SignUpButton } from '@clerk/nextjs';
+import { Authenticated, Unauthenticated } from 'convex/react';
 import { TrendingUpIcon } from 'lucide-react';
 import Link from 'next/link';
 import { NavBar } from './NavBar';
@@ -8,7 +11,7 @@ import { Separator } from './ui/separator';
 function UserButton() {
   return (
     <div className="flex justify-end items-center p-4 gap-4 h-16">
-      <SignedOut>
+      <Unauthenticated>
         <SignInButton>
           <Button variant="ghost" className="cursor-pointer">
             Sign In
@@ -17,10 +20,10 @@ function UserButton() {
         <SignUpButton>
           <Button className="cursor-pointer">Sign Up</Button>
         </SignUpButton>
-      </SignedOut>
-      <SignedIn>
+      </Unauthenticated>
+      <Authenticated>
         <ClerkUserButton />
-      </SignedIn>
+      </Authenticated>
     </div>
   );
 }
@@ -35,9 +38,9 @@ export function TopBar() {
               <TrendingUpIcon />
               ACCIONATOR
             </Link>
-            <SignedIn>
+            <Authenticated>
               <NavBar />
-            </SignedIn>
+            </Authenticated>
           </div>
         </div>
         <UserButton />
