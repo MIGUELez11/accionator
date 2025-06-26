@@ -1,33 +1,30 @@
 import { mutation } from '@convex/_generated/server';
 import { getTokensHelper, saveDefaultTokensHelper } from '@convex/helpers/tokens';
+import { getUserId } from '@convex/helpers/users/getUserId';
 import { Infer, v } from 'convex/values';
 
 /* Param validation objects */
-const setDefaultTokensParams = v.object({
-  userId: v.string(),
-});
 
 const useTokensParams = v.object({
-  userId: v.string(),
   inputTokens: v.number(),
   outputTokens: v.number(),
 });
 
 /* Types */
-export type SetDefaultTokensParams = Infer<typeof setDefaultTokensParams>;
 export type UseTokensParams = Infer<typeof useTokensParams>;
 
 /* Mutations */
 export const setDefaultTokens = mutation({
-  args: setDefaultTokensParams,
-  handler: async (ctx, args) => {
-    const tokens = await getTokensHelper(ctx, { userId: args.userId });
+  args: {},
+  handler: async (ctx) => {
+    const userId = await getUserId(ctx, true);
+    const tokens = await getTokensHelper(ctx, { userId });
 
     if (tokens) {
       return false;
     }
 
-    await saveDefaultTokensHelper(ctx, { userId: args.userId });
+    await saveDefaultTokensHelper(ctx, { userId });
 
     return true;
   },
@@ -36,7 +33,8 @@ export const setDefaultTokens = mutation({
 export const useTokens = mutation({
   args: useTokensParams,
   handler: async (ctx, args) => {
-    const tokens = await getTokensHelper(ctx, { userId: args.userId });
+    const userId = await getUserId(ctx, true);
+    const tokens = await getTokensHelper(ctx, { userId });
 
     if (!tokens) {
       return false;

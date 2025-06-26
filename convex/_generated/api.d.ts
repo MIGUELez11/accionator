@@ -18,6 +18,7 @@ import type * as helpers_tokens_getTokens from "../helpers/tokens/getTokens.js";
 import type * as helpers_tokens_index from "../helpers/tokens/index.js";
 import type * as helpers_tokens_saveDefaultTokens from "../helpers/tokens/saveDefaultTokens.js";
 import type * as helpers_tokens_useTokens from "../helpers/tokens/useTokens.js";
+import type * as helpers_users_getUserId from "../helpers/users/getUserId.js";
 import type * as mutations_tokens from "../mutations/tokens.js";
 import type * as queries_tokens from "../queries/tokens.js";
 
@@ -35,6 +36,7 @@ declare const fullApi: ApiFromModules<{
   "helpers/tokens/index": typeof helpers_tokens_index;
   "helpers/tokens/saveDefaultTokens": typeof helpers_tokens_saveDefaultTokens;
   "helpers/tokens/useTokens": typeof helpers_tokens_useTokens;
+  "helpers/users/getUserId": typeof helpers_users_getUserId;
   "mutations/tokens": typeof mutations_tokens;
   "queries/tokens": typeof queries_tokens;
 }>;
