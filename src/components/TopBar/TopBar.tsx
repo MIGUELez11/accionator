@@ -1,14 +1,15 @@
 'use client';
 
-import { UserButton as ClerkUserButton, SignInButton, SignUpButton } from '@clerk/nextjs';
+import { SignInButton, SignUpButton } from '@clerk/nextjs';
 import { Authenticated, Unauthenticated } from 'convex/react';
 import { TrendingUpIcon } from 'lucide-react';
 import Link from 'next/link';
-import { NavBar } from './NavBar';
-import { Button } from './ui/button';
-import { Separator } from './ui/separator';
+import { NavBar } from '../NavBar';
+import { Button } from '../ui/button';
+import { Separator } from '../ui/separator';
+import { UserButton } from './components/UserButton/UserButton';
 
-function UserButton() {
+function LoginButtons() {
   return (
     <div className="flex justify-end items-center p-4 gap-4 h-16">
       <Unauthenticated>
@@ -22,7 +23,7 @@ function UserButton() {
         </SignUpButton>
       </Unauthenticated>
       <Authenticated>
-        <ClerkUserButton />
+        <UserButton />
       </Authenticated>
     </div>
   );
@@ -43,7 +44,7 @@ export function TopBar() {
             </Authenticated>
           </div>
         </div>
-        <UserButton />
+        <LoginButtons />
       </div>
       <Separator />
     </header>
