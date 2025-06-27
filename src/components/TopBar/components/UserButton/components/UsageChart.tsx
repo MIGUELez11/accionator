@@ -1,21 +1,21 @@
 import { ResponsiveLine } from '@nivo/line';
 
 interface UsageChartProps {
-  data: { month: string; requests: number }[];
+  data: { month: string; cost: number }[];
 }
 
 export function UsageChart({ data }: UsageChartProps) {
   const chartData = [
     {
       id: 'usage',
-      data: data.map(({ month, requests }) => ({
+      data: data.map(({ month, cost }) => ({
         x: month,
-        y: requests,
+        y: cost,
       })),
     },
   ];
 
-  const maxValue = data.length > 0 ? Math.max(...data.map(({ requests }) => requests)) : 0;
+  const maxValue = data.length > 0 ? Math.max(...data.map(({ cost }) => cost)) : 0;
   return (
     <div style={{ height: 150 }}>
       <ResponsiveLine

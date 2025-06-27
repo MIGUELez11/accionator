@@ -26,7 +26,7 @@ function useUsageStats(usageStats?: HistoricalUsage[]) {
 
     return {
       month: month.monthName,
-      requests: usage?.cost ?? 0,
+      cost: usage?.cost ?? 0,
     };
   });
 }
