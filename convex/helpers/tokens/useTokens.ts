@@ -27,7 +27,7 @@ export async function useTokensHelper(
     cost: cost.input * inputTokens + cost.output * outputTokens,
     inputTokens,
     outputTokens,
-    renewDate: tokens.subscriptionRenewDate!,
+    renewDate: tokens.subscriptionRenewDate,
   });
 
   await ctx.db.patch(tokens._id, {
