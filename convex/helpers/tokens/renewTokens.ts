@@ -53,11 +53,11 @@ export async function renewTokensHelper(ctx: GenericMutationCtx<DataModel>, { us
 
   // Prepare the data for patch/insert
   const data = {
-    ...(usedSubscriptionType === 'lifetime' && tokens ? {} : DEFAULT_TOKENS),
+    ...(usedSubscriptionType === 'lifetime' && tokens ? ({} as Doc<'tokens'>) : DEFAULT_TOKENS),
     userId,
     subscriptionRenewDate: getRenewDate(),
     subscriptionType: usedSubscriptionType,
-  } as Doc<'tokens'>;
+  };
 
   if (tokens) {
     await ctx.db.patch(tokens._id, data);
