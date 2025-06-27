@@ -1,3 +1,6 @@
+import { convexQuery } from '@convex-dev/react-query';
+import { api } from '@convex/_generated/api';
+import { useQuery } from '@tanstack/react-query';
 import { ActivityIcon, AlignHorizontalDistributeCenterIcon } from 'lucide-react';
 import { ProfilePageHeader } from './ProfilePageHeader';
 import { ChartCard } from './components/ChartCard';
@@ -7,16 +10,38 @@ import { SectorChart } from './components/SectorChart';
 import { UsageChart } from './components/UsageChart';
 
 export function ProfileCreditsPage() {
-  // const { data: tokens } = useQuery(convexQuery(api.queries.tokens.getTokens, {}));
+  const { data: stats, isLoading, error } = useQuery(convexQuery(api.queries.users.getUsageStats, {}));
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  if (!stats) {
+    return <div>No stats</div>;
+  }
 
   return (
     <div className="flex flex-col gap-8">
       <ProfilePageHeader title="Credits" />
-      <RemainingCredits credits={100} remainingCredits={10} renewDate={new Date()} subscriptionType="monthly" />
+      <RemainingCredits
+        credits={stats.maxCost}
+        usedCredits={stats.cost}
+        renewDate={new Date()}
+        subscriptionType="monthly"
+      />
 
       <div className="grid grid-cols-2 gap-4 w-full">
         <DataCard title="Acciones analizadas" value={100} icon={AlignHorizontalDistributeCenterIcon} />
-        <DataCard title="Créditos restantes" value={10} icon={ActivityIcon} isPercentage />
+        <DataCard
+          title="Créditos restantes"
+          value={((stats.maxCost - stats.cost) / stats.maxCost) * 100}
+          icon={ActivityIcon}
+          isPercentage
+        />
         <ChartCard title="Sectores más analizados">
           <SectorChart
             data={[
