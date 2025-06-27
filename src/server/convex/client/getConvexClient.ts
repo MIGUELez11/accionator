@@ -2,13 +2,13 @@ import { auth } from '@clerk/nextjs/server';
 import { ConvexHttpClient } from 'convex/browser';
 import { Effect } from 'effect';
 
-let convex: ConvexHttpClient | null = null;
-
 export function getConvexClient(): Effect.Effect<ConvexHttpClient, Error> {
   return Effect.gen(function* () {
-    if (!convex) {
-      convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
+    if (!process.env.NEXT_PUBLIC_CONVEX_URL) {
+      throw new Error('NEXT_PUBLIC_CONVEX_URL is not set');
     }
+
+    const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL);
 
     const user = yield* Effect.tryPromise({
       try: () => auth(),
