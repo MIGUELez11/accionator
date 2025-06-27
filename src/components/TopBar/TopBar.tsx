@@ -31,7 +31,7 @@ function LoginButtons() {
 
 export function TopBar() {
   return (
-    <header>
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white">
       <div className="flex flex-row items-center justify-between w-full">
         <div className="flex flex-row items-center gap-6 h-16">
           <div className="flex flex-row items-center gap-6 max-w-7xl w-full mx-auto px-4">

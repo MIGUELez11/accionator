@@ -12,7 +12,7 @@ export interface StockHeaderProps {
 
 export async function StockHeader({ symbol, name, logo, price, percentChange }: StockHeaderProps) {
   return (
-    <div>
+    <div className="bg-white z-40 sticky top-16">
       <div className="flex flex-row gap-2 min-w-full justify-between p-4">
         <div className="flex flex-row gap-2 items-center">
           <Image src={logo} alt={name + ' logo'} className="w-12 h-12 rounded-sm" width={48} height={48} />
