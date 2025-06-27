@@ -38,7 +38,7 @@ export function RemainingCredits({ subscriptionType, credits, usedCredits, renew
             ${usedCredits.toFixed(4)} de ${credits.toFixed(4)}
           </p>
         </div>
-        <Progress value={(usedCredits / credits) * 100} className="w-full" />
+        <Progress value={credits > 0 ? (usedCredits / credits) * 100 : 0} className="w-full" />
       </div>
     </div>
   );
