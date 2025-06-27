@@ -13,6 +13,9 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as helpers_stocks_getSearchedSectors from "../helpers/stocks/getSearchedSectors.js";
+import type * as helpers_stocks_getSearchedStocks from "../helpers/stocks/getSearchedStocks.js";
+import type * as helpers_stocks_saveSearchedStock from "../helpers/stocks/saveSearchedStock.js";
 import type * as helpers_tokens_cost_getTokensCost from "../helpers/tokens/cost/getTokensCost.js";
 import type * as helpers_tokens_getRemainingTokens from "../helpers/tokens/getRemainingTokens.js";
 import type * as helpers_tokens_getTokens from "../helpers/tokens/getTokens.js";
@@ -34,6 +37,9 @@ import type * as queries_users from "../queries/users.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  "helpers/stocks/getSearchedSectors": typeof helpers_stocks_getSearchedSectors;
+  "helpers/stocks/getSearchedStocks": typeof helpers_stocks_getSearchedStocks;
+  "helpers/stocks/saveSearchedStock": typeof helpers_stocks_saveSearchedStock;
   "helpers/tokens/cost/getTokensCost": typeof helpers_tokens_cost_getTokensCost;
   "helpers/tokens/getRemainingTokens": typeof helpers_tokens_getRemainingTokens;
   "helpers/tokens/getTokens": typeof helpers_tokens_getTokens;

@@ -5,7 +5,7 @@ interface RemainingCreditsProps {
   subscriptionType: 'monthly' | 'lifetime';
   credits: number;
   usedCredits: number;
-  renewDate: Date;
+  renewDate: Date | null;
 }
 
 export function RemainingCredits({ subscriptionType, credits, usedCredits, renewDate }: RemainingCreditsProps) {

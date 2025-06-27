@@ -12,6 +12,12 @@ import { UsageChart } from './components/UsageChart';
 export function ProfileCreditsPage() {
   const { data: stats, isLoading, error } = useQuery(convexQuery(api.queries.users.getUsageStats, {}));
 
+  const sectorsData =
+    stats?.sectorsSearched.map((sector) => ({
+      name: sector.sector,
+      queries: sector.count,
+    })) ?? [];
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -30,12 +36,16 @@ export function ProfileCreditsPage() {
       <RemainingCredits
         credits={stats.maxCost}
         usedCredits={stats.cost}
-        renewDate={new Date()}
+        renewDate={stats.tokens.subscriptionRenewDate ? new Date(stats.tokens.subscriptionRenewDate) : null}
         subscriptionType="monthly"
       />
 
       <div className="grid grid-cols-2 gap-4 w-full">
-        <DataCard title="Acciones analizadas" value={100} icon={AlignHorizontalDistributeCenterIcon} />
+        <DataCard
+          title="Acciones analizadas"
+          value={stats.stocksSearchedCount}
+          icon={AlignHorizontalDistributeCenterIcon}
+        />
         <DataCard
           title="Créditos restantes"
           value={((stats.maxCost - stats.cost) / stats.maxCost) * 100}
@@ -43,14 +53,7 @@ export function ProfileCreditsPage() {
           isPercentage
         />
         <ChartCard title="Sectores más analizados">
-          <SectorChart
-            data={[
-              { name: 'Finanzas', queries: 35 },
-              { name: 'Tecnologia', queries: 30 },
-              { name: 'Consumo', queries: 25 },
-              { name: 'Energia', queries: 10 },
-            ]}
-          />
+          <SectorChart data={sectorsData} />
         </ChartCard>
         <ChartCard title="Tendencias de uso">
           <UsageChart

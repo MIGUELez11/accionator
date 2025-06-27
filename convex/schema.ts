@@ -20,4 +20,20 @@ export default defineSchema({
     subscriptionType: v.union(v.literal('monthly'), v.literal('lifetime')),
     subscriptionRenewDate: v.union(v.number(), v.null()),
   }).index('by_user', ['userId']),
+  stocksSearched: defineTable({
+    userId: v.string(),
+    stock: v.string(),
+    count: v.number(),
+    lastSearched: v.number(),
+  })
+    .index('by_user_stock', ['userId', 'stock'])
+    .index('by_user_last_searched', ['userId', 'lastSearched']),
+  sectorsSearched: defineTable({
+    userId: v.string(),
+    sector: v.string(),
+    count: v.number(),
+    lastSearched: v.number(),
+  })
+    .index('by_user_sector', ['userId', 'sector'])
+    .index('by_user_last_searched', ['userId', 'lastSearched']),
 });
