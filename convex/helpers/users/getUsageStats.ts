@@ -39,7 +39,7 @@ export async function getUsageStatsHelper(ctx: GenericQueryCtx<DataModel>, userI
     tokens,
     cost,
     maxCost,
-    usage: cost / maxCost,
+    usage: maxCost > 0 ? cost / maxCost : 0,
 
     stocksSearchedCount: stocksSearched.reduce((acc, stock) => acc + stock.count, 0),
     sectorsSearched,
