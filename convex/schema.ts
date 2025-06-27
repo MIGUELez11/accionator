@@ -18,8 +18,20 @@ export default defineSchema({
     usedOutputTokens: v.number(),
 
     subscriptionType: v.union(v.literal('monthly'), v.literal('lifetime')),
-    subscriptionRenewDate: v.union(v.number(), v.null()),
+    subscriptionRenewDate: v.number(),
   }).index('by_user', ['userId']),
+  historicalUsage: defineTable({
+    userId: v.string(),
+    cost: v.number(),
+    inputTokens: v.number(),
+    outputTokens: v.number(),
+    month: v.number(),
+    year: v.number(),
+    date: v.number(),
+  })
+    .index('by_user', ['userId'])
+    .index('by_user_date', ['userId', 'date']),
+
   stocksSearched: defineTable({
     userId: v.string(),
     stock: v.string(),

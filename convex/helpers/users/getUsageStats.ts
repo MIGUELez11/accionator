@@ -4,6 +4,7 @@ import { getSearchedSectorsHelper } from '../stocks/getSearchedSectors';
 import { getSearchedStocksHelper } from '../stocks/getSearchedStocks';
 import { DEFAULT_TOKENS, getTokensHelper } from '../tokens';
 import { getTokensCostHelper } from '../tokens/cost/getTokensCost';
+import { getHistoricalUsageHelper } from '../tokens/historical/getHistoricalUsage';
 
 function getSince(renewDate: number | null, months: number) {
   if (!renewDate) {
@@ -22,12 +23,16 @@ export async function getUsageStatsHelper(ctx: GenericQueryCtx<DataModel>, userI
     getTokensCostHelper(ctx, ['input', 'output']),
     getSearchedStocksHelper(ctx, { userId }),
     getSearchedSectorsHelper(ctx, { userId }),
+    getHistoricalUsageHelper(ctx, { userId, since: getSince(tokens.subscriptionRenewDate, 12), limit: 12 }),
   ] as const;
 
-  const [tokensCost, stocksSearched, sectorsSearched] = await Promise.all(promises);
+  const [tokensCost, stocksSearched, sectorsSearched, historicalUsage] = await Promise.all(promises);
 
-  const cost = tokensCost.input * tokens.usedInputTokens + tokensCost.output * tokens.usedOutputTokens;
   const maxCost = tokensCost.input * tokens.inputTokensLimit + tokensCost.output * tokens.outputTokensLimit;
+  const cost = Math.min(
+    tokensCost.input * tokens.usedInputTokens + tokensCost.output * tokens.usedOutputTokens,
+    maxCost,
+  );
 
   return {
     userId,
@@ -38,5 +43,6 @@ export async function getUsageStatsHelper(ctx: GenericQueryCtx<DataModel>, userI
 
     stocksSearchedCount: stocksSearched.reduce((acc, stock) => acc + stock.count, 0),
     sectorsSearched,
+    historicalUsage,
   };
 }

@@ -19,6 +19,8 @@ import type * as helpers_stocks_saveSearchedStock from "../helpers/stocks/saveSe
 import type * as helpers_tokens_cost_getTokensCost from "../helpers/tokens/cost/getTokensCost.js";
 import type * as helpers_tokens_getRemainingTokens from "../helpers/tokens/getRemainingTokens.js";
 import type * as helpers_tokens_getTokens from "../helpers/tokens/getTokens.js";
+import type * as helpers_tokens_historical_getHistoricalUsage from "../helpers/tokens/historical/getHistoricalUsage.js";
+import type * as helpers_tokens_historical_saveHistoricalUsage from "../helpers/tokens/historical/saveHistoricalUsage.js";
 import type * as helpers_tokens_index from "../helpers/tokens/index.js";
 import type * as helpers_tokens_renewTokens from "../helpers/tokens/renewTokens.js";
 import type * as helpers_tokens_useTokens from "../helpers/tokens/useTokens.js";
@@ -43,6 +45,8 @@ declare const fullApi: ApiFromModules<{
   "helpers/tokens/cost/getTokensCost": typeof helpers_tokens_cost_getTokensCost;
   "helpers/tokens/getRemainingTokens": typeof helpers_tokens_getRemainingTokens;
   "helpers/tokens/getTokens": typeof helpers_tokens_getTokens;
+  "helpers/tokens/historical/getHistoricalUsage": typeof helpers_tokens_historical_getHistoricalUsage;
+  "helpers/tokens/historical/saveHistoricalUsage": typeof helpers_tokens_historical_saveHistoricalUsage;
   "helpers/tokens/index": typeof helpers_tokens_index;
   "helpers/tokens/renewTokens": typeof helpers_tokens_renewTokens;
   "helpers/tokens/useTokens": typeof helpers_tokens_useTokens;

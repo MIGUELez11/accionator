@@ -15,60 +15,49 @@ export const DEFAULT_TOKENS = {
   subscriptionRenewDate: null,
 };
 
-function getRenewDate(
-  previousRenewDate: Doc<'tokens'>['subscriptionRenewDate'] | undefined,
-  subscriptionType: Doc<'tokens'>['subscriptionType'],
-) {
-  if (subscriptionType === 'monthly') {
-    if (previousRenewDate) {
-      const renewDate = new Date();
+/**
+ * Calculate the next renew date based on the previous renew date.
+ */
+function getRenewDate() {
+  const renewDate = new Date();
+  renewDate.setMonth(renewDate.getMonth() + 1);
 
-      renewDate.setDate(new Date(previousRenewDate).getDate());
-      renewDate.setMonth(renewDate.getMonth() + 1);
+  renewDate.setDate(1);
+  renewDate.setHours(0, 0, 0, -1);
 
-      return renewDate.getTime();
-    } else {
-      const renewDate = new Date();
-
-      renewDate.setMonth(renewDate.getMonth() + 1);
-      return renewDate.getTime();
-    }
-  }
-
-  return null;
+  return renewDate.getTime();
 }
 
+/**
+ * Determine if tokens should be renewed.
+ */
 function shouldRenewTokens(tokens: Doc<'tokens'> | null) {
   if (!tokens) {
     return true;
   }
-
-  if (tokens.subscriptionType === 'lifetime') {
-    return false;
-  }
-
-  if (!tokens.subscriptionRenewDate || new Date(tokens.subscriptionRenewDate).getDate() < new Date().getDate()) {
-    return true;
-  }
-
-  return false;
+  return !tokens.subscriptionRenewDate || new Date(tokens.subscriptionRenewDate).getTime() < Date.now();
 }
 
+/**
+ * Renew tokens for a user, saving historical usage if needed and updating or inserting the tokens document.
+ */
 export async function renewTokensHelper(ctx: GenericMutationCtx<DataModel>, { userId }: RenewTokensHelperParams) {
   const tokens = await getTokensHelper(ctx, { userId });
 
+  // If tokens do not need renewal, exit early
   if (!shouldRenewTokens(tokens)) {
     return false;
   }
 
   const usedSubscriptionType = tokens?.subscriptionType ?? DEFAULT_TOKENS.subscriptionType;
 
+  // Prepare the data for patch/insert
   const data = {
-    ...DEFAULT_TOKENS,
+    ...(usedSubscriptionType === 'lifetime' && tokens ? {} : DEFAULT_TOKENS),
     userId,
-    subscriptionRenewDate: getRenewDate(tokens?.subscriptionRenewDate, usedSubscriptionType),
+    subscriptionRenewDate: getRenewDate(),
     subscriptionType: usedSubscriptionType,
-  };
+  } as Doc<'tokens'>;
 
   if (tokens) {
     await ctx.db.patch(tokens._id, data);

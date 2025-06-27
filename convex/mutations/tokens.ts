@@ -1,5 +1,6 @@
 import { mutation } from '@convex/_generated/server';
-import { getTokensHelper, renewTokensHelper } from '@convex/helpers/tokens';
+import { renewTokensHelper } from '@convex/helpers/tokens';
+import { useTokensHelper } from '@convex/helpers/tokens/useTokens';
 import { getUserId } from '@convex/helpers/users/getUserId';
 import { Infer, v } from 'convex/values';
 
@@ -27,17 +28,12 @@ export const useTokens = mutation({
   args: useTokensParams,
   handler: async (ctx, args) => {
     const userId = await getUserId(ctx, true);
-    const tokens = await getTokensHelper(ctx, { userId });
 
-    if (!tokens) {
-      return false;
-    }
-
-    await ctx.db.patch(tokens._id, {
-      usedInputTokens: tokens.usedInputTokens + args.inputTokens,
-      usedOutputTokens: tokens.usedOutputTokens + args.outputTokens,
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    return useTokensHelper(ctx, {
+      userId,
+      inputTokens: args.inputTokens,
+      outputTokens: args.outputTokens,
     });
-
-    return true;
   },
 });

@@ -1,5 +1,6 @@
 import { convexQuery } from '@convex-dev/react-query';
 import { api } from '@convex/_generated/api';
+import { HistoricalUsage } from '@convex/helpers/tokens/historical/getHistoricalUsage';
 import { useQuery } from '@tanstack/react-query';
 import { ActivityIcon, AlignHorizontalDistributeCenterIcon } from 'lucide-react';
 import { ProfilePageHeader } from './ProfilePageHeader';
@@ -9,8 +10,29 @@ import { RemainingCredits } from './components/RemainingCredits';
 import { SectorChart } from './components/SectorChart';
 import { UsageChart } from './components/UsageChart';
 
+function useUsageStats(usageStats?: HistoricalUsage[]) {
+  const last12Months = Array.from({ length: 12 }, (_, i) => {
+    const date = new Date();
+    date.setMonth(date.getMonth() - i);
+    return {
+      monthName: date.toLocaleString('es-ES', { month: 'long', year: 'numeric' }),
+      monthNumber: date.getMonth() + 1,
+      year: date.getFullYear(),
+    };
+  }).reverse();
+
+  return last12Months.map((month) => {
+    const usage = usageStats?.find((usage) => usage.month === month.monthNumber && usage.year === month.year);
+
+    return {
+      month: month.monthName,
+      requests: usage?.cost ?? 0,
+    };
+  });
+}
 export function ProfileCreditsPage() {
   const { data: stats, isLoading, error } = useQuery(convexQuery(api.queries.users.getUsageStats, {}));
+  const usageData = useUsageStats(stats?.historicalUsage);
 
   const sectorsData =
     stats?.sectorsSearched.map((sector) => ({
@@ -36,8 +58,8 @@ export function ProfileCreditsPage() {
       <RemainingCredits
         credits={stats.maxCost}
         usedCredits={stats.cost}
-        renewDate={stats.tokens.subscriptionRenewDate ? new Date(stats.tokens.subscriptionRenewDate) : null}
-        subscriptionType="monthly"
+        renewDate={stats.tokens.subscriptionType === 'monthly' ? new Date(stats.tokens.subscriptionRenewDate) : null}
+        subscriptionType={stats.tokens.subscriptionType}
       />
 
       <div className="grid grid-cols-2 gap-4 w-full">
@@ -56,16 +78,7 @@ export function ProfileCreditsPage() {
           <SectorChart data={sectorsData} />
         </ChartCard>
         <ChartCard title="Tendencias de uso">
-          <UsageChart
-            data={[
-              { month: 'Enero', requests: 100 },
-              { month: 'Febrero', requests: 200 },
-              { month: 'Marzo', requests: 150 },
-              { month: 'Abril', requests: 250 },
-              { month: 'Mayo', requests: 300 },
-              { month: 'Junio', requests: 200 },
-            ]}
-          />
+          <UsageChart data={usageData} />
         </ChartCard>
       </div>
     </div>

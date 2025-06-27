@@ -15,6 +15,8 @@ export function UsageChart({ data }: UsageChartProps) {
     },
   ];
 
+  const maxValue = Math.max(...data.map(({ requests }) => requests));
+
   return (
     <div style={{ height: 150 }}>
       <ResponsiveLine
@@ -22,30 +24,36 @@ export function UsageChart({ data }: UsageChartProps) {
           <div
             style={{
               background: 'white',
-              padding: '9px 12px',
+              padding: '8px 12px',
               border: '1px solid #ccc',
               borderRadius: '4px',
               boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+              maxWidth: '200px',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
             }}
           >
-            <strong>{point.data.x}</strong>: {point.data.y.toLocaleString()}
+            <strong>{point.data.x}</strong>: ${point.data.y.toLocaleString()}
           </div>
         )}
         useMesh={true}
         data={chartData}
-        margin={{ top: 8, right: 20, bottom: 25, left: 20 }}
+        margin={{ top: 8, right: 20, bottom: 30, left: 20 }}
         xScale={{ type: 'point' }}
         yScale={{
-          type: 'linear',
-          min: 'auto',
-          max: 'auto',
+          type: 'symlog',
+          min: 0,
+          max: maxValue < 1 ? 1 : maxValue,
+          reverse: false,
         }}
         curve="monotoneX"
         axisBottom={{
           tickSize: 5,
           tickPadding: 5,
-          tickRotation: 0,
+          tickRotation: 45,
           tickValues: data.map((d) => d.month),
+          format: (value) => value.slice(0, 3),
         }}
         axisLeft={null}
         enablePoints={true}
