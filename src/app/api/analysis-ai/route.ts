@@ -11,41 +11,71 @@ import { getStockProfile } from '@/server/stocks/getStockProfile';
 import { Effect } from 'effect';
 import { NextResponse } from 'next/server';
 
-async function getAnalysis(symbol: string) {
-  const news = await getCompanyNews(symbol);
-  const stockProfile = await getStockProfile(symbol);
-  const basicFinancials = await getBasicFinancials(symbol);
-  const stockPrice = await getStockPrice(symbol);
+function getAnalysis(symbol: string) {
+  return Effect.gen(function* () {
+    const news = yield* Effect.tryPromise({
+      try: () => getCompanyNews(symbol),
+      catch: (error) => {
+        return new Error('Failed to get company news', { cause: error });
+      },
+    });
+    const stockProfile = yield* Effect.tryPromise({
+      try: () => getStockProfile(symbol),
+      catch: (error) => {
+        return new Error('Failed to get stock profile', { cause: error });
+      },
+    });
 
-  const newsSummary = await Effect.runPromise(generateNewsSummary(news, stockProfile));
-  const financialAnalysis = await Effect.runPromise(
-    generateFinancialAnalysis(newsSummary.response, basicFinancials, stockPrice),
-  );
-  const action = await Effect.runPromise(generateShouldBuyAction(financialAnalysis.response, stockProfile));
+    const basicFinancials = yield* Effect.tryPromise({
+      try: () => getBasicFinancials(symbol),
+      catch: (error) => {
+        return new Error('Failed to get basic financials', { cause: error });
+      },
+    });
 
-  const response = {
-    newsSummary,
-    financialAnalysis,
-    action,
-    date: new Date(),
-  };
+    const stockPrice = yield* Effect.tryPromise({
+      try: () => getStockPrice(symbol),
+      catch: (error) => {
+        return new Error('Failed to get stock price', { cause: error });
+      },
+    });
 
-  return response;
+    const newsSummary = yield* generateNewsSummary(news, stockProfile);
+    const financialAnalysis = yield* generateFinancialAnalysis(newsSummary.response, basicFinancials, stockPrice);
+    const action = yield* generateShouldBuyAction(financialAnalysis.response, stockProfile);
+
+    const response = {
+      newsSummary,
+      financialAnalysis,
+      action,
+      date: new Date(),
+    };
+
+    return response;
+  });
 }
 
 export const GET = withRequiredUser(
   withPosthog(async (request) => {
-    const { searchParams } = new URL(request.url);
+    try {
+      const { searchParams } = new URL(request.url);
 
-    const symbol = searchParams.get('symbol');
-    if (!symbol) {
-      return NextResponse.json({ error: 'Symbol is required' }, { status: 400 });
+      const symbol = searchParams.get('symbol');
+      if (!symbol) {
+        throw new Error('Symbol is required');
+      }
+
+      const response = await withCache(`ai-analysis:${symbol}`, 60 * 60 * 24, () =>
+        Effect.runPromise(getAnalysis(symbol)),
+      );
+
+      return NextResponse.json(response);
+    } catch (error) {
+      if (error instanceof Error) {
+        return NextResponse.json({ error: error.message }, { status: 400 });
+      }
+
+      return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }
-
-    const response = await withCache(`ai-analysis:${symbol}`, 60 * 60 * 24, async () => {
-      return await getAnalysis(symbol);
-    });
-
-    return NextResponse.json(response);
   }),
 );

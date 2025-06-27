@@ -1,19 +1,25 @@
-import {
-  defaultShouldDehydrateQuery,
-  isServer,
-  QueryClient,
-} from "@tanstack/react-query";
+import { ConvexQueryClient } from '@convex-dev/react-query';
+import { defaultShouldDehydrateQuery, isServer, QueryClient } from '@tanstack/react-query';
+import { convex } from './providers/ConvexProvider';
 
 function makeQueryClient() {
-  return new QueryClient({
+  const convexQueryClient = new ConvexQueryClient(convex);
+
+  const queryClient = new QueryClient({
     defaultOptions: {
+      queries: {
+        queryKeyHashFn: convexQueryClient.hashFn(),
+        queryFn: convexQueryClient.queryFn(),
+      },
       dehydrate: {
-        shouldDehydrateQuery: (query) =>
-          defaultShouldDehydrateQuery(query) ||
-          query.state.status === "pending",
+        shouldDehydrateQuery: (query) => defaultShouldDehydrateQuery(query) || query.state.status === 'pending',
       },
     },
   });
+
+  convexQueryClient.connect(queryClient);
+
+  return queryClient;
 }
 
 let browserClient: QueryClient | null = null;

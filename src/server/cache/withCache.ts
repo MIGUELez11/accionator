@@ -15,7 +15,7 @@ function withCacheEffect<T>(key: string, ttl: number = 60 * 60 * 24, fn: () => P
       Effect.tryPromise({
         try: () => fn(),
         catch: (error) =>
-          new Error(`Error calling function: ${error instanceof Error ? error.message : 'Unknown error'}`, {
+          new Error(error instanceof Error ? error.message : 'Unknown error', {
             cause: error,
           }),
       });

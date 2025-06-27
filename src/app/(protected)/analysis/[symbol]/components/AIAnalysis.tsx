@@ -57,11 +57,22 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
     );
   }
 
+  const refreshButton = (
+    <Button
+      variant="outline"
+      className={'h-8 w-8 cursor-pointer'}
+      onClick={() => refreshAnalysisMutation.mutate(symbol)}
+      disabled={refreshAnalysisMutation.isPending}
+    >
+      <RefreshCcwIcon className={cn({ 'animate-spin': refreshAnalysisMutation.isPending })} />
+    </Button>
+  );
+
   if (error) {
     return (
-      <InfoCard title="Recomendación IA">
+      <InfoCard title="Recomendación IA" rightIcon={refreshButton}>
         <div className="h-full w-full px-6">
-          <p>Error al generar análisis {error.message ? error.message : 'error desconocido'}</p>
+          <p>Error al generar análisis: {error.message ? error.message : 'error desconocido'}</p>
         </div>
       </InfoCard>
     );
@@ -82,17 +93,6 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
   const pricePerMillionInputTokens = 0.1;
   const pricePerMillionOutputTokens = 0.4;
   const price = (inputTokens / 1e6) * pricePerMillionInputTokens + (outputTokens / 1e6) * pricePerMillionOutputTokens;
-
-  const refreshButton = (
-    <Button
-      variant="outline"
-      className={'h-8 w-8 cursor-pointer'}
-      onClick={() => refreshAnalysisMutation.mutate(symbol)}
-      disabled={refreshAnalysisMutation.isPending}
-    >
-      <RefreshCcwIcon className={cn({ 'animate-spin': refreshAnalysisMutation.isPending })} />
-    </Button>
-  );
 
   let title = 'Recomendación IA';
 
