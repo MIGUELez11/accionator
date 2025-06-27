@@ -15,8 +15,7 @@ export function UsageChart({ data }: UsageChartProps) {
     },
   ];
 
-  const maxValue = Math.max(...data.map(({ requests }) => requests));
-
+  const maxValue = data.length > 0 ? Math.max(...data.map(({ requests }) => requests)) : 0;
   return (
     <div style={{ height: 150 }}>
       <ResponsiveLine
