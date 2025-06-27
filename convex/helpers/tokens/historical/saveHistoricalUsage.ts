@@ -19,7 +19,7 @@ export async function saveHistoricalUsageHelper(
 
   const monthUsage = await ctx.db
     .query('historicalUsage')
-    .withIndex('by_user_date', (q) => q.eq('userId', userId).gte('date', today))
+    .withIndex('by_user_date', (q) => q.eq('userId', userId).eq('date', renewDate))
     .order('desc')
     .first();
 
