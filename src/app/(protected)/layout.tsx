@@ -9,7 +9,7 @@ export default function ProtectedLayout({ children }: { children: React.ReactNod
     <>
       <Authenticated>
         <TopBar />
-        <div className="max-w-7xl w-full mx-auto">{children}</div>
+        <div className="max-w-7xl w-full mx-auto pt-16">{children}</div>
       </Authenticated>
       <Unauthenticated>
         <RedirectToHome />
