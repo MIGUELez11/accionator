@@ -7,10 +7,14 @@ interface SectorChartProps {
 export function SectorChart({ data }: SectorChartProps) {
   const total = data.reduce((acc, curr) => acc + curr.queries, 0);
 
+  if (total === 0) {
+    return <div style={{ height: 150 }}>No data available</div>;
+  }
+
   const chartData = data.map(({ name, queries }) => ({
     id: name,
     label: name,
-    value: (queries / total) * 100,
+    value: total ? (queries / total) * 100 : 0,
   }));
 
   return (
