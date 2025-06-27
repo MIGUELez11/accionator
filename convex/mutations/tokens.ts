@@ -1,5 +1,5 @@
 import { mutation } from '@convex/_generated/server';
-import { getTokensHelper, saveDefaultTokensHelper } from '@convex/helpers/tokens';
+import { getTokensHelper, renewTokensHelper } from '@convex/helpers/tokens';
 import { getUserId } from '@convex/helpers/users/getUserId';
 import { Infer, v } from 'convex/values';
 
@@ -14,19 +14,12 @@ const useTokensParams = v.object({
 export type UseTokensParams = Infer<typeof useTokensParams>;
 
 /* Mutations */
-export const setDefaultTokens = mutation({
+export const renewTokens = mutation({
   args: {},
   handler: async (ctx) => {
     const userId = await getUserId(ctx, true);
-    const tokens = await getTokensHelper(ctx, { userId });
 
-    if (tokens) {
-      return false;
-    }
-
-    await saveDefaultTokensHelper(ctx, { userId });
-
-    return true;
+    return await renewTokensHelper(ctx, { userId });
   },
 });
 

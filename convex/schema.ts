@@ -16,5 +16,8 @@ export default defineSchema({
 
     usedInputTokens: v.number(),
     usedOutputTokens: v.number(),
+
+    subscriptionType: v.union(v.literal('monthly'), v.literal('lifetime')),
+    subscriptionRenewDate: v.union(v.number(), v.null()),
   }).index('by_user', ['userId']),
 });

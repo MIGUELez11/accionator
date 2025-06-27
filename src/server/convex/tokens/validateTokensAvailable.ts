@@ -7,16 +7,17 @@ export function validateTokensAvailable(promptTokens: number): Effect.Effect<voi
   return Effect.gen(function* () {
     const convexClient = yield* getConvexClient();
 
-    yield* Effect.tryPromise({
-      try: () => convexClient.mutation(api.mutations.tokens.setDefaultTokens),
-      catch: (error) => {
-        if (error instanceof ConvexError) {
-          return new Error(`Failed to get tokens: ${error.data}`, { cause: error });
-        }
+    yield *
+      Effect.tryPromise({
+        try: () => convexClient.mutation(api.mutations.tokens.renewTokens),
+        catch: (error) => {
+          if (error instanceof ConvexError) {
+            return new Error(`Failed trying to renew tokens: ${error.data}`, { cause: error });
+          }
 
-        return new Error('Failed to get tokens', { cause: error });
-      },
-    });
+          return new Error('Failed to get tokens', { cause: error });
+        },
+      });
 
     const tokens = yield* Effect.tryPromise({
       try: () => convexClient.query(api.queries.tokens.getRemainingTokens),

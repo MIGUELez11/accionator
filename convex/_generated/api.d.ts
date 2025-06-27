@@ -17,7 +17,7 @@ import type * as helpers_tokens_cost_getTokensCost from "../helpers/tokens/cost/
 import type * as helpers_tokens_getRemainingTokens from "../helpers/tokens/getRemainingTokens.js";
 import type * as helpers_tokens_getTokens from "../helpers/tokens/getTokens.js";
 import type * as helpers_tokens_index from "../helpers/tokens/index.js";
-import type * as helpers_tokens_saveDefaultTokens from "../helpers/tokens/saveDefaultTokens.js";
+import type * as helpers_tokens_renewTokens from "../helpers/tokens/renewTokens.js";
 import type * as helpers_tokens_useTokens from "../helpers/tokens/useTokens.js";
 import type * as helpers_users_getUsageStats from "../helpers/users/getUsageStats.js";
 import type * as helpers_users_getUserId from "../helpers/users/getUserId.js";
@@ -38,7 +38,7 @@ declare const fullApi: ApiFromModules<{
   "helpers/tokens/getRemainingTokens": typeof helpers_tokens_getRemainingTokens;
   "helpers/tokens/getTokens": typeof helpers_tokens_getTokens;
   "helpers/tokens/index": typeof helpers_tokens_index;
-  "helpers/tokens/saveDefaultTokens": typeof helpers_tokens_saveDefaultTokens;
+  "helpers/tokens/renewTokens": typeof helpers_tokens_renewTokens;
   "helpers/tokens/useTokens": typeof helpers_tokens_useTokens;
   "helpers/users/getUsageStats": typeof helpers_users_getUsageStats;
   "helpers/users/getUserId": typeof helpers_users_getUserId;
