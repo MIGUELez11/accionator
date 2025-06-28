@@ -1,6 +1,8 @@
 import { getQueryClient } from '@/app/getQueryClient';
 import { stockInfoQuery } from '@/queries/stockInfoQuery';
+import { stockNewsQuery } from '@/queries/stockNewsQuery';
 import { saveSearchStock } from '@/server/convex/stocks/saveSearchStock';
+import { getCompanyNews } from '@/server/stocks/getCompanyNews';
 import { getStockFullInfo } from '@/server/stocks/getStockFullInfo';
 import { getStockProfile } from '@/server/stocks/getStockProfile';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
@@ -20,12 +22,8 @@ export default async function AnalysisPage({ params }: { params: { symbol: strin
     return notFound();
   }
 
-  queryClient.prefetchQuery(
-    stockInfoQuery(ticker, async () => {
-      await new Promise((resolve) => setTimeout(resolve, 10000));
-      return getStockFullInfo(ticker);
-    }),
-  );
+  queryClient.prefetchQuery(stockInfoQuery(ticker, () => getStockFullInfo(ticker)));
+  queryClient.prefetchQuery(stockNewsQuery(ticker, () => getCompanyNews(ticker)));
 
   Effect.runPromise(
     saveSearchStock({

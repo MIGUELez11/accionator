@@ -2,8 +2,10 @@ import { StockProfile } from '@/server/types';
 import { Suspense } from 'react';
 import { AIAnalysis } from './components/AIAnalysis';
 import { BusinessInfo } from './components/BusinessInfo';
+import { NewsCarousel } from './components/NewsCarousel/NewsCarousel';
 import { Recommendations } from './components/Recommendations';
 import { BusinessInfoSkeleton } from './components/Skeletons/BusinessInfo';
+import { NewsCarouselSkeleton } from './components/Skeletons/NewsCarousel';
 import { RecommendationsSkeleton } from './components/Skeletons/Recommendations';
 import { StockChartSkeleton } from './components/Skeletons/StockChart';
 import StockChart from './components/StockChart';
@@ -26,7 +28,9 @@ export function StockInfo({ symbol, stockProfile }: { symbol: string; stockProfi
           <Recommendations symbol={symbol} />
         </Suspense>
       </div>
-      {/* <NewsCarousel symbol={symbol} /> */}
+      <Suspense fallback={<NewsCarouselSkeleton />}>
+        <NewsCarousel symbol={symbol} />
+      </Suspense>
       <div className="grid grid-cols-1 gap-4 px-4">
         <AIAnalysis symbol={symbol} />
       </div>

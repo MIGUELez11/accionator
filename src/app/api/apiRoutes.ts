@@ -30,8 +30,8 @@ export const API_ROUTES = {
 
 // 3. This are the urls that will be used by the fetch function
 export const API_ROUTES_URLS = {
-  stockInfo: '/api/stock-info',
-  stockNews: '/api/stock-news',
+  stockInfo: '/api/stocks',
+  stockNews: '/api/stocks/news',
   aiAnalysis: '/api/analysis-ai',
   screener: '/api/screener',
 } as const satisfies Record<keyof API_ROUTES_QUERY, string>;

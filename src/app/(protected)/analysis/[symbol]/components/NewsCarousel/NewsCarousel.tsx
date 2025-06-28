@@ -1,6 +1,7 @@
 'use client';
 
-import type { CompanyNews } from '@/server/types';
+import { stockNewsQuery } from '@/queries/stockNewsQuery';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList as List } from 'react-window';
 import { InfoCard } from '../InfoCard';
@@ -8,7 +9,7 @@ import EmptyState from './components/EmptyState';
 import NewsCard from './components/NewsCard';
 
 interface NewsCarouselProps {
-  news: CompanyNews;
+  symbol: string;
 }
 
 // These constants are based on the design and layout.
@@ -16,7 +17,8 @@ const COLUMN_WIDTH = 400;
 const COLUMN_GAP = 32;
 const ITEM_WIDTH = COLUMN_WIDTH + COLUMN_GAP;
 
-export function NewsCarousel({ news }: NewsCarouselProps) {
+export function NewsCarousel({ symbol }: NewsCarouselProps) {
+  const { data: news } = useSuspenseQuery(stockNewsQuery(symbol));
   const columnCount = Math.ceil(news.length / 2);
 
   if (!news.length) {
