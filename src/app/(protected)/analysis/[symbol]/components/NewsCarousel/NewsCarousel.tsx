@@ -1,6 +1,6 @@
 'use client';
 
-import type { CompanyNews } from '@/server/stocks/getCompanyNews';
+import type { CompanyNews } from '@/server/types';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList as List } from 'react-window';
 import { InfoCard } from '../InfoCard';

@@ -1,8 +1,6 @@
-import { CompanyProfile2 } from "finnhub-ts";
-import { getFinnhubClient } from "./clients/getFinnhubClient";
-import { withCache } from "../cache/withCache";
-
-export type StockProfile = CompanyProfile2;
+import { withCache } from '../cache/withCache';
+import { StockProfile } from '../types';
+import { getFinnhubClient } from './clients/getFinnhubClient';
 
 export async function getStockProfile(symbol: string): Promise<StockProfile> {
   return withCache(`stock-profile:${symbol}`, 10 * 60, async () => {

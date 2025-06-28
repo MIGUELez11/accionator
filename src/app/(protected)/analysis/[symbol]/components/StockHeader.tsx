@@ -10,7 +10,7 @@ export interface StockHeaderProps {
   percentChange: number;
 }
 
-export async function StockHeader({ symbol, name, logo, price, percentChange }: StockHeaderProps) {
+export function StockHeader({ symbol, name, logo, price, percentChange }: StockHeaderProps) {
   return (
     <div className="bg-white z-40 sticky top-16">
       <div className="flex flex-row gap-2 min-w-full justify-between p-4">

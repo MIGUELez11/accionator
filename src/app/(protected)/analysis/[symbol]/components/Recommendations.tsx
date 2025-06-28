@@ -1,6 +1,6 @@
 'use client';
 
-import { ActionRecommendations } from '@/server/stocks/getActionRecommendations';
+import { ActionRecommendations } from '@/server/types';
 import { ResponsiveBar } from '@nivo/bar';
 import { useMemo } from 'react';
 import { InfoCard } from './InfoCard';

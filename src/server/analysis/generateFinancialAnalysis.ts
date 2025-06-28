@@ -1,6 +1,5 @@
 import { Effect } from 'effect';
-import { BasicFinancials } from '../stocks/getBasicFinancials';
-import { StockPrice } from '../stocks/getStockPrice';
+import { BasicFinancials, StockPrice } from '../types';
 import { AnalysisResponse, getAnalysis } from './utils/getAnalysis';
 import { getPrompt } from './utils/getPrompt';
 

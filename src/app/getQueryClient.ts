@@ -1,36 +1,53 @@
-import { ConvexQueryClient } from '@convex-dev/react-query';
-import { defaultShouldDehydrateQuery, isServer, QueryClient } from '@tanstack/react-query';
-import { convex } from './providers/ConvexProvider';
+import { defaultShouldDehydrateQuery, isServer, QueryClient, QueryClientConfig } from '@tanstack/react-query';
 
-function makeQueryClient() {
-  const convexQueryClient = new ConvexQueryClient(convex);
+const STANDARD_OPTIONS: QueryClientConfig = {
+  defaultOptions: {
+    queries: {
+      staleTime: 60 * 1000,
+    },
+    dehydrate: {
+      shouldDehydrateQuery: (query) => defaultShouldDehydrateQuery(query) || query.state.status === 'pending', // include pending queries in dehydration
+      shouldRedactErrors: () => false, // don't redact errors from dehydration so nextjs can handle them
+    },
+  },
+};
 
-  const queryClient = new QueryClient({
+function makeDefaultOptions(defaultOptions: QueryClientConfig = {}): QueryClientConfig {
+  return {
+    ...defaultOptions,
     defaultOptions: {
+      ...defaultOptions.defaultOptions,
       queries: {
-        queryKeyHashFn: convexQueryClient.hashFn(),
-        queryFn: convexQueryClient.queryFn(),
+        ...defaultOptions.defaultOptions?.queries,
+        staleTime:
+          defaultOptions.defaultOptions?.queries?.staleTime ?? STANDARD_OPTIONS.defaultOptions?.queries?.staleTime,
       },
       dehydrate: {
-        shouldDehydrateQuery: (query) => defaultShouldDehydrateQuery(query) || query.state.status === 'pending',
+        ...defaultOptions.defaultOptions?.dehydrate,
+        shouldDehydrateQuery:
+          defaultOptions.defaultOptions?.dehydrate?.shouldDehydrateQuery ??
+          STANDARD_OPTIONS.defaultOptions?.dehydrate?.shouldDehydrateQuery,
+        shouldRedactErrors:
+          defaultOptions.defaultOptions?.dehydrate?.shouldRedactErrors ??
+          STANDARD_OPTIONS.defaultOptions?.dehydrate?.shouldRedactErrors,
       },
     },
-  });
+  };
+}
 
-  convexQueryClient.connect(queryClient);
-
-  return queryClient;
+function makeQueryClient(defaultOptions: QueryClientConfig = {}) {
+  return new QueryClient(makeDefaultOptions(defaultOptions));
 }
 
 let browserClient: QueryClient | null = null;
 
-export function getQueryClient() {
+export function getQueryClient(defaultOptions?: QueryClientConfig) {
   if (isServer) {
-    return makeQueryClient();
+    return makeQueryClient(defaultOptions);
   }
 
   if (!browserClient) {
-    browserClient = makeQueryClient();
+    browserClient = makeQueryClient(defaultOptions);
   }
 
   return browserClient;

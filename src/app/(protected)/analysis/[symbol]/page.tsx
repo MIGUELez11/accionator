@@ -1,54 +1,62 @@
-import { getActionRecommendations } from '@/server/stocks/getActionRecommendations';
-import { getCompanyNews } from '@/server/stocks/getCompanyNews';
-import { getStockPrice } from '@/server/stocks/getStockPrice';
+import { getQueryClient } from '@/app/getQueryClient';
+import { stockInfoQuery } from '@/queries/stockInfoQuery';
+import { saveSearchStock } from '@/server/convex/stocks/saveSearchStock';
+import { getStockFullInfo } from '@/server/stocks/getStockFullInfo';
 import { getStockProfile } from '@/server/stocks/getStockProfile';
-import { AIAnalysis } from './components/AIAnalysis';
-import { BusinessInfo } from './components/BusinessInfo';
-import { NewsCarousel } from './components/NewsCarousel/NewsCarousel';
-import { Recommendations } from './components/Recommendations';
-import StockChart from './components/StockChart';
-import { StockHeader } from './components/StockHeader';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
+import { Effect } from 'effect';
+import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
+import { StockInfo } from './Component';
+import { BusinessInfoSkeleton } from './components/Skeletons/BusinessInfo';
+import { RecommendationsSkeleton } from './components/Skeletons/Recommendations';
+import { StockChartSkeleton } from './components/Skeletons/StockChart';
+import { StockHeaderSkeleton } from './components/Skeletons/StockHeader';
 
-export default async function AnalysisPage({ params }: { params: Promise<{ symbol: string }> }) {
-  const { symbol } = await params;
-
-  const stockProfile = await getStockProfile(symbol);
-
-  if (!stockProfile.ticker || !stockProfile.name || !stockProfile.logo) {
-    return <div>Stock not found</div>;
-  }
-
-  const stockPrice = await getStockPrice(stockProfile.ticker);
-  const recommendations = await getActionRecommendations(stockProfile.ticker);
-  const news = await getCompanyNews(stockProfile.ticker);
-
+function StockInfoSkeleton() {
   return (
     <div className="flex flex-col gap-4 pb-10">
-      <StockHeader
-        symbol={stockProfile.ticker!}
-        name={stockProfile.name!}
-        logo={stockProfile.logo!}
-        price={stockPrice.price!}
-        percentChange={stockPrice.percentChange!}
-      />
+      <StockHeaderSkeleton />
+
       <div className="grid grid-cols-2 gap-4 px-4">
         <div className="flex flex-col gap-4">
-          <BusinessInfo
-            exchange={stockProfile.exchange!}
-            sector={stockProfile.finnhubIndustry!}
-            capitalization={stockProfile.marketCapitalization!}
-            currency={stockProfile.currency!}
-            website={stockProfile.weburl!}
-            country={stockProfile.country!}
-          />
-          <StockChart symbol={stockProfile.ticker!} />
+          <BusinessInfoSkeleton />
+          <StockChartSkeleton />
         </div>
-        <Recommendations recommendations={recommendations} />
-      </div>
-      <NewsCarousel news={news} />
-      <div className="grid grid-cols-1 gap-4 px-4">
-        <AIAnalysis symbol={stockProfile.ticker!} />
+        <div className="flex flex-col gap-4">
+          <RecommendationsSkeleton />
+        </div>
       </div>
     </div>
+  );
+}
+
+export default async function AnalysisPage({ params }: { params: { symbol: string } }) {
+  const { symbol } = await params;
+
+  const queryClient = getQueryClient();
+
+  const stockProfile = await getStockProfile(symbol);
+  const ticker = stockProfile.ticker;
+
+  if (!ticker) {
+    return notFound();
+  }
+
+  queryClient.prefetchQuery(stockInfoQuery(ticker, async () => getStockFullInfo(ticker)));
+
+  Effect.runPromise(
+    saveSearchStock({
+      stock: ticker,
+      sector: stockProfile.finnhubIndustry ?? 'Unknown',
+    }),
+  );
+
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <Suspense fallback={<StockInfoSkeleton />}>
+        <StockInfo symbol={ticker} />
+      </Suspense>
+    </HydrationBoundary>
   );
 }

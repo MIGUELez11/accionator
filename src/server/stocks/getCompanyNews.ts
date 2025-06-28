@@ -1,8 +1,6 @@
-import type { CompanyNews as FinnhubCompanyNews } from 'finnhub-ts';
 import { withCache } from '../cache/withCache';
+import { CompanyNews } from '../types';
 import { getFinnhubClient } from './clients/getFinnhubClient';
-
-export type CompanyNews = FinnhubCompanyNews[];
 
 function parseDate(date: Date) {
   return date.toISOString().split('T')[0];

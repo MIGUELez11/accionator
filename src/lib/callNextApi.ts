@@ -1,6 +1,13 @@
+import { isServer } from '@tanstack/react-query';
+
 export function callNextApi<T>(url: string, options: RequestInit = {}): () => Promise<T> {
-  return () =>
-    fetch(url, options).then(async (res) => {
+  return () => {
+    if (isServer) {
+      console.error("You can't call src/lib/callNextApi on the server");
+      throw new Error("You can't call src/lib/callNextApi on the server");
+    }
+
+    return fetch(url, options).then(async (res) => {
       if (!res.ok) {
         let error: Error | undefined;
 
@@ -23,4 +30,5 @@ export function callNextApi<T>(url: string, options: RequestInit = {}): () => Pr
 
       return res.json();
     });
+  };
 }

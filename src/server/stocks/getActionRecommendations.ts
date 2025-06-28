@@ -1,12 +1,8 @@
-import { RecommendationTrend } from "finnhub-ts";
 import { withCache } from '../cache/withCache';
+import { ActionRecommendations } from '../types';
 import { getFinnhubClient } from './clients/getFinnhubClient';
 
-export type ActionRecommendations = RecommendationTrend[];
-
-export async function getActionRecommendations(
-  symbol: string,
-): Promise<ActionRecommendations> {
+export async function getActionRecommendations(symbol: string): Promise<ActionRecommendations> {
   return withCache(`stock-recommendations:${symbol}`, 10 * 60, async () => {
     const finnhubClient = getFinnhubClient();
 
