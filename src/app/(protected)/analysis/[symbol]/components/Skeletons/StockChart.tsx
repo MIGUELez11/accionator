@@ -1,5 +1,5 @@
 import { Skeleton } from '@/components/ui/skeleton';
 
 export function StockChartSkeleton() {
-  return <Skeleton className="w-full h-full" />;
+  return <Skeleton className="w-full h-full min-h-[284px]" />;
 }

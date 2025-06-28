@@ -1,16 +1,16 @@
 import { Separator } from '@/components/ui/separator';
-import { cn } from '@/lib/utils';
+import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
+import { Suspense } from 'react';
+import { PriceDisplay } from './components/PriceDisplay';
 
 export interface StockHeaderProps {
   symbol: string;
   name: string;
   logo: string;
-  price: number;
-  percentChange: number;
 }
 
-export function StockHeader({ symbol, name, logo, price, percentChange }: StockHeaderProps) {
+export function StockHeader({ symbol, name, logo }: StockHeaderProps) {
   return (
     <div className="bg-white z-40 sticky top-16">
       <div className="flex flex-row gap-2 min-w-full justify-between p-4">
@@ -22,16 +22,16 @@ export function StockHeader({ symbol, name, logo, price, percentChange }: StockH
           </div>
         </div>
         <div className="flex flex-row gap-2 items-center">
-          <p className="text-2xl font-bold">${(price ?? 0).toFixed(2)}</p>
-          <p
-            className={cn({
-              'text-green-500': percentChange > 0,
-              'text-red-500': percentChange < 0,
-              'text-gray-500': !percentChange,
-            })}
+          <Suspense
+            fallback={
+              <>
+                <Skeleton className="w-24 h-8" />
+                <Skeleton className="w-16 h-4" />
+              </>
+            }
           >
-            {(percentChange ?? 0).toFixed(2)}%
-          </p>
+            <PriceDisplay symbol={symbol} />
+          </Suspense>
         </div>
       </div>
       <Separator />

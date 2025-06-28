@@ -6,30 +6,7 @@ import { getStockProfile } from '@/server/stocks/getStockProfile';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { Effect } from 'effect';
 import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
 import { StockInfo } from './Component';
-import { BusinessInfoSkeleton } from './components/Skeletons/BusinessInfo';
-import { RecommendationsSkeleton } from './components/Skeletons/Recommendations';
-import { StockChartSkeleton } from './components/Skeletons/StockChart';
-import { StockHeaderSkeleton } from './components/Skeletons/StockHeader';
-
-function StockInfoSkeleton() {
-  return (
-    <div className="flex flex-col gap-4 pb-10">
-      <StockHeaderSkeleton />
-
-      <div className="grid grid-cols-2 gap-4 px-4">
-        <div className="flex flex-col gap-4">
-          <BusinessInfoSkeleton />
-          <StockChartSkeleton />
-        </div>
-        <div className="flex flex-col gap-4">
-          <RecommendationsSkeleton />
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export default async function AnalysisPage({ params }: { params: { symbol: string } }) {
   const { symbol } = await params;
@@ -43,7 +20,12 @@ export default async function AnalysisPage({ params }: { params: { symbol: strin
     return notFound();
   }
 
-  queryClient.prefetchQuery(stockInfoQuery(ticker, async () => getStockFullInfo(ticker)));
+  queryClient.prefetchQuery(
+    stockInfoQuery(ticker, async () => {
+      await new Promise((resolve) => setTimeout(resolve, 10000));
+      return getStockFullInfo(ticker);
+    }),
+  );
 
   Effect.runPromise(
     saveSearchStock({
@@ -54,9 +36,7 @@ export default async function AnalysisPage({ params }: { params: { symbol: strin
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<StockInfoSkeleton />}>
-        <StockInfo symbol={ticker} />
-      </Suspense>
+      <StockInfo symbol={ticker} stockProfile={stockProfile} />
     </HydrationBoundary>
   );
 }

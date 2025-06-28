@@ -1,14 +1,15 @@
 'use client';
 
-import { ActionRecommendations } from '@/server/types';
+import { stockInfoQuery } from '@/queries/stockInfoQuery';
 import { ResponsiveBar } from '@nivo/bar';
-import { useMemo } from 'react';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { InfoCard } from './InfoCard';
 
-export function Recommendations({ recommendations }: { recommendations: ActionRecommendations }) {
-  const data = useMemo(
-    () =>
-      recommendations.map((rec) => ({
+export function Recommendations({ symbol }: { symbol: string }) {
+  const { data } = useSuspenseQuery({
+    ...stockInfoQuery(symbol),
+    select: (data) =>
+      data.recommendations.map((rec) => ({
         date: new Date(rec.period!).toLocaleDateString(undefined, {
           month: 'short',
           year: 'numeric',
@@ -19,8 +20,7 @@ export function Recommendations({ recommendations }: { recommendations: ActionRe
         Sell: rec.sell!,
         'Strong Sell': rec.strongSell!,
       })),
-    [recommendations],
-  );
+  });
 
   return (
     <InfoCard title="Recomendaciones de analistas">
