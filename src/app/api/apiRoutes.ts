@@ -1,4 +1,4 @@
-import { StockScreenerResponse } from '@/server/stocks/clients/getFinancialmodelingprepClient';
+import { StockScreenerResponse, SymbolSearchResponse } from '@/server/stocks/clients/getFinancialmodelingprepClient';
 import { AIAnalysisResponse, CompanyNews, Screeners, StockInfo } from '@/server/types';
 
 // This is the type to ensure API_ROUTES object is used when calling the fetch function
@@ -18,6 +18,10 @@ export type API_ROUTES_QUERY = {
   screener: {
     screener: Screeners;
   };
+  stocksSearch: {
+    query: string;
+    exchange?: string;
+  };
 };
 
 // 2. This are the routes that will be used in the client
@@ -26,6 +30,7 @@ export const API_ROUTES = {
   stockNews: 'stockNews',
   aiAnalysis: 'aiAnalysis',
   screener: 'screener',
+  stocksSearch: 'stocksSearch',
 } as const satisfies Record<keyof API_ROUTES_QUERY, keyof typeof API_ROUTES_URLS>;
 
 // 3. This are the urls that will be used by the fetch function
@@ -34,6 +39,7 @@ export const API_ROUTES_URLS = {
   stockNews: '/api/stocks/news',
   aiAnalysis: '/api/analysis-ai',
   screener: '/api/screener',
+  stocksSearch: '/api/stocks/search',
 } as const satisfies Record<keyof API_ROUTES_QUERY, string>;
 
 // 4. This are the types of the responses from the api
@@ -42,4 +48,5 @@ export type API_ROUTES_RESPONSE = {
   stockNews: CompanyNews;
   aiAnalysis: AIAnalysisResponse;
   screener: StockScreenerResponse[];
+  stocksSearch: SymbolSearchResponse[];
 };

@@ -31,6 +31,20 @@ export interface StockScreenerResponse {
   volume: number;
 }
 
+export type SymbolSearchParams = {
+  query: string;
+  limit: number;
+  exchange?: string;
+};
+
+export interface SymbolSearchResponse {
+  symbol: string;
+  name: string;
+  currency: string;
+  stockExchange: string;
+  exchangeShortName: string;
+}
+
 function getParams<T extends Record<string, number | string>>(params: T) {
   return Object.entries(params).reduce<Record<keyof T, string>>(
     (acc, [key, value]) => {
@@ -53,10 +67,10 @@ class FinancialModelingPrepClient {
     this.apiKey = apiKey;
   }
 
-  private async fetch<
-    P extends Record<string, number | string>,
-    R extends object,
-  >(endpoint: `v3/${string}`, params: P): Promise<R> {
+  private async fetch<P extends Record<string, number | string>, R extends object>(
+    endpoint: `v3/${string}`,
+    params: P,
+  ): Promise<R> {
     const searchUrl = new URL(this.url.toString() + endpoint);
     const searchParams = new URLSearchParams({
       ...getParams(params),
@@ -74,10 +88,11 @@ class FinancialModelingPrepClient {
   }
 
   async stockScreener(params: ScreeningParams) {
-    return this.fetch<ScreeningParams, StockScreenerResponse[]>(
-      "v3/stock-screener",
-      params,
-    );
+    return this.fetch<ScreeningParams, StockScreenerResponse[]>('v3/stock-screener', params);
+  }
+
+  async symbolSearch(params: SymbolSearchParams) {
+    return this.fetch<SymbolSearchParams, SymbolSearchResponse[]>('v3/search', params);
   }
 }
 

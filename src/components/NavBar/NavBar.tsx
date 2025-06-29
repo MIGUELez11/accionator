@@ -1,13 +1,9 @@
-import { NavBarLink } from "./components/NavBarLink";
+import { NavBarLink } from './components/NavBarLink';
 
 const pages = {
   screener: {
-    href: "/screener",
-    label: "Screener",
-  },
-  analysis: {
-    href: "/analysis/:symbol",
-    label: "Analysis",
+    href: '/screener',
+    label: 'Screener',
   },
 };
 
