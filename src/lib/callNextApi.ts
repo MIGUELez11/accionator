@@ -17,10 +17,11 @@ export function callNextApi<
     const query = new URLSearchParams();
     if (options.query) {
       Object.entries(options.query).forEach(([key, value]) => {
-        query.set(key, value);
+        if (value !== undefined && value !== null) {
+          query.set(key, String(value));
+        }
       });
     }
-
     return fetch(`${API_ROUTES_URLS[url]}?${query.toString()}`, options).then(async (res) => {
       if (!res.ok) {
         let error: Error | undefined;
