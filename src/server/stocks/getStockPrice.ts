@@ -1,15 +1,6 @@
 import { withCache } from "../cache/withCache";
+import { StockPrice } from '../types';
 import { getFinnhubClient } from "./clients/getFinnhubClient";
-
-export interface StockPrice {
-  price?: number;
-  change?: number;
-  percentChange?: number;
-  openPrice?: number;
-  high?: number;
-  low?: number;
-  previousClose?: number;
-}
 
 export async function getStockPrice(symbol: string): Promise<StockPrice> {
   return withCache(`stock-price:${symbol}`, 10 * 60, async () => {

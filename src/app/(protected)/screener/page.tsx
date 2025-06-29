@@ -2,6 +2,7 @@
 
 import { TitledSection } from '@/components/TitledSection';
 import { screenerQuery } from '@/queries/screenerQuery';
+import { Screeners } from '@/server/types';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { ScreenerPicker } from './components/ScreenerPicker/ScreenerPicker';
@@ -13,8 +14,8 @@ function Wrapper({
   setSelectedScreener,
 }: {
   children?: React.ReactNode;
-  selectedScreener: string | null;
-  setSelectedScreener: (screener: string) => void;
+  selectedScreener: Screeners | null;
+  setSelectedScreener: (screener: Screeners) => void;
 }) {
   return (
     <TitledSection
@@ -28,7 +29,7 @@ function Wrapper({
 }
 
 export default function ScreenerPage() {
-  const [selectedScreener, setSelectedScreener] = useState<string | null>(null);
+  const [selectedScreener, setSelectedScreener] = useState<Screeners | null>(null);
   const { data, isLoading, error } = useQuery(screenerQuery(selectedScreener));
 
   if (!selectedScreener) {

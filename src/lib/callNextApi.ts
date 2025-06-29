@@ -1,6 +1,28 @@
-export function callNextApi<T>(url: string, options: RequestInit = {}): () => Promise<T> {
-  return () =>
-    fetch(url, options).then(async (res) => {
+import { API_ROUTES, API_ROUTES_QUERY, API_ROUTES_RESPONSE, API_ROUTES_URLS } from '@/app/api/apiRoutes';
+import { isServer } from '@tanstack/react-query';
+
+type Options<TQuery> = RequestInit & { query: TQuery extends undefined ? undefined : TQuery };
+
+export function callNextApi<
+  TRoute extends keyof typeof API_ROUTES,
+  TQuery extends API_ROUTES_QUERY[TRoute],
+  TResponse extends API_ROUTES_RESPONSE[TRoute],
+>(url: TRoute, options: Options<TQuery> = {} as Options<TQuery>): () => Promise<TResponse> {
+  return () => {
+    if (isServer) {
+      console.error("You can't call src/lib/callNextApi on the server");
+      throw new Error("You can't call src/lib/callNextApi on the server");
+    }
+
+    const query = new URLSearchParams();
+    if (options.query) {
+      Object.entries(options.query).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          query.set(key, String(value));
+        }
+      });
+    }
+    return fetch(`${API_ROUTES_URLS[url]}?${query.toString()}`, options).then(async (res) => {
       if (!res.ok) {
         let error: Error | undefined;
 
@@ -23,4 +45,5 @@ export function callNextApi<T>(url: string, options: RequestInit = {}): () => Pr
 
       return res.json();
     });
+  };
 }

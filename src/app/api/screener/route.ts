@@ -1,6 +1,7 @@
 import { withRequiredUser } from '@/lib/requireUser';
 import { withPosthog } from '@/server/posthog/logPosthogApiCall';
-import { getScreening, Screeners } from '@/server/stocks/getScreening';
+import { getScreening } from '@/server/stocks/getScreening';
+import { Screeners } from '@/server/types';
 import { NextResponse } from 'next/server';
 
 export const GET = withRequiredUser(

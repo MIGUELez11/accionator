@@ -1,4 +1,4 @@
-import type { CompanyNews } from '@/server/stocks/getCompanyNews';
+import type { CompanyNews } from '@/server/types';
 import { useState } from 'react';
 
 interface NewsCardProps {

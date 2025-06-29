@@ -1,4 +1,8 @@
+'use client';
+
 import { Separator } from '@/components/ui/separator';
+import { stockInfoQuery } from '@/queries/stockInfoQuery';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { GlobeIcon, MapPinIcon } from 'lucide-react';
 import { EconomicIndicator } from './EconomicIndicator';
 import { InfoCard } from './InfoCard';
@@ -29,22 +33,25 @@ function getCapitalization(capitalization: number) {
   return capitalization.toFixed(2);
 }
 
-export function BusinessInfo({ exchange, sector, capitalization, currency, website, country }: BusinessInfoProps) {
+export function BusinessInfo({ symbol }: { symbol: string }) {
+  const { data: stockProfile } = useSuspenseQuery({ ...stockInfoQuery(symbol), select: (data) => data.stockProfile });
+  const { exchange, finnhubIndustry, marketCapitalization, currency, weburl, country } = stockProfile;
+
   return (
     <InfoCard title="Business Info" className="h-[264px] overflow-hidden pb-0">
       <div className="grid grid-cols-2 gap-4 px-6">
-        <EconomicIndicator title="Exchange" value={exchange} />
-        <EconomicIndicator title="Sector" value={sector} />
-        <EconomicIndicator title="Capitalization" value={`$${getCapitalization(capitalization)}`} />
-        <EconomicIndicator title="Currency" value={currency} />
+        <EconomicIndicator title="Exchange" value={exchange!} />
+        <EconomicIndicator title="Sector" value={finnhubIndustry!} />
+        <EconomicIndicator title="Capitalization" value={`$${getCapitalization(marketCapitalization!)}`} />
+        <EconomicIndicator title="Currency" value={currency!} />
       </div>
       <div className="h-full">
         <Separator />
         <div className="flex flex-row gap-4 items-center min-h-full px-6">
           <div className="flex flex-row gap-2 items-center">
             <GlobeIcon className="w-4 h-4" />
-            <a href={website} target="_blank" rel="noopener noreferrer" className="text-sm text-gray-500">
-              {website}
+            <a href={weburl} target="_blank" rel="noopener noreferrer" className="text-sm text-gray-500">
+              {weburl}
             </a>
           </div>
           <div className="flex flex-row gap-2 items-center">

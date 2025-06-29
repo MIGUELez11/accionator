@@ -26,6 +26,7 @@ import type * as helpers_tokens_renewTokens from "../helpers/tokens/renewTokens.
 import type * as helpers_tokens_useTokens from "../helpers/tokens/useTokens.js";
 import type * as helpers_users_getUsageStats from "../helpers/users/getUsageStats.js";
 import type * as helpers_users_getUserId from "../helpers/users/getUserId.js";
+import type * as mutations_stocks from "../mutations/stocks.js";
 import type * as mutations_tokens from "../mutations/tokens.js";
 import type * as queries_tokens from "../queries/tokens.js";
 import type * as queries_users from "../queries/users.js";
@@ -52,6 +53,7 @@ declare const fullApi: ApiFromModules<{
   "helpers/tokens/useTokens": typeof helpers_tokens_useTokens;
   "helpers/users/getUsageStats": typeof helpers_users_getUsageStats;
   "helpers/users/getUserId": typeof helpers_users_getUserId;
+  "mutations/stocks": typeof mutations_stocks;
   "mutations/tokens": typeof mutations_tokens;
   "queries/tokens": typeof queries_tokens;
   "queries/users": typeof queries_users;

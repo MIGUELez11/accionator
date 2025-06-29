@@ -1,41 +1,11 @@
+import { API_ROUTES } from '@/app/api/apiRoutes';
 import { callNextApi } from '@/lib/callNextApi';
 import { queryOptions } from '@tanstack/react-query';
-
-interface SummaryResponse<
-  parseAsObject = false,
-  R extends parseAsObject extends false ? string : object = parseAsObject extends false ? string : object,
-> {
-  response: R;
-  inputTokens: number;
-  outputTokens: number;
-}
-
-interface ShouldBuyActionResponse {
-  action: 'buy' | 'doNotBuy';
-  entryPrice: {
-    min: number;
-    max: number;
-  };
-  desiredPrice: number;
-  exitStrategies: Record<number, number>;
-  stopLoss: number;
-  analysis: string;
-  estimatedTime: string;
-  profit: number;
-  loss: number;
-}
-
-interface AIAnalysisResponse {
-  newsSummary: SummaryResponse;
-  financialAnalysis: SummaryResponse;
-  action: SummaryResponse<true, ShouldBuyActionResponse>;
-  date: Date;
-}
 
 export const aiAnalysisQuery = (symbol: string) =>
   queryOptions({
     queryKey: ['aiAnalysis', symbol],
-    queryFn: callNextApi<AIAnalysisResponse>(`/api/analysis-ai?symbol=${symbol}`),
+    queryFn: callNextApi(API_ROUTES.aiAnalysis, { query: { symbol } }),
     staleTime: 1000 * 60 * 60 * 24,
     retry: false,
   });
