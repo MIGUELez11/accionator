@@ -23,10 +23,10 @@ export function PriceDisplay({ symbol }: { symbol: string }) {
           className={cn({
             'text-green-500': percentChange > 0,
             'text-red-500': percentChange < 0,
-            'text-gray-500': !percentChange,
+            'text-gray-500': percentChange === 0,
           })}
         >
-          {(percentChange ?? 0).toFixed(2)}%
+          {percentChange.toFixed(2)}%
         </p>
       )}
     </>
