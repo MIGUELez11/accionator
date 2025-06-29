@@ -8,6 +8,10 @@ export const GET = async (request: NextRequest) => {
     return NextResponse.json({ error: 'Symbol is required' }, { status: 400 });
   }
 
-  const news = await getCompanyNews(symbol);
-  return NextResponse.json(news);
+  try {
+    const news = await getCompanyNews(symbol);
+    return NextResponse.json(news);
+  } catch {
+    return NextResponse.json({ error: 'Failed to fetch company news' }, { status: 500 });
+  }
 };
