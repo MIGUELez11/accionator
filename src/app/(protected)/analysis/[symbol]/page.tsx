@@ -10,7 +10,7 @@ import { Effect } from 'effect';
 import { notFound } from 'next/navigation';
 import { StockInfo } from './Component';
 
-export default async function AnalysisPage({ params }: { params: { symbol: string } }) {
+export default async function AnalysisPage({ params }: { params: Promise<{ symbol: string }> }) {
   const { symbol } = await params;
 
   const queryClient = getQueryClient();
