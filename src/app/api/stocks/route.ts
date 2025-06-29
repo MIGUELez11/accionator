@@ -6,8 +6,6 @@ import { NextRequest, NextResponse } from 'next/server';
 export const GET = withPosthog(async (request: NextRequest) => {
   await requireUser();
 
-  await new Promise((resolve) => setTimeout(resolve, 3000));
-
   const symbol = request.nextUrl.searchParams.get('symbol');
 
   try {
@@ -15,7 +13,12 @@ export const GET = withPosthog(async (request: NextRequest) => {
     return NextResponse.json(response);
   } catch (error) {
     if (error instanceof Error) {
-      return NextResponse.json({ error: error.message }, { status: 404 });
+      // Handle specific error types appropriately
+      if (error.message === 'Stock not found' || error.message === 'Symbol is required') {
+        return NextResponse.json({ error: error.message }, { status: 400 });
+      }
+      // For other errors, return 500
+      return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }
 
     throw error;
