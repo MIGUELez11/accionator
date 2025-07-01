@@ -1,5 +1,4 @@
-import { countTokens } from "@/server/ai/countTokens";
-import { getResponseFromAI } from "@/server/ai/getResponseFromAI";
+import { getAIService } from '@/server/ai/getAIService';
 import { Effect } from 'effect';
 
 function jsonParser(response: string): object {
@@ -17,10 +16,11 @@ export function getAnalysis<T extends boolean = false>(
   parseResponse: T = false as T,
 ): Effect.Effect<AnalysisResponse<T>, Error> {
   return Effect.gen(function* () {
-    const response = yield* getResponseFromAI(prompt);
+    const aiService = yield* getAIService('gemini-2.0-flash-lite');
+    const response = yield* aiService.generateResponse(prompt);
 
-    const promptTokens = yield* countTokens(prompt);
-    const responseTokens = yield* countTokens(response);
+    const promptTokens = yield* aiService.countTokens(prompt);
+    const responseTokens = yield* aiService.countTokens(response);
 
     const responseObject: AnalysisResponse<T> = {
       response: (parseResponse ? jsonParser(response) : response) as T extends true ? object : string,
