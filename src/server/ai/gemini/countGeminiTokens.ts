@@ -1,9 +1,10 @@
 import { Effect } from 'effect';
+import { GeminiModels } from '.';
 import { AIServiceError } from '../AiErrors';
-import { DEFAULT_MODEL, getAiClient } from './getAiClient';
+import { getAiClient } from './getAiClient';
 
-export function countGeminiTokens(text: string) {
-  return Effect.gen(function* () {
+export function countGeminiTokens(model: GeminiModels) {
+  return Effect.fn(function* (text: string) {
     const ai = yield* getAiClient();
 
     if (!text.length) {
@@ -13,7 +14,7 @@ export function countGeminiTokens(text: string) {
     const response = yield* Effect.tryPromise({
       try: () =>
         ai.models.countTokens({
-          model: DEFAULT_MODEL,
+          model,
           contents: text,
         }),
       catch: (error) =>
@@ -22,7 +23,7 @@ export function countGeminiTokens(text: string) {
           cause: error,
 
           provider: 'gemini',
-          model: DEFAULT_MODEL,
+          model,
         }),
     });
 

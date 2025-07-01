@@ -9,6 +9,8 @@ export type AIModels = GeminiModels;
 export class AIService extends Context.Tag('AIService')<
   AIService,
   {
+    readonly model?: AIModels;
+
     readonly countTokens: (text: string) => Effect.Effect<number, AIServiceError | ApiKeyMissingError>;
     readonly generateResponse: (
       prompt: string,

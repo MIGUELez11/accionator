@@ -1,11 +1,18 @@
 import { Effect } from 'effect';
 import { AIUnknownModelError } from './AiErrors';
-import { AIModels, AIService } from './AIService';
-import { GeminiAIService } from './gemini';
+import { AIModels, AIProviders, AIService } from './AIService';
+import { GeminiModels, GeminiModelServices } from './gemini';
 import { withTokens } from './withTokens';
 
+const providerByModel: Record<AIModels, AIProviders> = {
+  ...(Object.fromEntries(Object.entries(GeminiModelServices).map(([model]) => [model, 'gemini'])) as Record<
+    GeminiModels,
+    'gemini'
+  >),
+};
+
 const ServicePerModel: Record<AIModels, AIService['Type']> = {
-  'gemini-2.0-flash-lite': GeminiAIService,
+  ...GeminiModelServices,
 };
 
 export function getAIService(model: AIModels): Effect.Effect<AIService['Type'], AIUnknownModelError> {
@@ -14,7 +21,7 @@ export function getAIService(model: AIModels): Effect.Effect<AIService['Type'], 
   if (!service) {
     return Effect.fail(
       new AIUnknownModelError({
-        provider: 'gemini',
+        provider: providerByModel[model],
         model,
       }),
     );
@@ -23,6 +30,7 @@ export function getAIService(model: AIModels): Effect.Effect<AIService['Type'], 
   return Effect.succeed(
     AIService.of({
       ...service,
+      model,
       generateResponse: (prompt) => Effect.provideService(withTokens(prompt), AIService, service),
     }),
   );
