@@ -39,7 +39,7 @@ export class AIServiceError extends Data.TaggedError('AIServiceError')<{
   readonly cause?: unknown;
 
   readonly provider: AIProviders;
-  readonly model: string;
+  readonly model: AIModels;
 }> {}
 
 export class AIUnknownModelError extends Data.TaggedError('AIUnknownModelError')<{
