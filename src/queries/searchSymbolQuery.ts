@@ -8,7 +8,6 @@ export const searchSymbolQuery = (query: string) =>
     queryFn: callNextApi(API_ROUTES.stocksSearch, {
       query: {
         query,
-        exchange: 'NASDAQ',
       },
     }),
   });
