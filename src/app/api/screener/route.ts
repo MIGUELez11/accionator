@@ -15,6 +15,15 @@ export const GET = withRequiredUser(
       throw new Error('Screener is required');
     }
 
+    // Validate screener value against allowed types
+    const validScreeners = ['highVolatilityWithGrow', 'pennyStocksHighVolume', 'pennyHighBeta', 'nasdaq100'] as const;
+    if (!validScreeners.includes(screener as (typeof validScreeners)[number])) {
+      return NextResponse.json(
+        { error: `Invalid screener type. Must be one of: ${validScreeners.join(', ')}` },
+        { status: 400 },
+      );
+    }
+
     const data = await Effect.runPromise(
       Effect.provideService(getScreening(screener as Screeners), ScreenerService, TradingViewScreener),
     );
