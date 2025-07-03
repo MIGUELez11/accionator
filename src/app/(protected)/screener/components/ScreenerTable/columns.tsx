@@ -13,6 +13,10 @@ export const columns: ColumnDef<StockScreenerResponse>[] = [
     accessorKey: 'price',
   },
   {
+    header: 'Beta',
+    accessorKey: 'beta',
+  },
+  {
     header: 'Volume',
     accessorKey: 'volume',
     cell: ({ getValue }) => {
@@ -27,10 +31,6 @@ export const columns: ColumnDef<StockScreenerResponse>[] = [
       const value = getValue<number>();
       return value ? `$${(value / 1e9).toFixed(2)}B` : null;
     },
-  },
-  {
-    header: 'Beta',
-    accessorKey: 'beta',
   },
   {
     header: 'Sector',

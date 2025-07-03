@@ -1,29 +1,29 @@
 'use client';
 
 import { Screeners } from '@/server/types';
-import { ActivityIcon, BuildingIcon, SproutIcon, TrendingUpIcon } from 'lucide-react';
+import { ActivityIcon, BuildingIcon, PercentIcon, TrendingUpIcon } from 'lucide-react';
 import { ScreenerType, ScreenerTypeProps } from './components/ScreenerType';
 
 const screeners = {
-  highVolumeMovers: {
-    title: 'Movimientos de alto volumen',
-    description: 'Acciones con volumen significativo y movimientos notables',
+  highVolatilityWithGrow: {
+    title: 'Volatilidad con crecimiento',
+    description: 'Acciones con volatilidad y crecimiento potencial',
     icon: TrendingUpIcon,
   },
-  highVolatilityPotential: {
-    title: 'Potencial de volatilidad',
-    description: 'Oportunidades en acciones con alta volatilidad',
-    icon: ActivityIcon,
-  },
-  valueGrowthCandidates: {
-    title: 'Candidatos de crecimiento',
-    description: 'Acciones con potencial de crecimiento sostenible',
-    icon: SproutIcon,
-  },
-  largeCapLiquidity: {
-    title: 'Liquidez de gran capitalización',
-    description: 'Empresas establecidas con alta liquidez en el mercado',
+  nasdaq100: {
+    title: 'NASDAQ 100',
+    description: 'Acciones de la NASDAQ 100',
     icon: BuildingIcon,
+  },
+  pennyHighBeta: {
+    title: 'Penny stocks',
+    description: 'Acciones de penny stocks con beta alta',
+    icon: PercentIcon,
+  },
+  pennyStocksHighVolume: {
+    title: 'Penny stocks con volumen',
+    description: 'Acciones de penny stocks con volumen alto',
+    icon: ActivityIcon,
   },
 } as const satisfies Record<Screeners, ScreenerTypeProps>;
 

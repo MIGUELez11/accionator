@@ -8,49 +8,46 @@ import { ScreeningParams } from './stocks/clients/getFinancialmodelingprepClient
 
 /* === Screeners === */
 
-const SCREENING_LIMIT = 20;
+const SCREENING_LIMIT = 100;
+const SCREENER_COMMON_PARAMS = {
+  volumeMoreThan: 1e6,
+  isEtf: false,
+  isFund: false,
+  isActivelyTrading: true,
+  country: 'US',
+  limit: SCREENING_LIMIT,
+} as const satisfies ScreeningParams;
+
 export const screeners = {
-  // 1. **Acciones con Alto Volumen y Movimiento (Ganadoras/Perdedoras Potenciales)**
-  //    Ideal para day-trading, buscando liquidez y acciones que ya están activas.
-  highVolumeMovers: {
-    priceMoreThan: 5, // Evitar acciones 'penny stocks' o de muy bajo precio, más riesgosas
-    marketCapMoreThan: 300000000, // Mínimo 300M para asegurar liquidez y tamaño decente (small-mid cap)
-    volumeMoreThan: 2000000, // Alto volumen para asegurar liquidez para day-trading (ajustar)
-    limit: SCREENING_LIMIT, // Limitar resultados para no sobrecargar
-  },
-
-  // 2. **Acciones con Volatilidad Reciente (para estrategias de impulso o reversión)**
+  // 1. **Acciones con Volatilidad Reciente (para estrategias de impulso o reversión)**
   //    Busca acciones que están mostrando grandes swings, pero con un mínimo de liquidez.
-  highVolatilityPotential: {
-    betaMoreThan: 1.2, // Beta > 1.2 indica que es más volátil que el mercado (ajustar)
-    priceMoreThan: 10, // Evitar acciones muy baratas/iliquidas
-    marketCapMoreThan: 500000000, // Mínimo 500M para asegurar un tamaño relevante
-    volumeMoreThan: 1500000, // Buen volumen para operativa
-    limit: SCREENING_LIMIT,
-  },
-
-  // 3. **Acciones de Crecimiento con Precios Atractivos (potencial a corto-medio plazo)**
-  //    No es puramente day-trading, pero puede capturar acciones con buen momentum.
-  //    Aquí podríamos inferir "potencial de subida" si tienen buen fundamental y no están carísimas.
-  //    (Los parámetros de ScreeningParams son limitados para esto, pero podemos aproximar)
-  valueGrowthCandidates: {
+  highVolatilityWithGrow: {
+    ...SCREENER_COMMON_PARAMS,
+    betaMoreThan: 1,
     priceMoreThan: 10,
-    priceLowerThan: 150, // No demasiado caras, más accesibles
-    marketCapMoreThan: 1000000000, // Mid-cap a large-cap
-    volumeMoreThan: 500000, // Volumen decente
-    dividendLowerThan: 0.01, // Asumimos que empresas de crecimiento no pagan altos dividendos
-    limit: SCREENING_LIMIT,
+    marketCapMoreThan: 300e6, // 300M
   },
 
-  // 4. **Acciones "de valor" con alta liquidez (potencial para un rebote o momentum sostenido)**
-  //    Esto es más inferencial ya que no tenemos P/E directamente.
-  //    Podríamos buscar empresas de gran capitalización con volumen, asumiendo que el mercado
-  //    las ha "corregido" y pueden rebotar.
-  largeCapLiquidity: {
-    marketCapMoreThan: 10000000000, // Grande capitalización (más estables, menos volátiles a veces)
-    volumeMoreThan: 3000000, // Muy alto volumen, alta liquidez
-    priceMoreThan: 50, // Precios más altos
-    limit: SCREENING_LIMIT,
+  // 2. Penny stocks (cheap stocks)
+  pennyStocksHighVolume: {
+    ...SCREENER_COMMON_PARAMS,
+    priceMoreThan: 1,
+    priceLowerThan: 5,
+  },
+
+  pennyHighBeta: {
+    ...SCREENER_COMMON_PARAMS,
+    betaMoreThan: 1.5,
+    priceMoreThan: 1,
+    priceLowerThan: 5,
+  },
+
+  nasdaq100: {
+    ...SCREENER_COMMON_PARAMS,
+    exchange: 'NASDAQ',
+    volumeMoreThan: 1e6,
+    priceMoreThan: 5,
+    limit: 100,
   },
 } as const satisfies Record<string, ScreeningParams>;
 
