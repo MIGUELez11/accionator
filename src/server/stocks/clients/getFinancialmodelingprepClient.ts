@@ -19,6 +19,8 @@ export type ScreeningParams = {
   country?: string;
 };
 
+export type Rating = 'Strong Buy' | 'Buy' | 'Hold' | 'Sell' | 'Strong Sell';
+
 export interface StockScreenerResponse {
   beta: number;
   companyName: string;
@@ -35,6 +37,11 @@ export interface StockScreenerResponse {
   sector: string;
   symbol: string;
   volume: number;
+
+  techRating?: Rating;
+  movingAverageRating?: Rating;
+  oscillatorsRating?: Rating;
+  analystsRating?: Rating;
 }
 
 export type SymbolSearchParams = {
