@@ -9,9 +9,17 @@ export type ScreeningParams = {
   volumeLowerThan?: number;
   dividendMoreThan?: number;
   dividendLowerThan?: number;
+  isEtf?: boolean;
+  isFund?: boolean;
+  isActivelyTrading?: boolean;
+  sector?: string;
+  industry?: string;
+  exchange?: string;
   limit?: number;
   country?: string;
 };
+
+export type Rating = 'Strong Buy' | 'Buy' | 'Hold' | 'Sell' | 'Strong Sell';
 
 export interface StockScreenerResponse {
   beta: number;
@@ -29,6 +37,11 @@ export interface StockScreenerResponse {
   sector: string;
   symbol: string;
   volume: number;
+
+  techRating?: Rating;
+  movingAverageRating?: Rating;
+  oscillatorsRating?: Rating;
+  analystsRating?: Rating;
 }
 
 export type SymbolSearchParams = {
@@ -45,7 +58,7 @@ export interface SymbolSearchResponse {
   exchangeShortName: string;
 }
 
-function getParams<T extends Record<string, number | string>>(params: T) {
+function getParams<T extends Record<string, number | string | boolean>>(params: T) {
   return Object.entries(params).reduce<Record<keyof T, string>>(
     (acc, [key, value]) => {
       if (value !== undefined && value !== null) {
@@ -67,7 +80,7 @@ class FinancialModelingPrepClient {
     this.apiKey = apiKey;
   }
 
-  private async fetch<P extends Record<string, number | string>, R extends object>(
+  private async fetch<P extends Record<string, number | string | boolean>, R extends object>(
     endpoint: `v3/${string}`,
     params: P,
   ): Promise<R> {
