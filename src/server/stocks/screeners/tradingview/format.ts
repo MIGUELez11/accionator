@@ -3,6 +3,10 @@ import { columnsMap } from './getScreening';
 import { Columns, TradingViewScreenerFetchResponse } from './types';
 
 function getAnalystRating(value: number): NonNullable<Rating> {
+  if (isNaN(value) || value == null) {
+    return 'Hold';
+  }
+
   if (value >= 2.75 && value <= 3) {
     return 'Strong Sell';
   } else if (value >= 2.25 && value < 2.75) {
@@ -19,6 +23,10 @@ function getAnalystRating(value: number): NonNullable<Rating> {
 }
 
 function getOtherRating(value: number): NonNullable<Rating> {
+  if (isNaN(value) || value == null) {
+    return 'Hold';
+  }
+
   if (value >= 0.5 && value <= 1) {
     return 'Strong Buy';
   } else if (value >= 0.1 && value < 0.5) {
