@@ -39,7 +39,6 @@ export const screeners = {
   nasdaq100: {
     ...SCREENER_COMMON_PARAMS,
     exchange: 'NASDAQ',
-    volumeMoreThan: 1e6,
     priceMoreThan: 5,
     limit: 100,
   },
