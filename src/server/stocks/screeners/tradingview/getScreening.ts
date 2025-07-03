@@ -50,7 +50,7 @@ const screenersCommonFilters = [
   },
 ] satisfies Filter[];
 
-const screners = {
+const screeners = {
   highVolatilityWithGrow: [
     ...screenersCommonFilters,
     {
@@ -101,7 +101,7 @@ const screners = {
 } satisfies Record<Screeners, Filter[]>;
 
 export const getTradingViewScreening = Effect.fn(function* (screener: Screeners) {
-  const filters = screners[screener];
+  const filters = screeners[screener];
   const data = yield* fetchTradingViewScreener({
     columns,
     filter: filters,
