@@ -5,6 +5,7 @@ import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { useRefreshAnalysisMutation } from '@/mutations/useRefreshAnalysisMutation';
 import { aiAnalysisQuery } from '@/queries/aiAnalysisQuery';
+import { fetchGeneratedAiAnalysisQuery } from '@/queries/fetchGeneratedAiAnalysisQuery';
 import { useQuery } from '@tanstack/react-query';
 import { RefreshCcwIcon } from 'lucide-react';
 import { useState } from 'react';
@@ -47,13 +48,28 @@ function useAIAnalysis(symbol: string) {
     }),
   });
 
+  const { data: alreadyGeneratedAnalysis, isFetching: isFetchingAlreadyGeneratedAnalysis } = useQuery({
+    ...fetchGeneratedAiAnalysisQuery(symbol),
+    enabled: !!symbol,
+    select: (data) => {
+      if (!data) {
+        return null;
+      }
+
+      return {
+        ...data,
+        since: getSinceDate(new Date(data.date)),
+      };
+    },
+  });
+
   return {
     shouldGenerate,
     generateAnalysis: () => {
       setShouldGenerate(true);
     },
-    data,
-    isLoading,
+    data: data ?? alreadyGeneratedAnalysis,
+    isLoading: (shouldGenerate && isLoading) || isFetchingAlreadyGeneratedAnalysis,
     error,
   };
 }
@@ -62,7 +78,7 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
   const { generateAnalysis, shouldGenerate, data, isLoading, error } = useAIAnalysis(symbol);
   const refreshAnalysisMutation = useRefreshAnalysisMutation();
 
-  if (!shouldGenerate) {
+  if (!data && !shouldGenerate) {
     return (
       <InfoCard title="Recomendación IA">
         <div className="h-full w-full px-6">
