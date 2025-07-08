@@ -11,6 +11,27 @@ import { useState } from 'react';
 import { EconomicIndicator } from './EconomicIndicator';
 import { InfoCard } from './InfoCard';
 
+function getSinceDate(date: Date) {
+  const diffMs = Date.now() - date.getTime();
+  const formatter = new Intl.RelativeTimeFormat('es', { numeric: 'auto' });
+
+  let since;
+  if (diffMs < 1000 * 60) {
+    // less than a minute
+    since = formatter.format(-Math.floor(diffMs / 1000), 'seconds');
+  } else if (diffMs < 1000 * 60 * 60) {
+    // less than an hour
+    since = formatter.format(-Math.floor(diffMs / (1000 * 60)), 'minutes');
+  } else if (diffMs < 1000 * 60 * 60 * 24) {
+    // less than a day
+    since = formatter.format(-Math.floor(diffMs / (1000 * 60 * 60)), 'hours');
+  } else {
+    since = formatter.format(-Math.floor(diffMs / (1000 * 60 * 60 * 24)), 'days');
+  }
+
+  return since;
+}
+
 function useAIAnalysis(symbol: string) {
   const [shouldGenerate, setShouldGenerate] = useState(false);
   const {
@@ -20,6 +41,10 @@ function useAIAnalysis(symbol: string) {
   } = useQuery({
     ...aiAnalysisQuery(symbol),
     enabled: shouldGenerate && !!symbol,
+    select: (data) => ({
+      since: getSinceDate(new Date(data.date)),
+      ...data,
+    }),
   });
 
   return {
@@ -100,7 +125,9 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
     title += ` (${price.toFixed(4)}$)`;
   }
 
-  if (data.date) {
+  if (data.since) {
+    title += ` | ${data.since}`;
+  } else if (data.date) {
     title += ` | ${new Date(data.date).toLocaleDateString('es-ES', {
       day: '2-digit',
       month: '2-digit',
