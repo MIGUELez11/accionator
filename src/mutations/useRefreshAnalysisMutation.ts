@@ -9,6 +9,7 @@ export function useRefreshAnalysisMutation() {
     mutationKey: ['analysis', 'refresh'],
     mutationFn: async (symbol: string) => callNextApi(API_ROUTES.refreshAiAnalysis, { query: { symbol } }),
     onSuccess: (_, symbol) => {
+      queryClient.invalidateQueries({ queryKey: ['fetchGeneratedAiAnalysis', symbol] });
       queryClient.invalidateQueries({ queryKey: ['aiAnalysis', symbol] });
     },
   });

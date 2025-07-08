@@ -15,7 +15,9 @@ export type API_ROUTES_QUERY = {
   generateAiAnalysis: {
     symbol: string;
   };
-
+  refreshAiAnalysis: {
+    symbol: string;
+  };
   fetchGeneratedAiAnalysis: {
     symbol: string;
   };
@@ -34,6 +36,7 @@ export const API_ROUTES = {
   stockNews: 'stockNews',
   generateAiAnalysis: 'generateAiAnalysis',
   fetchGeneratedAiAnalysis: 'fetchGeneratedAiAnalysis',
+  refreshAiAnalysis: 'refreshAiAnalysis',
   screener: 'screener',
   stocksSearch: 'stocksSearch',
 } as const satisfies Record<keyof API_ROUTES_QUERY, keyof typeof API_ROUTES_URLS>;
@@ -43,6 +46,7 @@ export const API_ROUTES_URLS = {
   stockInfo: '/api/stocks',
   stockNews: '/api/stocks/news',
   generateAiAnalysis: '/api/analysis',
+  refreshAiAnalysis: '/api/analysis/refresh',
   fetchGeneratedAiAnalysis: '/api/analysis/generated',
   screener: '/api/screener',
   stocksSearch: '/api/stocks/search',
@@ -54,9 +58,11 @@ export type API_ROUTES_RESPONSE = {
   stockNews: CompanyNews;
   generateAiAnalysis: AIAnalysisResponse;
   fetchGeneratedAiAnalysis: AIAnalysisResponse | null;
-
-  fetchGeneratedAiAnalysis: AIAnalysisResponse | null;
-
+  refreshAiAnalysis: {
+    message: string;
+    success: boolean;
+    symbol: string;
+  };
   screener: StockScreenerResponse[];
   stocksSearch: SymbolSearchResponse[];
 };
