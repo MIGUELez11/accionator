@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Column,
@@ -8,34 +8,23 @@ import {
   getSortedRowModel,
   SortingState,
   useReactTable,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table';
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { useState } from "react";
-import { ArrowDownIcon, ArrowUpDownIcon, ArrowUpIcon } from "lucide-react";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { ArrowDownIcon, ArrowUpDownIcon, ArrowUpIcon } from 'lucide-react';
+import { useState } from 'react';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-function SortingButton<TData, TValue>({
-  column,
-}: {
-  column: Column<TData, TValue>;
-}) {
+function SortingButton<TData, TValue>({ column }: { column: Column<TData, TValue> }) {
   const sortedDirection = column.getIsSorted();
   return (
     <div>
-      {sortedDirection === "asc" && <ArrowUpIcon className="h-4 w-4" />}
-      {sortedDirection === "desc" && <ArrowDownIcon className="h-4 w-4" />}
+      {sortedDirection === 'asc' && <ArrowUpIcon className="h-4 w-4" />}
+      {sortedDirection === 'desc' && <ArrowDownIcon className="h-4 w-4" />}
       {sortedDirection === false && <ArrowUpDownIcon className="h-4 w-4" />}
     </div>
   );
@@ -44,7 +33,8 @@ function SortingButton<TData, TValue>({
 export function DataTable<TData, TValue>({
   columns,
   data,
-}: DataTableProps<TData, TValue>) {
+  onRowClick,
+}: DataTableProps<TData, TValue> & { onRowClick?: (row: TData) => void }) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const table = useReactTable({
     data,
@@ -78,7 +68,7 @@ export function DataTable<TData, TValue>({
                         role="button"
                         tabIndex={0}
                         onKeyDown={(e) => {
-                          if (e.key === "Enter" || e.key === " ") {
+                          if (e.key === 'Enter' || e.key === ' ') {
                             e.preventDefault();
                             handleSorting(header.column)?.(e);
                           }
@@ -86,10 +76,7 @@ export function DataTable<TData, TValue>({
                         onClick={handleSorting(header.column)}
                         className="cursor-pointer flex gap-2 items-center"
                       >
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
+                        {flexRender(header.column.columnDef.header, header.getContext())}
                         <SortingButton column={header.column} />
                       </div>
                     )}
@@ -104,12 +91,12 @@ export function DataTable<TData, TValue>({
             table.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
-                data-state={row.getIsSelected() && "selected"}
+                data-state={row.getIsSelected() && 'selected'}
+                onClick={typeof onRowClick === 'function' ? () => onRowClick(row.original) : undefined}
+                className={typeof onRowClick === 'function' ? 'cursor-pointer' : ''}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
+                  <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                 ))}
               </TableRow>
             ))
