@@ -42,8 +42,8 @@ function useAIAnalysis(symbol: string) {
     ...aiAnalysisQuery(symbol),
     enabled: shouldGenerate && !!symbol,
     select: (data) => ({
-      since: getSinceDate(new Date(data.date)),
       ...data,
+      since: getSinceDate(new Date(data.date)),
     }),
   });
 
