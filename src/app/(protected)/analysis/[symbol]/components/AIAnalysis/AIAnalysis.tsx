@@ -10,6 +10,8 @@ import { InfoCard } from '../InfoCard';
 import { TimePassed } from './components/TimePassed';
 import { useAIAnalysis } from './hooks/useAIAnalysis';
 
+const SHOULD_SHOW_PRICE = process.env.NEXT_PUBLIC_SHOULD_SHOW_PRICE === 'true';
+
 export function AIAnalysis({ symbol }: { symbol: string }) {
   const { generateAnalysis, shouldGenerate, data, isLoading, isFetching, error } = useAIAnalysis(symbol);
   const refreshAnalysisMutation = useRefreshAnalysisMutation();
@@ -71,17 +73,19 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
     );
   }
 
-  // const inputTokens = data.action.inputTokens + data.financialAnalysis.inputTokens + data.newsSummary.inputTokens;
-  // const outputTokens = data.action.outputTokens + data.financialAnalysis.outputTokens + data.newsSummary.outputTokens;
-  // const pricePerMillionInputTokens = 0.1;
-  // const pricePerMillionOutputTokens = 0.4;
-  // const price = (inputTokens / 1e6) * pricePerMillionInputTokens + (outputTokens / 1e6) * pricePerMillionOutputTokens;
+  let title = 'Recomendación IA';
 
-  const title = 'Recomendación IA';
+  if (SHOULD_SHOW_PRICE) {
+    const inputTokens = data.action.inputTokens + data.financialAnalysis.inputTokens + data.newsSummary.inputTokens;
+    const outputTokens = data.action.outputTokens + data.financialAnalysis.outputTokens + data.newsSummary.outputTokens;
+    const pricePerMillionInputTokens = 0.1;
+    const pricePerMillionOutputTokens = 0.4;
+    const price = (inputTokens / 1e6) * pricePerMillionInputTokens + (outputTokens / 1e6) * pricePerMillionOutputTokens;
 
-  // if (price) {
-  //   title += ` (${price.toFixed(4)}$)`;
-  // }
+    if (price) {
+      title += ` (${price.toFixed(4)}$)`;
+    }
+  }
 
   let action;
   if (data.action.response.action === 'buy') {
