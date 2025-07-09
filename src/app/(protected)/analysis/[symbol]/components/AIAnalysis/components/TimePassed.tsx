@@ -11,8 +11,11 @@ function getTimePassed(date: Date) {
   } else if (diffMs < 1000 * 60 * 60) {
     // less than an hour - update every minute
     since = formatter.format(-Math.floor(diffMs / (1000 * 60)), 'minutes');
+  } else if (diffMs < 1000 * 60 * 60 * 24) {
+    // less than a day - update every hour
+    since = formatter.format(-Math.floor(diffMs / (1000 * 60 * 60)), 'hours');
   } else {
-    // more than an hour - update every day
+    // more than a day - update every day
     since = formatter.format(-Math.floor(diffMs / (1000 * 60 * 60 * 24)), 'days');
   }
 
