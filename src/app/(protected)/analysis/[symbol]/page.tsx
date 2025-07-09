@@ -2,7 +2,7 @@ import { getQueryClient } from '@/app/getQueryClient';
 import { stockInfoQuery } from '@/queries/stockInfoQuery';
 import { stockNewsQuery } from '@/queries/stockNewsQuery';
 import { saveSearchStock } from '@/server/convex/stocks/saveSearchStock';
-import { FinnhubCachedStocksService } from '@/server/newStocks/finnhub/service';
+import { FinnhubCachedStocksService } from '@/server/stocks/data/finnhub/service';
 import { getStockFullInfo } from '@/server/stocks/getStockFullInfo';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { Effect } from 'effect';

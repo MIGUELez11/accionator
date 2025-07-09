@@ -1,6 +1,6 @@
 import { Effect } from 'effect';
-import { FinnhubCachedStocksService } from '../newStocks/finnhub/service';
 import { StockInfo } from '../types';
+import { FinnhubCachedStocksService } from './data/finnhub/service';
 
 export async function getStockFullInfo(symbol: string | null): Promise<StockInfo> {
   if (!symbol) {

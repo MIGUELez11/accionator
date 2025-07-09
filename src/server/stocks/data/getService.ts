@@ -1,5 +1,5 @@
 import { Effect } from 'effect';
-import { withCacheEffect } from '../cache/withCache';
+import { withCacheEffect } from '../../cache/withCache';
 import { StocksService } from './service';
 
 export const getCachedStocksService = Effect.gen(function* () {

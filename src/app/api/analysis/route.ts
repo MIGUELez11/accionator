@@ -2,9 +2,9 @@ import { withRequiredUser } from '@/lib/requireUser';
 import { generateFinancialAnalysis } from '@/server/analysis/generateFinancialAnalysis';
 import { generateNewsSummary } from '@/server/analysis/generateNewsSummary';
 import { generateShouldBuyAction } from '@/server/analysis/generateShouldBuyAction';
-import { FinnhubCachedStocksService } from '@/server/newStocks/finnhub/service';
-import { StocksService } from '@/server/newStocks/service';
 import { withPosthog } from '@/server/posthog/logPosthogApiCall';
+import { FinnhubCachedStocksService } from '@/server/stocks/data/finnhub/service';
+import { StocksService } from '@/server/stocks/data/service';
 import { Effect } from 'effect';
 import { NextResponse } from 'next/server';
 

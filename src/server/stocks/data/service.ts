@@ -1,5 +1,5 @@
 import { Context, Effect } from 'effect';
-import { ActionRecommendations, BasicFinancials, CompanyNews, StockPrice, StockProfile } from '../types';
+import { ActionRecommendations, BasicFinancials, CompanyNews, StockPrice, StockProfile } from '../../types';
 
 export class StocksService extends Context.Tag('StocksService')<
   StocksService,

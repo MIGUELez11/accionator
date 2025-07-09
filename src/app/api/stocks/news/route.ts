@@ -1,4 +1,4 @@
-import { FinnhubCachedStocksService } from '@/server/newStocks/finnhub/service';
+import { FinnhubCachedStocksService } from '@/server/stocks/data/finnhub/service';
 import { Effect } from 'effect';
 import { NextRequest, NextResponse } from 'next/server';
 
