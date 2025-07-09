@@ -4,78 +4,14 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { useRefreshAnalysisMutation } from '@/mutations/useRefreshAnalysisMutation';
-import { aiAnalysisQuery } from '@/queries/aiAnalysisQuery';
-import { fetchGeneratedAiAnalysisQuery } from '@/queries/fetchGeneratedAiAnalysisQuery';
-import { useQuery } from '@tanstack/react-query';
 import { RefreshCcwIcon } from 'lucide-react';
-import { useState } from 'react';
-import { EconomicIndicator } from './EconomicIndicator';
-import { InfoCard } from './InfoCard';
-
-function getSinceDate(date: Date) {
-  const diffMs = Date.now() - date.getTime();
-  const formatter = new Intl.RelativeTimeFormat('es', { numeric: 'auto' });
-
-  let since;
-  if (diffMs < 1000 * 60) {
-    // less than a minute
-    since = formatter.format(-Math.floor(diffMs / 1000), 'seconds');
-  } else if (diffMs < 1000 * 60 * 60) {
-    // less than an hour
-    since = formatter.format(-Math.floor(diffMs / (1000 * 60)), 'minutes');
-  } else if (diffMs < 1000 * 60 * 60 * 24) {
-    // less than a day
-    since = formatter.format(-Math.floor(diffMs / (1000 * 60 * 60)), 'hours');
-  } else {
-    since = formatter.format(-Math.floor(diffMs / (1000 * 60 * 60 * 24)), 'days');
-  }
-
-  return since;
-}
-
-function useAIAnalysis(symbol: string) {
-  const [shouldGenerate, setShouldGenerate] = useState(false);
-  const {
-    data,
-    isFetching: isLoading,
-    error,
-  } = useQuery({
-    ...aiAnalysisQuery(symbol),
-    enabled: shouldGenerate && !!symbol,
-    select: (data) => ({
-      ...data,
-      since: getSinceDate(new Date(data.date)),
-    }),
-  });
-
-  const { data: alreadyGeneratedAnalysis, isFetching: isFetchingAlreadyGeneratedAnalysis } = useQuery({
-    ...fetchGeneratedAiAnalysisQuery(symbol),
-    enabled: !!symbol,
-    select: (data) => {
-      if (!data) {
-        return null;
-      }
-
-      return {
-        ...data,
-        since: getSinceDate(new Date(data.date)),
-      };
-    },
-  });
-
-  return {
-    shouldGenerate,
-    generateAnalysis: () => {
-      setShouldGenerate(true);
-    },
-    data: data ?? alreadyGeneratedAnalysis,
-    isLoading: (shouldGenerate && isLoading) || isFetchingAlreadyGeneratedAnalysis,
-    error,
-  };
-}
+import { EconomicIndicator } from '../EconomicIndicator';
+import { InfoCard } from '../InfoCard';
+import { TimePassed } from './components/TimePassed';
+import { useAIAnalysis } from './hooks/useAIAnalysis';
 
 export function AIAnalysis({ symbol }: { symbol: string }) {
-  const { generateAnalysis, shouldGenerate, data, isLoading, error } = useAIAnalysis(symbol);
+  const { generateAnalysis, shouldGenerate, data, isLoading, isFetching, error } = useAIAnalysis(symbol);
   const refreshAnalysisMutation = useRefreshAnalysisMutation();
 
   if (!data && !shouldGenerate) {
@@ -101,11 +37,17 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
   const refreshButton = (
     <Button
       variant="outline"
-      className={'h-8 w-8 cursor-pointer'}
-      onClick={() => refreshAnalysisMutation.mutate(symbol)}
+      className={cn('h-8 w-8', {
+        'cursor-pointer': !refreshAnalysisMutation.isPending && !isFetching,
+        'cursor-not-allowed': refreshAnalysisMutation.isPending || isFetching,
+      })}
+      onClick={async () => {
+        await refreshAnalysisMutation.mutateAsync(symbol);
+        generateAnalysis();
+      }}
       disabled={refreshAnalysisMutation.isPending}
     >
-      <RefreshCcwIcon className={cn({ 'animate-spin': refreshAnalysisMutation.isPending })} />
+      <RefreshCcwIcon className={cn({ 'animate-spin': refreshAnalysisMutation.isPending || isFetching })} />
     </Button>
   );
 
@@ -129,29 +71,17 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
     );
   }
 
-  const inputTokens = data.action.inputTokens + data.financialAnalysis.inputTokens + data.newsSummary.inputTokens;
-  const outputTokens = data.action.outputTokens + data.financialAnalysis.outputTokens + data.newsSummary.outputTokens;
-  const pricePerMillionInputTokens = 0.1;
-  const pricePerMillionOutputTokens = 0.4;
-  const price = (inputTokens / 1e6) * pricePerMillionInputTokens + (outputTokens / 1e6) * pricePerMillionOutputTokens;
+  // const inputTokens = data.action.inputTokens + data.financialAnalysis.inputTokens + data.newsSummary.inputTokens;
+  // const outputTokens = data.action.outputTokens + data.financialAnalysis.outputTokens + data.newsSummary.outputTokens;
+  // const pricePerMillionInputTokens = 0.1;
+  // const pricePerMillionOutputTokens = 0.4;
+  // const price = (inputTokens / 1e6) * pricePerMillionInputTokens + (outputTokens / 1e6) * pricePerMillionOutputTokens;
 
-  let title = 'Recomendación IA';
+  const title = 'Recomendación IA';
 
-  if (price) {
-    title += ` (${price.toFixed(4)}$)`;
-  }
-
-  if (data.since) {
-    title += ` | ${data.since}`;
-  } else if (data.date) {
-    title += ` | ${new Date(data.date).toLocaleDateString('es-ES', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    })}`;
-  }
+  // if (price) {
+  //   title += ` (${price.toFixed(4)}$)`;
+  // }
 
   let action;
   if (data.action.response.action === 'buy') {
@@ -163,7 +93,7 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
   }
 
   return (
-    <InfoCard title={title} rightIcon={refreshButton}>
+    <InfoCard title={title} rightIcon={refreshButton} leftIcon={<TimePassed date={data.date} />}>
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-4 px-6">
           <div className="flex flex-col gap-1">
