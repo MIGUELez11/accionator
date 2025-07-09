@@ -2,9 +2,8 @@ import { getQueryClient } from '@/app/getQueryClient';
 import { stockInfoQuery } from '@/queries/stockInfoQuery';
 import { stockNewsQuery } from '@/queries/stockNewsQuery';
 import { saveSearchStock } from '@/server/convex/stocks/saveSearchStock';
-import { getCompanyNews } from '@/server/stocks/getCompanyNews';
+import { FinnhubCachedStocksService } from '@/server/newStocks/finnhub/service';
 import { getStockFullInfo } from '@/server/stocks/getStockFullInfo';
-import { getStockProfile } from '@/server/stocks/getStockProfile';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { Effect } from 'effect';
 import { notFound } from 'next/navigation';
@@ -15,7 +14,8 @@ export default async function AnalysisPage({ params }: { params: Promise<{ symbo
 
   const queryClient = getQueryClient();
 
-  const stockProfile = await getStockProfile(symbol);
+  const stockService = await Effect.runPromise(FinnhubCachedStocksService);
+  const stockProfile = await Effect.runPromise(stockService.getStockProfile(symbol));
   const ticker = stockProfile.ticker;
 
   if (!ticker) {
@@ -23,7 +23,7 @@ export default async function AnalysisPage({ params }: { params: Promise<{ symbo
   }
 
   queryClient.prefetchQuery(stockInfoQuery(ticker, () => getStockFullInfo(ticker)));
-  queryClient.prefetchQuery(stockNewsQuery(ticker, () => getCompanyNews(ticker)));
+  queryClient.prefetchQuery(stockNewsQuery(ticker, () => Effect.runPromise(stockService.getCompanyNews(ticker))));
 
   Effect.runPromise(
     saveSearchStock({

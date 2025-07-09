@@ -1,4 +1,5 @@
-import { getCompanyNews } from '@/server/stocks/getCompanyNews';
+import { FinnhubCachedStocksService } from '@/server/newStocks/finnhub/service';
+import { Effect } from 'effect';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const GET = async (request: NextRequest) => {
@@ -9,7 +10,9 @@ export const GET = async (request: NextRequest) => {
   }
 
   try {
-    const news = await getCompanyNews(symbol);
+    const stockService = await Effect.runPromise(FinnhubCachedStocksService);
+    const news = await Effect.runPromise(stockService.getCompanyNews(symbol));
+
     return NextResponse.json(news);
   } catch {
     return NextResponse.json({ error: 'Failed to fetch company news' }, { status: 500 });
