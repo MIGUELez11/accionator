@@ -38,8 +38,11 @@ function useTimePassed(date: Date) {
     } else if (diffMs < 1000 * 60 * 60) {
       // Update every minute if less than an hour
       interval = window.setInterval(updateTimePassed, 1000 * 60);
+    } else if (diffMs < 1000 * 60 * 60 * 24) {
+      // Update every hour if less than a day
+      interval = window.setInterval(updateTimePassed, 1000 * 60 * 60);
     } else {
-      // Update every day if more than an hour
+      // Update every day if more than a day
       interval = window.setInterval(updateTimePassed, 1000 * 60 * 60 * 24);
     }
 
