@@ -1,6 +1,7 @@
 import { getQueryClient } from '@/app/getQueryClient';
 import { stockInfoQuery } from '@/queries/stockInfoQuery';
 import { stockNewsQuery } from '@/queries/stockNewsQuery';
+import { fetchGeneratedAiAnalysisQuery } from '@/queries/fetchGeneratedAiAnalysisQuery';
 import { saveSearchStock } from '@/server/convex/stocks/saveSearchStock';
 import { FinnhubCachedStocksService } from '@/server/stocks/data/finnhub/service';
 import { getStockFullInfo } from '@/server/stocks/getStockFullInfo';
@@ -24,6 +25,9 @@ export default async function AnalysisPage({ params }: { params: Promise<{ symbo
 
   queryClient.prefetchQuery(stockInfoQuery(ticker, () => getStockFullInfo(ticker)));
   queryClient.prefetchQuery(stockNewsQuery(ticker, () => Effect.runPromise(stockService.getCompanyNews(ticker))));
+  
+  // Prefetch the generated AI analysis cache
+  queryClient.prefetchQuery(fetchGeneratedAiAnalysisQuery(ticker));
 
   Effect.runPromise(
     saveSearchStock({

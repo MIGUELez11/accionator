@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactNode } from 'react';
 import { convex, ConvexClientProvider } from './ConvexProvider';
 import { ReactScan } from './ReactScan';
+import { getQueryClient } from '@/app/getQueryClient';
 
 let queryClientWithConvex: QueryClient | null = null;
 
@@ -14,21 +15,25 @@ function getQueryClientWithConvex() {
     return queryClientWithConvex;
   }
 
+  // Use the same QueryClient instance that was used for server-side prefetching
+  const baseQueryClient = getQueryClient();
+  
   const convexQueryClient = new ConvexQueryClient(convex);
 
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        queryKeyHashFn: convexQueryClient.hashFn(),
-        queryFn: convexQueryClient.queryFn(),
-      },
+  // Merge the Convex configuration with the existing QueryClient
+  baseQueryClient.setDefaultOptions({
+    ...baseQueryClient.getDefaultOptions(),
+    queries: {
+      ...baseQueryClient.getDefaultOptions().queries,
+      queryKeyHashFn: convexQueryClient.hashFn(),
+      queryFn: convexQueryClient.queryFn(),
     },
   });
 
-  convexQueryClient.connect(queryClient);
-  queryClientWithConvex = queryClient;
+  convexQueryClient.connect(baseQueryClient);
+  queryClientWithConvex = baseQueryClient;
 
-  return queryClient;
+  return queryClientWithConvex;
 }
 
 export default function Providers({ children }: { children: ReactNode }) {
