@@ -13,7 +13,7 @@ export function useAIAnalysis(symbol: string) {
 
   const { data: alreadyGeneratedAnalysis, isFetching: isFetchingAlreadyGeneratedAnalysis } = useQuery({
     ...fetchGeneratedAiAnalysisQuery(symbol),
-    enabled: !!symbol && !data,
+    enabled: !!symbol && !shouldGenerate, // Only fetch cached data when not generating
   });
 
   useInvalidateFetchGeneratedAnalysis(symbol, data);

@@ -6,6 +6,7 @@ export const fetchGeneratedAiAnalysisQuery = (symbol: string) =>
   queryOptions({
     queryKey: ['fetchGeneratedAiAnalysis', symbol],
     queryFn: callNextApi(API_ROUTES.fetchGeneratedAiAnalysis, { query: { symbol } }),
-    staleTime: 1000 * 60 * 60 * 24,
+    staleTime: 1000 * 60 * 60 * 24, // 24 hours
+    gcTime: 1000 * 60 * 60 * 24 * 7, // 7 days
     retry: false,
   });

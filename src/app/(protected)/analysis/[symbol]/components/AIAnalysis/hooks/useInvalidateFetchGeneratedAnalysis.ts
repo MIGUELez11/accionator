@@ -8,9 +8,15 @@ export function useInvalidateFetchGeneratedAnalysis(symbol: string, data: AIAnal
   const queryKey = fetchGeneratedAiAnalysisQuery(symbol).queryKey;
 
   useEffect(() => {
+    // Only invalidate if we have new data (not undefined/null)
+    if (!data) {
+      return;
+    }
+    
     const alreadyGeneratedAnalysis = queryClient.getQueryData<AIAnalysisResponse>(queryKey);
     
-    if (data && alreadyGeneratedAnalysis) {
+    // Only proceed if we have both data and alreadyGeneratedAnalysis
+    if (alreadyGeneratedAnalysis) {
       // Convert both dates to timestamps for proper comparison
       const dataDate = data.date instanceof Date ? data.date.getTime() : new Date(data.date).getTime();
       const cachedDate = alreadyGeneratedAnalysis.date instanceof Date 

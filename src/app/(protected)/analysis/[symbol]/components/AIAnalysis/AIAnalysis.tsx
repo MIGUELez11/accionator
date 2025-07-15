@@ -16,7 +16,10 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
   const { generateAnalysis, shouldGenerate, data, isLoading, isFetching, error } = useAIAnalysis(symbol);
   const refreshAnalysisMutation = useRefreshAnalysisMutation();
 
-  if (!data && !shouldGenerate) {
+  // Check if we have any data to display (either new or cached)
+  const hasDataToDisplay = !!data;
+
+  if (!hasDataToDisplay && !shouldGenerate) {
     return (
       <InfoCard title="Recomendación IA">
         <div className="h-full w-full px-6">
@@ -63,7 +66,7 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
     );
   }
 
-  if (!data) {
+  if (!hasDataToDisplay) {
     return (
       <InfoCard title="Recomendación IA">
         <div className="h-full w-full px-6">
