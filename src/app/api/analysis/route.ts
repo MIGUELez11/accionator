@@ -2,6 +2,7 @@ import { withRequiredUser } from '@/lib/requireUser';
 import { generateFinancialAnalysis } from '@/server/analysis/generateFinancialAnalysis';
 import { generateNewsSummary } from '@/server/analysis/generateNewsSummary';
 import { generateShouldBuyAction } from '@/server/analysis/generateShouldBuyAction';
+import { withCacheEffect } from '@/server/cache/withCache';
 import { withPosthog } from '@/server/posthog/logPosthogApiCall';
 import { FinnhubCachedStocksService } from '@/server/stocks/data/finnhub/service';
 import { StocksService } from '@/server/stocks/data/service';
@@ -43,7 +44,15 @@ export const GET = withRequiredUser(
       }
 
       const stockService = await Effect.runPromise(FinnhubCachedStocksService);
-      const response = await Effect.runPromise(Effect.provideService(getAnalysis(symbol), StocksService, stockService));
+      
+      // Use withCacheEffect to automatically cache the analysis
+      const response = await Effect.runPromise(
+        withCacheEffect(
+          `ai-analysis:${symbol}`,
+          60 * 60 * 24, // Cache for 24 hours
+          Effect.provideService(getAnalysis(symbol), StocksService, stockService)
+        )
+      );
 
       return NextResponse.json(response);
     } catch (error) {
