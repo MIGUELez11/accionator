@@ -18,7 +18,8 @@ export function getPrompt<T extends PromptsNames>(
       const fullReplaces = {
         ...replaces,
         ...{
-          Date: `Ahora mismo son las: ${new Date().toISOString()}`,
+          Date: `The current date is: ${new Date().toISOString()}`,
+          Language: `You should always answer in: "Spanish - Spain"`,
         },
       };
 

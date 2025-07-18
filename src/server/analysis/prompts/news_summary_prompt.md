@@ -21,6 +21,8 @@ Utiliza esta estructura para procesar el conjunto de noticias que recibirás, ge
 
 <Date />
 
+<Language />
+
 <StockInfo />
 
 <News />

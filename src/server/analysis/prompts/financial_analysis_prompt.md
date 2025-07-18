@@ -27,6 +27,8 @@ Utiliza esta estructura para procesar la información recibida y generar un aná
 
 <Date />
 
+<Language />
+
 <News />
 
 <BasicFinancials />
