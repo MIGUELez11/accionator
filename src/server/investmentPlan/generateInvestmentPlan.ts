@@ -5,6 +5,10 @@ import { InvestmentPlanResponse } from '../types';
 import { analyzeRecommendedStocks } from './analyzeRecommendedStocks';
 
 export const generateInvestmentPlan = Effect.fn(function* (investmentCapital: number) {
+  if (!Number.isFinite(investmentCapital) || investmentCapital <= 0) {
+    throw new Error('Investment capital must be a positive number');
+  }
+
   const start = performance.now();
 
   const analysis = yield* analyzeRecommendedStocks;
