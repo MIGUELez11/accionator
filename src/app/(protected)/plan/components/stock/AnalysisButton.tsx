@@ -10,7 +10,7 @@ interface AnalysisButtonProps {
 
 export function AnalysisButton({ symbol }: AnalysisButtonProps) {
   return (
-    <Link href={`/analysis/${symbol}`} target="_blank" className="px-4">
+    <Link href={`/analysis/${symbol}`} target="_blank" rel="noopener noreferrer" className="px-4">
       <Button variant="outline" className="w-full cursor-pointer">
         Ver análisis
         <ExternalLinkIcon className="w-4 h-4" />
