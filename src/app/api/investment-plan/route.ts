@@ -1,6 +1,6 @@
 import { withRequiredUser } from '@/lib/requireUser';
-import { getInvestmentPlan } from '@/server/analysis/generateInvestmentPlan';
 import { withCacheEffect } from '@/server/cache/withCache';
+import { generateInvestmentPlan } from '@/server/investmentPlan/generateInvestmentPlan';
 import { withPosthog } from '@/server/posthog/logPosthogApiCall';
 import { FinnhubStocksService } from '@/server/stocks/data/finnhub/service';
 import { StocksService } from '@/server/stocks/data/service';
@@ -20,7 +20,7 @@ export const GET = withRequiredUser(
       withCacheEffect(
         'investmentPlan',
         24 * 60 * 60,
-        getInvestmentPlan(investmentCapital).pipe(
+        generateInvestmentPlan(investmentCapital).pipe(
           Effect.provideService(ScreenerService, TradingViewScreener),
           Effect.provideService(StocksService, FinnhubStocksService),
         ),
