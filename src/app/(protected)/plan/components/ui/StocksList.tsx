@@ -33,7 +33,9 @@ export function StocksList({ data }: { data: InvestmentPlanResponse['response'][
 
   return (
     <section className="flex flex-col gap-4 mb-16">
-      <h2 className="text-lg font-bold">Acciones</h2>
+      <div className="flex items-center gap-2">
+        <h2 className="text-lg font-bold">Acciones</h2>
+      </div>
       <div className="mr-4 h-[512px]">
         <AutoSizer>
           {({ width }) => (
