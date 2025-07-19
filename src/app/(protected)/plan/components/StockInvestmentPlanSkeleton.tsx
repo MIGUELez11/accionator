@@ -2,7 +2,12 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 export function StockInvestmentPlanSkeleton() {
   return (
-    <article className="flex flex-col gap-4 h-full justify-between py-4 border shadow-sm rounded-lg">
+    <article
+      className="flex flex-col gap-4 h-full justify-between py-4 border shadow-sm rounded-lg"
+      role="status"
+      aria-busy="true"
+      aria-label="Loading stock-investment plan"
+    >
       <div className="flex flex-col gap-4 max-h-[452px] overflow-y-auto px-4">
         <header className="flex gap-2 justify-between">
           <div className="flex items-center gap-2">

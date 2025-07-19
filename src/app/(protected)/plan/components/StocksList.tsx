@@ -14,7 +14,7 @@ const COLUMN_GAP = 16;
 const ITEM_WIDTH = COLUMN_WIDTH + COLUMN_GAP;
 
 export function StocksList({ data }: { data: InvestmentPlanResponse['response']['investmentSuggestions'] }) {
-  const sortedData = useMemo(() => data.sort((a, b) => b.quantityToInvest - a.quantityToInvest), [data]);
+  const sortedData = useMemo(() => data.toSorted((a, b) => b.quantityToInvest - a.quantityToInvest), [data]);
 
   const Column = ({ index, style }: { index: number; style: React.CSSProperties }) => {
     const item = sortedData[index];

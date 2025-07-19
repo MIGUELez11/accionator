@@ -1,13 +1,13 @@
 'use client';
 
+import { EconomicIndicator } from '@/components/EconomicIndicator';
+import { InfoCard } from '@/components/InfoCard';
+import { TimePassed } from '@/components/TimePassed';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { useRefreshAnalysisMutation } from '@/mutations/useRefreshAnalysisMutation';
 import { RefreshCcwIcon } from 'lucide-react';
-import { EconomicIndicator } from '../../../../../../components/EconomicIndicator';
-import { InfoCard } from '../../../../../../components/InfoCard';
-import { TimePassed } from '../../../../../../components/TimePassed';
 import { useAIAnalysis } from './hooks/useAIAnalysis';
 
 const SHOULD_SHOW_PRICE = process.env.NEXT_PUBLIC_SHOULD_SHOW_PRICE === 'true';

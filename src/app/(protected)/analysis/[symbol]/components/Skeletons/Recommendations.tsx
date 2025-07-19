@@ -1,5 +1,5 @@
+import { InfoCard } from '@/components/InfoCard';
 import { Skeleton } from '@/components/ui/skeleton';
-import { InfoCard } from '../../../../../../components/InfoCard';
 
 export function RecommendationsSkeleton() {
   return (
