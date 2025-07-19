@@ -1,22 +1,30 @@
 import { useEffect, useState } from 'react';
 
+const TIME_CONSTANTS = {
+  SECOND: 1000,
+  MINUTE: 1000 * 60,
+  HOUR: 1000 * 60 * 60,
+  DAY: 1000 * 60 * 60 * 24,
+} as const;
+
 export function getTimePassed(date: Date) {
+  if (!date || isNaN(date?.getTime())) {
+    throw new Error('Invalid date provided');
+  }
+
   const diffMs = Date.now() - date.getTime();
   const formatter = new Intl.RelativeTimeFormat('es', { numeric: 'auto' });
 
   let since;
-  if (diffMs < 1000 * 60) {
-    // less than a minute - update every second
-    since = formatter.format(-Math.floor(diffMs / 1000), 'seconds');
-  } else if (diffMs < 1000 * 60 * 60) {
-    // less than an hour - update every minute
-    since = formatter.format(-Math.floor(diffMs / (1000 * 60)), 'minutes');
-  } else if (diffMs < 1000 * 60 * 60 * 24) {
-    // less than a day - update every hour
-    since = formatter.format(-Math.floor(diffMs / (1000 * 60 * 60)), 'hours');
+
+  if (diffMs < TIME_CONSTANTS.MINUTE) {
+    since = formatter.format(-Math.floor(diffMs / TIME_CONSTANTS.SECOND), 'seconds');
+  } else if (diffMs < TIME_CONSTANTS.HOUR) {
+    since = formatter.format(-Math.floor(diffMs / TIME_CONSTANTS.MINUTE), 'minutes');
+  } else if (diffMs < TIME_CONSTANTS.DAY) {
+    since = formatter.format(-Math.floor(diffMs / TIME_CONSTANTS.HOUR), 'hours');
   } else {
-    // more than a day - update every day
-    since = formatter.format(-Math.floor(diffMs / (1000 * 60 * 60 * 24)), 'days');
+    since = formatter.format(-Math.floor(diffMs / TIME_CONSTANTS.DAY), 'days');
   }
 
   return since;
@@ -32,18 +40,14 @@ export function useTimePassed(date: Date) {
     const diffMs = Date.now() - date.getTime();
     let interval: number;
 
-    if (diffMs < 1000 * 60) {
-      // Update every second if less than a minute
-      interval = window.setInterval(updateTimePassed, 1000);
-    } else if (diffMs < 1000 * 60 * 60) {
-      // Update every minute if less than an hour
-      interval = window.setInterval(updateTimePassed, 1000 * 60);
-    } else if (diffMs < 1000 * 60 * 60 * 24) {
-      // Update every hour if less than a day
-      interval = window.setInterval(updateTimePassed, 1000 * 60 * 60);
+    if (diffMs < TIME_CONSTANTS.MINUTE) {
+      interval = window.setInterval(updateTimePassed, TIME_CONSTANTS.SECOND);
+    } else if (diffMs < TIME_CONSTANTS.HOUR) {
+      interval = window.setInterval(updateTimePassed, TIME_CONSTANTS.MINUTE);
+    } else if (diffMs < TIME_CONSTANTS.DAY) {
+      interval = window.setInterval(updateTimePassed, TIME_CONSTANTS.HOUR);
     } else {
-      // Update every day if more than a day
-      interval = window.setInterval(updateTimePassed, 1000 * 60 * 60 * 24);
+      interval = window.setInterval(updateTimePassed, TIME_CONSTANTS.DAY);
     }
 
     return () => clearInterval(interval);
