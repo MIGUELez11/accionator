@@ -70,7 +70,7 @@ export function StockInvestmentPlan({
         <div className="grid grid-cols-3 gap-2">
           <EconomicIndicator title="Cantidad" value={`$${plan.quantityToInvest}`} />
           <EconomicIndicator title="Stop Loss" value={`$${plan.stopLossPrice}`} className="text-red-500" />
-          <EconomicIndicator title="Duración" value={plan.estimatedTimeFrame} className="line-clamp-1" />
+          <EconomicIndicator title="Duración" value={plan.estimatedTime} className="line-clamp-1" />
           <EconomicIndicator
             title="Beneficio est."
             value={`${(plan.estimatedProfitPercentage * 100).toFixed(2)}%`}

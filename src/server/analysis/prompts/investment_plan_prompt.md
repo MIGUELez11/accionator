@@ -66,7 +66,7 @@ interface InvestSuggestion {
   lossProbability: number; // A value between 0 and 1
   exitStrategy: Array<{ price: number; percentage: number }>;
   stockAnalysisSummary: string;
-  estimatedTimeFrame: string;
+  estimatedTime: string;
 }
 ```
 
