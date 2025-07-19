@@ -4,8 +4,8 @@ import { Separator } from '@/components/ui/separator';
 import { stockInfoQuery } from '@/queries/stockInfoQuery';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { GlobeIcon, MapPinIcon } from 'lucide-react';
-import { EconomicIndicator } from './EconomicIndicator';
-import { InfoCard } from './InfoCard';
+import { EconomicIndicator } from '../../../../../components/EconomicIndicator';
+import { InfoCard } from '../../../../../components/InfoCard';
 
 export interface BusinessInfoProps {
   exchange: string;

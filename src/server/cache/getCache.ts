@@ -2,6 +2,10 @@ import { Effect } from 'effect';
 import { getCacheClient } from './getCacheClient';
 
 export function getCache<T>(key: string): Effect.Effect<T | null, Error> {
+  if (!key) {
+    return Effect.fail(new Error('Key is required'));
+  }
+
   const client = getCacheClient();
 
   return Effect.tryPromise({

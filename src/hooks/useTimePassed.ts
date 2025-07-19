@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-function getTimePassed(date: Date) {
+export function getTimePassed(date: Date) {
   const diffMs = Date.now() - date.getTime();
   const formatter = new Intl.RelativeTimeFormat('es', { numeric: 'auto' });
 
@@ -22,7 +22,7 @@ function getTimePassed(date: Date) {
   return since;
 }
 
-function useTimePassed(date: Date) {
+export function useTimePassed(date: Date) {
   const [timePassed, setTimePassed] = useState<string>('');
 
   useEffect(() => {
@@ -50,9 +50,4 @@ function useTimePassed(date: Date) {
   }, [date]);
 
   return timePassed;
-}
-
-export function TimePassed({ date }: { date: Date }) {
-  const timePassed = useTimePassed(new Date(date));
-  return <div className="text-sm text-muted-foreground">{timePassed}</div>;
 }
