@@ -61,3 +61,28 @@ export interface AIAnalysisResponse {
   action: SummaryResponse<true, ShouldBuyActionResponse>;
   date: Date;
 }
+
+export interface InvestmentPlanResponse extends Omit<SummaryResponse<true>, 'response'> {
+  response: {
+    investmentSuggestions: Array<{
+      symbol: string;
+      entryPriceMin: number;
+      entryPriceMax: number;
+      quantityToInvest: number;
+      stopLossPrice: number;
+      estimatedProfitPercentage: number;
+      estimatedLossPercentage: number;
+      profitProbability: number; // A value between 0 and 1
+      lossProbability: number; // A value between 0 and 1
+      exitStrategy: Array<{ price: number; percentage: number }>;
+      stockAnalysisSummary: string;
+      estimatedTimeFrame: string;
+    }>;
+    overallStrategyReasoning: string;
+    investmentAmount: number;
+    expectedProfit: number;
+    expectedLoss: number;
+    timeframe: string;
+    createdAt: Date;
+  };
+}
