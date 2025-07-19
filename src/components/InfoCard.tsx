@@ -1,11 +1,11 @@
 import { cn } from '@/lib/utils';
-
+import { ReactNode } from 'react';
 export interface InfoCardProps {
   title: string;
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
-  rightIcon?: React.ReactNode;
-  leftIcon?: React.ReactNode;
+  rightIcon?: ReactNode;
+  leftIcon?: ReactNode;
 }
 
 export function InfoCard({ title, leftIcon, children, className, rightIcon }: InfoCardProps) {
