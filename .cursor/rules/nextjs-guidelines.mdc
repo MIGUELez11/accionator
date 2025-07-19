@@ -1,0 +1,179 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# Next.js Guidelines
+
+## App Router Structure
+
+### Directory Organization
+- [src/app/](mdc:src/app) - Main application routes
+- [src/app/(protected)/](mdc:src/app/(protected)/) - Protected routes requiring authentication
+- [src/app/api/](mdc:src/app/api) - API routes
+- [src/app/providers/](mdc:src/app/providers) - Context providers and wrappers
+
+### File Conventions
+- `page.tsx` - Route pages (default export required)
+- `layout.tsx` - Layout components (default export required)
+- `loading.tsx` - Loading UI for Suspense boundaries
+- `error.tsx` - Error UI for error boundaries
+- `not-found.tsx` - 404 page UI
+- `globals.css` - Global styles
+
+## Layout and Pages
+
+### Root Layout
+The root layout in [src/app/layout.tsx](mdc:src/app/layout.tsx) should:
+- Include necessary providers (Clerk, React Query, etc.)
+- Define global metadata
+- Include global styles
+- Set up error boundaries
+
+### Page Structure
+```typescript
+// src/app/example/page.tsx
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Page Title',
+  description: 'Page description',
+};
+
+export default function ExamplePage() {
+  return (
+    <div>
+      {/* Page content */}
+    </div>
+  );
+}
+```
+
+## Data Fetching
+
+### Server Components
+- Use Server Components by default for data fetching
+- Fetch data directly in Server Components
+- Use `async/await` for data fetching
+- Cache data appropriately
+
+### Client Components
+- Use Client Components only when necessary (interactivity, hooks, browser APIs)
+- Mark with `'use client'` directive
+- Use React Query for client-side data fetching
+- Handle loading and error states
+
+### API Routes
+- Place API routes in [src/app/api/](mdc:src/app/api)
+- Use Route Handlers for API endpoints
+- Return proper HTTP status codes
+- Handle errors gracefully
+
+## Authentication
+
+### Clerk Integration
+- Use Clerk for authentication
+- Protect routes with middleware
+- Handle authentication state in components
+- Use Clerk hooks for user data
+
+### Protected Routes
+- Group protected routes in [src/app/(protected)/](mdc:src/app/(protected)/)
+- Use middleware for route protection
+- Handle authentication redirects
+- Provide fallback UI for unauthenticated users
+
+## Styling
+
+### Global Styles
+- Define global styles in [src/app/globals.css](mdc:src/app/globals.css)
+- Import Tailwind CSS directives
+- Define CSS custom properties
+- Set up base styles
+
+### Component Styling
+- Use Tailwind CSS for component styling
+- Create reusable component patterns
+- Use CSS modules for complex styles
+- Follow design system guidelines
+
+## Performance
+
+### Image Optimization
+- Use Next.js Image component for optimized images
+- Configure image domains in [next.config.ts](mdc:next.config.ts)
+- Use appropriate image formats
+- Implement lazy loading
+
+### Font Optimization
+- Use Next.js font optimization
+- Load fonts efficiently
+- Preload critical fonts
+- Use font display swap
+
+### Bundle Optimization
+- Use dynamic imports for code splitting
+- Optimize bundle size
+- Use tree shaking effectively
+- Monitor bundle analysis
+
+## Configuration
+
+### Next.js Config
+The [next.config.ts](mdc:next.config.ts) should include:
+- Image domain configuration
+- Environment variables
+- Build optimizations
+- Custom webpack configuration if needed
+
+### Environment Variables
+- Use `.env.local` for local development
+- Use `.env.production` for production
+- Prefix with `NEXT_PUBLIC_` for client-side access
+- Validate environment variables
+
+## Error Handling
+
+### Error Boundaries
+- Implement error boundaries for route segments
+- Provide meaningful error messages
+- Log errors appropriately
+- Handle different error types
+
+### Loading States
+- Use Suspense boundaries for loading states
+- Provide skeleton UI
+- Handle loading errors
+- Optimize loading performance
+
+## SEO and Metadata
+
+### Metadata API
+- Use Next.js Metadata API
+- Define dynamic metadata
+- Include Open Graph tags
+- Set up structured data
+
+### Dynamic Metadata
+```typescript
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  return {
+    title: 'Dynamic Title',
+    description: 'Dynamic description',
+  };
+}
+```
+
+## Middleware
+
+### Authentication Middleware
+- Use middleware for route protection
+- Handle authentication redirects
+- Set up proper headers
+- Optimize middleware performance
+
+### Custom Middleware
+- Place in [src/middleware.ts](mdc:src/middleware.ts)
+- Handle authentication logic
+- Set up response headers
+- Implement rate limiting if needed

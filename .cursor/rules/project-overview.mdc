@@ -1,0 +1,60 @@
+---
+description: When developing, architecting or designing features for the project this rule is effective to have the context of the intentions behind this project.
+globs:
+alwaysApply: false
+---
+# Accionator Project Overview
+
+## Project Description
+Accionator is a Next.js 15 application with a Convex backend focused on financial data analysis and stock/sector tracking. The application uses modern React patterns, TypeScript, and includes features for token usage tracking and historical data analysis.
+
+## Tech Stack
+- **Frontend**: Next.js 15 with App Router, React 19, TypeScript
+- **Backend**: Convex (real-time database and backend)
+- **Styling**: Tailwind CSS 4.1, Radix UI components
+- **Authentication**: Clerk
+- **Data Visualization**: Nivo charts
+- **State Management**: TanStack React Query
+- **Package Manager**: pnpm
+
+## Project Structure
+
+### Root Directory
+- [package.json](mdc:package.json) - Project dependencies and scripts
+- [next.config.ts](mdc:next.config.ts) - Next.js configuration
+- [tsconfig.json](mdc:tsconfig.json) - TypeScript configuration
+- [eslint.config.mjs](mdc:eslint.config.mjs) - ESLint configuration
+- [.prettierrc](mdc:.prettierrc) - Prettier configuration
+- [components.json](mdc:components.json) - UI components configuration
+
+### Source Code (`src/`)
+- [src/app/](mdc:src/app) - Next.js App Router pages and layouts
+- [src/components/](mdc:src/components) - Reusable React components
+- @src/components/ui - React component atoms
+- [src/lib/](mdc:src/lib) - Utility functions and configurations
+- [src/hooks/](mdc:src/hooks) - Custom React hooks
+- [src/queries/](mdc:src/queries) - ReactQuery query functions
+- [src/mutations/](mdc:src/mutations) - ReactQuery mutation functions
+- [src/server/](mdc:src/server) - Server-side utilities
+
+### Backend (`convex/`)
+- [convex/schema.ts](mdc:convex/schema.ts) - Database schema definition
+- [convex/auth.config.ts](mdc:convex/auth.config.ts) - Authentication configuration
+- [convex/queries/](mdc:convex/queries) - Database query functions
+- [convex/mutations/](mdc:convex/mutations) - Database mutation functions
+- [convex/helpers/](mdc:convex/helpers) - Shared utility functions
+
+## Key Features
+- User authentication and authorization
+- Token usage tracking and limits
+- Stock and sector search tracking
+- Historical usage analytics
+- Real-time data with Convex
+- Financial data visualization with Nivo charts
+
+## Development Commands
+- `pnpm dev` - Start development server with Turbopack
+- `pnpm build` - Build for production
+- `pnpm lint` - Run ESLint
+- `pnpm prettier` - Format code with Prettier
+- `pnpm check` - Run linting and formatting fixes

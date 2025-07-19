@@ -1,0 +1,222 @@
+---
+description:
+globs: convex/*
+alwaysApply: false
+---
+# Database Schema Guidelines
+
+## Schema Overview
+
+The database schema is defined in [convex/schema.ts](mdc:convex/schema.ts) and includes tables for:
+- Token usage tracking and costs
+- User token limits and subscriptions
+- Historical usage analytics
+- Stock and sector search tracking
+
+## Table Definitions
+
+### tokensCost Table
+```typescript
+tokensCost: defineTable({
+  type: v.union(v.literal('input'), v.literal('output')),
+  cost: v.number(),
+  perTokenCount: v.number(),
+}).index('by_type', ['type'])
+```
+**Purpose**: Stores cost information for input and output tokens
+**Usage**: Used for calculating usage costs and limits
+
+### tokens Table
+```typescript
+tokens: defineTable({
+  userId: v.string(),
+  inputTokensLimit: v.number(),
+  outputTokensLimit: v.number(),
+  usedInputTokens: v.number(),
+  usedOutputTokens: v.number(),
+  subscriptionType: v.union(v.literal('monthly'), v.literal('lifetime')),
+  subscriptionRenewDate: v.number(),
+}).index('by_user', ['userId'])
+```
+**Purpose**: Tracks user token usage and subscription information
+**Usage**: Manages user limits and subscription status
+
+### historicalUsage Table
+```typescript
+historicalUsage: defineTable({
+  userId: v.string(),
+  cost: v.number(),
+  inputTokens: v.number(),
+  outputTokens: v.number(),
+  month: v.number(),
+  year: v.number(),
+  date: v.number(),
+})
+.index('by_user', ['userId'])
+.index('by_user_date', ['userId', 'date'])
+```
+**Purpose**: Stores historical usage data for analytics
+**Usage**: Provides usage analytics and reporting
+
+### stocksSearched Table
+```typescript
+stocksSearched: defineTable({
+  userId: v.string(),
+  stock: v.string(),
+  count: v.number(),
+  lastSearched: v.number(),
+})
+.index('by_user_stock', ['userId', 'stock'])
+.index('by_user_last_searched', ['userId', 'lastSearched'])
+```
+**Purpose**: Tracks user stock search patterns
+**Usage**: Provides personalized stock recommendations
+
+### sectorsSearched Table
+```typescript
+sectorsSearched: defineTable({
+  userId: v.string(),
+  sector: v.string(),
+  count: v.number(),
+  lastSearched: v.number(),
+})
+.index('by_user_sector', ['userId', 'sector'])
+.index('by_user_last_searched', ['userId', 'lastSearched'])
+```
+**Purpose**: Tracks user sector search patterns
+**Usage**: Provides personalized sector recommendations
+
+## Index Guidelines
+
+### Index Naming Conventions
+- Use descriptive names that indicate the indexed fields
+- Include all indexed fields in the name
+- Use snake_case for index names
+- Examples: `by_user`, `by_user_stock`, `by_user_date`
+
+### Index Usage
+- Create indexes for frequently queried fields
+- Consider compound indexes for multi-field queries
+- Index fields must be queried in the same order as defined
+- Use indexes to optimize query performance
+
+## Data Types
+
+### Convex Validators
+- Use appropriate validators for each field type
+- Use `v.union()` for discriminated unions
+- Use `v.literal()` for enum-like values
+- Use `v.number()` for numeric values (including timestamps)
+- Use `v.string()` for text values
+
+### Timestamp Handling
+- Store timestamps as numbers (Unix timestamps)
+- Use `Date.now()` for current timestamps
+- Convert to Date objects when needed for display
+- Consider timezone handling for user-facing data
+
+## Query Patterns
+
+### User-Specific Queries
+```typescript
+// Query by user ID
+const userTokens = await ctx.db
+  .query("tokens")
+  .withIndex("by_user", (q) => q.eq("userId", userId))
+  .first();
+```
+
+### Date Range Queries
+```typescript
+// Query historical data by date range
+const historicalData = await ctx.db
+  .query("historicalUsage")
+  .withIndex("by_user_date", (q) =>
+    q.eq("userId", userId)
+     .gte("date", startDate)
+     .lte("date", endDate)
+  )
+  .collect();
+```
+
+### Aggregation Queries
+```typescript
+// Aggregate usage data
+const totalUsage = await ctx.db
+  .query("historicalUsage")
+  .withIndex("by_user", (q) => q.eq("userId", userId))
+  .collect()
+  .then(records => records.reduce((sum, record) => sum + record.cost, 0));
+```
+
+## Data Relationships
+
+### User-Centric Design
+- All user-related data includes `userId` field
+- Use indexes to efficiently query user data
+- Consider user data isolation and privacy
+
+### Time-Series Data
+- Historical data includes timestamp fields
+- Use appropriate indexes for time-based queries
+- Consider data retention policies
+
+## Schema Evolution
+
+### Adding New Fields
+- Add new fields with appropriate validators
+- Consider default values for existing records
+- Update related queries and mutations
+
+### Adding New Tables
+- Define appropriate indexes for new tables
+- Consider relationships with existing tables
+- Update schema documentation
+
+### Migration Strategy
+- Plan schema changes carefully
+- Test migrations in development
+- Consider backward compatibility
+- Document schema changes
+
+## Performance Considerations
+
+### Query Optimization
+- Use indexes effectively
+- Limit query results when possible
+- Use pagination for large datasets
+- Consider query complexity
+
+### Data Size
+- Monitor table sizes
+- Implement data archiving if needed
+- Consider data retention policies
+- Optimize storage usage
+
+## Security
+
+### Data Access
+- Implement proper access controls
+- Validate user permissions
+- Sanitize user inputs
+- Audit data access patterns
+
+### Privacy
+- Protect sensitive user data
+- Implement data anonymization if needed
+- Follow privacy regulations
+- Document data handling practices
+
+## Monitoring
+
+### Query Performance
+- Monitor query execution times
+- Track index usage
+- Identify slow queries
+- Optimize based on usage patterns
+
+### Data Quality
+- Validate data integrity
+- Monitor for data anomalies
+- Implement data validation rules
+- Track data quality metrics

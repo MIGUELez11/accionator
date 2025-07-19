@@ -1,0 +1,236 @@
+---
+description:
+globs: src/components/*/*.ts,src/components/*/*.tsx
+alwaysApply: false
+---
+# Component Guidelines
+
+## Component Architecture
+
+### Component Organization
+- [src/components/ui/](mdc:src/components/ui) - Reusable UI components (buttons, inputs, etc.)
+- [src/components/NavBar/](mdc:src/components/NavBar) - Navigation components
+- [src/components/TopBar/](mdc:src/components/TopBar) - Top bar components
+- [src/components/Home/](mdc:src/components/Home) - Home page specific components
+- Individual component files for specific features
+
+### Component Structure
+```typescript
+// src/components/ExampleComponent/ExampleComponent.tsx
+import { cn } from '@/lib/utils';
+
+interface ExampleComponentProps {
+  title: string;
+  children?: React.ReactNode;
+  className?: string;
+}
+
+export default function ExampleComponent({
+  title,
+  children,
+  className
+}: ExampleComponentProps) {
+  return (
+    <div className={cn('base-styles', className)}>
+      <h2 className="text-lg font-semibold">{title}</h2>
+      {children}
+    </div>
+  );
+}
+```
+
+## UI Component Patterns
+
+### Radix UI Integration
+The Radix integration is done via Shadcn/ui.
+
+- Use Radix UI primitives for accessible components
+- Customize with Tailwind CSS classes
+- Maintain accessibility features
+- Follow Radix UI patterns for complex interactions
+
+### Component Examples
+
+#### InfoCard Component
+The [InfoCard.tsx](mdc:src/components/InfoCard.tsx) component demonstrates:
+- Flexible content rendering
+- Consistent styling patterns
+- Reusable card layout
+
+#### EconomicIndicator Component
+The [EconomicIndicator.tsx](mdc:src/components/EconomicIndicator.tsx) component shows:
+- Data visualization integration
+- Financial data display
+- Responsive design patterns
+
+#### TitledSection Component
+The [TitledSection.tsx](mdc:src/components/TitledSection.tsx) component provides:
+- Consistent section headers
+- Flexible content areas
+- Reusable layout patterns
+
+## Styling Patterns
+
+### Utility Classes
+- Use `cn()` utility from [src/lib/utils](mdc:src/lib/utils) for conditional classes
+- Follow Tailwind CSS naming conventions
+- Use semantic class names when possible
+- Maintain consistent spacing and typography
+
+### Responsive Design
+```typescript
+// Mobile-first responsive design
+<div className="p-4 md:p-6 lg:p-8">
+  <h1 className="text-xl md:text-2xl lg:text-3xl">Title</h1>
+</div>
+```
+
+### Dark Mode Support
+- Use Tailwind's dark mode utilities
+- Test components in both light and dark themes
+- Use CSS custom properties for theme values
+- Ensure proper contrast ratios
+
+## Data Visualization
+
+### Nivo Charts Integration
+- Use Nivo components for data visualization
+- Implement responsive chart containers
+- Handle loading and error states
+- Provide accessible chart descriptions
+
+### Chart Components
+```typescript
+// Example chart component structure
+import { ResponsiveBar } from '@nivo/bar';
+
+interface ChartProps {
+  data: Array<{ id: string; value: number }>;
+  title: string;
+}
+
+export default function ChartComponent({ data, title }: ChartProps) {
+  return (
+    <div className="h-64 w-full">
+      <h3 className="mb-4 text-lg font-semibold">{title}</h3>
+      <ResponsiveBar
+        data={data}
+        keys={['value']}
+        indexBy="id"
+        margin={{ top: 20, right: 20, bottom: 50, left: 60 }}
+        padding={0.3}
+        colors={{ scheme: 'nivo' }}
+        axisBottom={{
+          tickSize: 5,
+          tickPadding: 5,
+          tickRotation: 0,
+        }}
+        axisLeft={{
+          tickSize: 5,
+          tickPadding: 5,
+          tickRotation: 0,
+        }}
+      />
+    </div>
+  );
+}
+```
+
+## Form Components
+Use react-hook-form when possible.
+
+### Input Components
+- Use consistent input styling
+- Implement proper validation states
+- Provide clear error messages
+- Support accessibility features
+
+### Button Components
+- Use consistent button variants
+- Implement loading states
+- Support different sizes and colors
+- Ensure proper focus states
+
+## Layout Components
+
+### Container Components
+- Use consistent max-widths
+- Implement proper padding and margins
+- Support different screen sizes
+- Maintain visual hierarchy
+
+### Grid and Flexbox
+- Use CSS Grid for complex layouts
+- Use Flexbox for simple alignments
+- Implement responsive breakpoints
+- Maintain consistent spacing
+
+## State Management
+
+### Local State
+- Use React hooks for local component state
+- Implement proper state updates
+- Handle loading and error states
+- Use optimistic updates when appropriate
+
+### Global State
+- Use React Query for server state
+- Use Context for truly global state
+- Implement proper state persistence
+- Handle state synchronization
+
+## Performance Optimization
+
+### Component Optimization
+- Use `React.memo()` for expensive components
+- Implement proper key props for lists
+- Use `useCallback` for event handlers
+- Use `useMemo` for expensive calculations
+
+### Lazy Loading
+- Lazy load non-critical components
+- Use dynamic imports for code splitting
+- Implement proper loading states
+- Optimize bundle size
+
+## Accessibility
+
+### ARIA Attributes
+- Use proper ARIA labels and descriptions
+- Implement keyboard navigation
+- Provide focus indicators
+- Test with screen readers
+
+### Semantic HTML
+- Use semantic HTML elements
+- Implement proper heading hierarchy
+- Use descriptive alt text for images
+- Ensure proper color contrast
+
+## Testing
+
+### Component Testing
+- Test component rendering
+- Test user interactions
+- Test error states
+- Test accessibility features
+
+### Integration Testing
+- Test component integration
+- Test data flow
+- Test error handling
+- Test performance
+
+## Documentation
+
+### Component Documentation
+- Document component props
+- Provide usage examples
+- Document accessibility features
+- Keep documentation up to date
+
+### Storybook Integration
+- Create stories for components
+- Document component variants
+- Provide interactive examples
+- Test component states

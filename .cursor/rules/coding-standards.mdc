@@ -1,0 +1,168 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# Coding Standards and Best Practices
+
+## TypeScript Guidelines
+
+### Type Safety
+- Always use strict TypeScript configuration
+- Prefer explicit types over `any`
+- Use type inference when types are obvious
+- Define interfaces for complex data structures
+- Use utility types like `Partial<T>`, `Pick<T>`, `Omit<T>` when appropriate
+
+### Naming Conventions
+- Use PascalCase for components, interfaces, and types
+- Use camelCase for variables, functions, and properties
+- Use UPPER_SNAKE_CASE for constants
+- Use pascalCase for file names (except for api routes which use kebab-case)
+
+### File Organization
+- One component per file
+- Export components as default exports
+- Use named exports for utilities and types
+- Group related files in directories
+
+## React Guidelines
+
+### Component Structure
+```typescript
+// Type definitions
+interface ComponentProps {
+  // Define props here
+}
+
+// Component definition
+export function ComponentName({ prop1, prop2 }: ComponentProps) {
+  // Component logic here
+
+  return (
+    // JSX here
+  );
+}
+```
+
+### Hooks Usage
+- Use custom hooks for reusable logic
+- Follow the rules of hooks (only call at top level)
+- Use `useCallback` for functions passed as props
+- Use `useMemo` for expensive calculations
+- Use `useEffect` for side effects
+
+### State Management
+- Use React Query for server state
+- Use local state for UI state
+- Prefer composition over prop drilling
+- Use context sparingly and only for truly global state
+
+## Styling Guidelines
+
+### Tailwind CSS
+- Use Tailwind utility classes for styling
+- Create custom components for repeated patterns
+- Use CSS variables for theme values
+- Follow mobile-first responsive design
+- Use semantic class names when possible
+
+### Component Styling
+```typescript
+// Good: Using Tailwind classes
+<div className="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm">
+  <h2 className="text-lg font-semibold text-gray-900">Title</h2>
+</div>
+
+// Less good: Using CSS modules for complex styles
+import styles from './Component.module.css';
+<div className={styles.container}>
+```
+
+## Error Handling
+
+### Try-Catch Patterns
+```typescript
+try {
+  const result = await someAsyncOperation();
+  return result;
+} catch (error) {
+  console.error('Operation failed:', error);
+  throw new Error('User-friendly error message');
+}
+```
+
+### Effect TS
+Effect TS library is used in backend code (only), the Errors thrown by the backend code is prefered to be a custom Effect Error when possible, only in very rare cases vanilla Error should be used.
+
+The errors could have custom logic such as inheriting the Stack Trace from the cause instead of creating a new one.
+
+```typescript
+class ExampleError extends Data.TaggedError('ExampleError')<{
+  readonly message: string;
+  readonly cause?: unknown;
+  readonly otherProp: boolean;
+}> {}
+
+const program = Effect.gen(function* () {
+  Effect.fail(new ExampleError({message: "The reason", cause: ErrorCause, otherProp: true}))
+});
+
+### Error Boundaries
+- Implement error boundaries for component error handling
+- Provide fallback UI for error states
+- Log errors appropriately
+
+## Performance Guidelines
+
+### Code Splitting
+- Use dynamic imports for route-based code splitting
+- Lazy load components that are not immediately needed
+- Use `React.lazy()` for component lazy loading
+
+### Optimization
+- Use `React.memo()` for expensive components
+- Implement proper key props for lists
+- Avoid unnecessary re-renders
+- Use `useCallback` and `useMemo` appropriately
+
+## Testing Guidelines
+
+### Component Testing
+- Write tests for complex business logic
+- Test user interactions and edge cases
+- Use meaningful test descriptions
+- Mock external dependencies
+
+### Test Structure
+```typescript
+describe('ComponentName', () => {
+  it('should render correctly', () => {
+    // Test implementation
+  });
+
+  it('should handle user interactions', () => {
+    // Test implementation
+  });
+});
+```
+
+## Code Quality
+
+### ESLint and Prettier
+- Follow ESLint rules strictly
+- Use Prettier for consistent formatting
+- Run `pnpm check` before committing
+- Fix all linting errors and warnings
+
+### Comments and Documentation
+- Write clear, concise comments for complex logic
+- Document public APIs and interfaces
+- Use JSDoc for function documentation
+- Keep comments up to date with code changes
+
+### Git Practices
+- Write descriptive commit messages
+- Use conventional commit format
+- Keep commits focused and atomic
+- Review code before merging
