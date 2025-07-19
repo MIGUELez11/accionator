@@ -16,8 +16,11 @@ export function ExitStrategy({ strategies }: ExitStrategyProps) {
       <div className="flex flex-col gap-1">
         {strategies
           .sort((a, b) => a.price - b.price)
-          .map((strategy, index) => (
-            <div key={index} className="flex items-center justify-between p-2 rounded-md bg-muted/20">
+          .map((strategy) => (
+            <div
+              key={`${strategy.price}-${strategy.percentage}`}
+              className="flex items-center justify-between p-2 rounded-md bg-muted/20"
+            >
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-green-500" />
                 <span className="font-medium">${strategy.price}</span>
