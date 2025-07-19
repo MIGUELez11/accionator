@@ -54,7 +54,9 @@ export function StockInvestmentPlan({
           </div>
         </header>
 
-        <p className="text-sm text-muted-foreground">{plan.stockAnalysisSummary}</p>
+        <p className="text-sm text-muted-foreground min-h-[80px] max-h-[80px] overflow-y-auto">
+          {plan.stockAnalysisSummary}
+        </p>
 
         <div className="flex items-center justify-center p-3 bg-muted/30 rounded-lg">
           <div className="flex flex-col items-center">
