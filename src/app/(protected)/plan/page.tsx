@@ -4,12 +4,11 @@ import { TimePassed } from '@/components/TimePassed';
 import { investmentPlanQuery } from '@/queries/investmentPlanQuery';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { ClockIcon } from 'lucide-react';
-import { Suspense } from 'react';
 import { EconomicIndicator } from '../../../components/EconomicIndicator';
 import { InfoCard } from '../../../components/InfoCard';
 import { StocksList } from './components/StocksList';
 
-function PlanPageContent() {
+export default function PlanPage() {
   const { data: stocks } = useSuspenseQuery(investmentPlanQuery(3980));
   const investmentPlan = stocks.response;
 
@@ -46,22 +45,5 @@ function PlanPageContent() {
 
       <StocksList data={investmentPlan.investmentSuggestions} />
     </div>
-  );
-}
-
-function PlanPageSuspense() {
-  return (
-    <div className="p-4 flex flex-col gap-4">
-      <h1 className="text-2xl font-bold">Plan de inversión</h1>
-      <p>El plan de inversión se está generando, puede tardar hasta 10 minutos</p>
-    </div>
-  );
-}
-
-export default function PlanPage() {
-  return (
-    <Suspense fallback={<PlanPageSuspense />}>
-      <PlanPageContent />
-    </Suspense>
   );
 }
