@@ -19,7 +19,7 @@ export function StockHeader({ symbol, name, ticker, logo, price, percentChange }
         {logo ? (
           <Image src={logo} alt={name ?? symbol} width={48} height={48} />
         ) : (
-          <div className="w-10 h-10 bg-muted rounded-full" />
+          <div className="w-12 h-12 bg-muted" />
         )}
         <div className="flex flex-col">
           <h3 className="text-lg font-bold line-clamp-1">{name}</h3>
@@ -35,7 +35,7 @@ export function StockHeader({ symbol, name, ticker, logo, price, percentChange }
             'text-muted-foreground': !percentChange,
           })}
         >
-          {percentChange?.toFixed(2)}%
+          {(percentChange ?? 0).toFixed(2)}%
         </p>
       </div>
     </header>
