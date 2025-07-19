@@ -18,14 +18,16 @@ export function StockInvestmentPlan({
       className="flex flex-col gap-4 h-full justify-between py-4 border shadow-sm rounded-lg "
     >
       <div className="flex flex-col gap-4 max-h-[452px] overflow-y-auto px-4">
-        <StockHeader
-          symbol={plan.symbol}
-          name={stockInfo.stockProfile.name!}
-          ticker={stockInfo.stockProfile.ticker!}
-          logo={stockInfo.stockProfile.logo}
-          price={stockInfo.price.price!}
-          percentChange={stockInfo.price.percentChange}
-        />
+        <div className="sticky top-0 left-0 z-10 bg-white">
+          <StockHeader
+            symbol={plan.symbol}
+            name={stockInfo.stockProfile.name}
+            ticker={stockInfo.stockProfile.ticker}
+            logo={stockInfo.stockProfile.logo}
+            price={stockInfo.price.price}
+            percentChange={stockInfo.price.percentChange}
+          />
+        </div>
 
         <p className="text-sm text-muted-foreground min-h-[80px] max-h-[80px] overflow-y-auto">
           {plan.stockAnalysisSummary}

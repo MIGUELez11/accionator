@@ -4,9 +4,8 @@ import { InvestmentPlanResponse } from '@/server/types';
 import { Suspense, useMemo } from 'react';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList as List } from 'react-window';
-import { StockInvestmentErrorBoundary } from './StockInvestmentErrorBoundary';
-import { StockInvestmentPlan } from './StockInvestmentPlan';
-import { StockInvestmentPlanSkeleton } from './StockInvestmentPlanSkeleton';
+import { StockInvestmentErrorBoundary, StockInvestmentPlanSkeleton } from '../skeleton';
+import { StockInvestmentPlan } from '../stock';
 
 const COLUMN_WIDTH = 350;
 const COLUMN_HEIGHT = 564;
