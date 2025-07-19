@@ -13,18 +13,22 @@ export const FinnhubStocksService = StocksService.of({
   name: 'finnhub',
 
   getActionRecommendations: Effect.fn(function* (symbol: string) {
-    const response = yield* Effect.tryPromise({
-      try: () => finnhubClient.recommendationTrends(symbol),
-      catch: (error) => new Error('Failed to get action recommendations', { cause: error }),
-    });
+    const response =
+      yield *
+      Effect.tryPromise({
+        try: () => finnhubClient.recommendationTrends(symbol),
+        catch: (error) => new Error(`Failed to get action recommendations for ${symbol}`, { cause: error }),
+      });
 
     return response.data;
   }),
   getBasicFinancials: Effect.fn(function* (symbol: string) {
-    const response = yield* Effect.tryPromise({
-      try: () => finnhubClient.companyBasicFinancials(symbol, 'all'),
-      catch: (error) => new Error('Failed to get basic financials', { cause: error }),
-    });
+    const response =
+      yield *
+      Effect.tryPromise({
+        try: () => finnhubClient.companyBasicFinancials(symbol, 'all'),
+        catch: (error) => new Error(`Failed to get basic financials for ${symbol}`, { cause: error }),
+      });
 
     return response.data;
   }),
@@ -32,18 +36,22 @@ export const FinnhubStocksService = StocksService.of({
     const today = new Date();
     const oneYearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
 
-    const response = yield* Effect.tryPromise({
-      try: () => finnhubClient.companyNews(symbol, parseDate(oneYearAgo), parseDate(today)),
-      catch: (error) => new Error('Failed to get company news', { cause: error }),
-    });
+    const response =
+      yield *
+      Effect.tryPromise({
+        try: () => finnhubClient.companyNews(symbol, parseDate(oneYearAgo), parseDate(today)),
+        catch: (error) => new Error(`Failed to get company news for ${symbol}`, { cause: error }),
+      });
 
     return response.data;
   }),
   getStockPrice: Effect.fn(function* (symbol: string) {
-    const quote = yield* Effect.tryPromise({
-      try: () => finnhubClient.quote(symbol),
-      catch: (error) => new Error('Failed to get stock price', { cause: error }),
-    });
+    const quote =
+      yield *
+      Effect.tryPromise({
+        try: () => finnhubClient.quote(symbol),
+        catch: (error) => new Error(`Failed to get stock price for ${symbol}`, { cause: error }),
+      });
 
     return {
       price: quote.data.c,
@@ -56,10 +64,12 @@ export const FinnhubStocksService = StocksService.of({
     };
   }),
   getStockProfile: Effect.fn(function* (symbol: string) {
-    const response = yield* Effect.tryPromise({
-      try: () => finnhubClient.companyProfile2(symbol),
-      catch: (error) => new Error('Failed to get stock profile', { cause: error }),
-    });
+    const response =
+      yield *
+      Effect.tryPromise({
+        try: () => finnhubClient.companyProfile2(symbol),
+        catch: (error) => new Error(`Failed to get stock profile for ${symbol}`, { cause: error }),
+      });
 
     return {
       ...response.data,
