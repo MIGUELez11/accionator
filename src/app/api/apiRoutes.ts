@@ -24,7 +24,9 @@ export type API_ROUTES_QUERY = {
   screener: {
     screener: Screeners;
   };
-  investmentPlan: never;
+  investmentPlan: {
+    investmentCapital: number;
+  };
   stocksSearch: {
     query: string;
     exchange?: string;

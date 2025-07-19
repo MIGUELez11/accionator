@@ -57,13 +57,13 @@ export const getRecommendedStockAnalysis = Effect.gen(function* () {
   const stockAnalysis =
     yield *
     Effect.all(analysisEffects, {
-      concurrency: 10,
+      concurrency: 5,
     });
 
   return stockAnalysis;
 });
 
-export const getInvestmentPlan = Effect.gen(function* () {
+export const getInvestmentPlan = Effect.fn(function* (investmentCapital: number) {
   const start = performance.now();
 
   const analysis = yield* getRecommendedStockAnalysis;
@@ -74,7 +74,7 @@ export const getInvestmentPlan = Effect.gen(function* () {
 
   const prompt = yield* getPrompt('INVESTMENT_PLAN', {
     StocksAnalysis: JSON.stringify(suggestedStocks),
-    InvestmentCapital: 'You have 3980$ to invest',
+    InvestmentCapital: `You have $${investmentCapital} to invest`,
   });
 
   yield* Effect.log('Getting investment plan');

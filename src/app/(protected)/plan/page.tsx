@@ -10,7 +10,7 @@ import { InfoCard } from '../../../components/InfoCard';
 import { StocksList } from './components/StocksList';
 
 function PlanPageContent() {
-  const { data: stocks } = useSuspenseQuery(investmentPlanQuery);
+  const { data: stocks } = useSuspenseQuery(investmentPlanQuery(3980));
   const investmentPlan = stocks.response;
 
   return (
