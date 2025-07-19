@@ -4,10 +4,6 @@ import { Component } from 'react';
 export class StockInvestmentErrorBoundary extends Component<{ children: React.ReactNode; symbol: string }> {
   state = { hasError: false };
 
-  constructor(props: { children: React.ReactNode; symbol: string }) {
-    super(props);
-  }
-
   static getDerivedStateFromError() {
     return { hasError: true };
   }

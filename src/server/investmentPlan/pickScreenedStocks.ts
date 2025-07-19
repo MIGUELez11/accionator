@@ -14,7 +14,7 @@ export const pickStocksToSearch = Effect.gen(function* () {
 
   yield* Effect.log('Screening stocks done');
 
-  const screendStocks = {
+  const screenedStocks = {
     highVolatilityWithGrow,
     nasdaq100,
     pennyHighBeta,
@@ -22,9 +22,11 @@ export const pickStocksToSearch = Effect.gen(function* () {
   };
 
   yield* Effect.log('Getting prompt');
-  const prompt = yield* getPrompt('PICK_STOCKS_TO_SEARCH', {
-    ScreenedStocks: JSON.stringify(screendStocks),
-  });
+  const prompt =
+    yield *
+    getPrompt('PICK_STOCKS_TO_SEARCH', {
+      ScreenedStocks: JSON.stringify(screenedStocks),
+    });
 
   yield* Effect.log('Getting analysis');
   const response = yield* getAnalysis(prompt, true);
