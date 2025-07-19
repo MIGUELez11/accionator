@@ -1,5 +1,5 @@
 import { NewspaperIcon } from 'lucide-react';
-import { InfoCard } from '../../InfoCard';
+import { InfoCard } from '../../../../../../../components/InfoCard';
 
 export default function EmptyState() {
   return (

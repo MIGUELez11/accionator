@@ -2,6 +2,10 @@ import { Effect } from 'effect';
 import { getCacheClient } from './getCacheClient';
 
 export function setCache<T>(key: string, value: T, ttl: number = 60 * 60 * 24): Effect.Effect<T | 'OK' | null, Error> {
+  if (!key) {
+    return Effect.fail(new Error('Key is required'));
+  }
+
   const client = getCacheClient();
 
   return Effect.tryPromise({

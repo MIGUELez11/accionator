@@ -5,6 +5,10 @@ const pages = {
     href: '/screener',
     label: 'Screener',
   },
+  plan: {
+    href: '/plan',
+    label: 'Plan de inversión',
+  },
 };
 
 export function NavBar() {

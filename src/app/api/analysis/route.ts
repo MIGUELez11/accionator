@@ -1,37 +1,11 @@
 import { withRequiredUser } from '@/lib/requireUser';
-import { generateFinancialAnalysis } from '@/server/analysis/generateFinancialAnalysis';
-import { generateNewsSummary } from '@/server/analysis/generateNewsSummary';
-import { generateShouldBuyAction } from '@/server/analysis/generateShouldBuyAction';
+import { getStockAnalysis } from '@/server/analysis/getStockAnalysis';
 import { withCacheEffect } from '@/server/cache/withCache';
 import { withPosthog } from '@/server/posthog/logPosthogApiCall';
 import { FinnhubCachedStocksService } from '@/server/stocks/data/finnhub/service';
 import { StocksService } from '@/server/stocks/data/service';
 import { Effect } from 'effect';
 import { NextResponse } from 'next/server';
-
-const getAnalysis = Effect.fn(function* (symbol: string) {
-  const stocksService = yield* StocksService;
-
-  const [news, stockProfile, basicFinancials, stockPrice] = yield* Effect.all([
-    stocksService.getCompanyNews(symbol),
-    stocksService.getStockProfile(symbol),
-    stocksService.getBasicFinancials(symbol),
-    stocksService.getStockPrice(symbol),
-  ]);
-
-  const newsSummary = yield* generateNewsSummary(news, stockProfile);
-  const financialAnalysis = yield* generateFinancialAnalysis(newsSummary.response, basicFinancials, stockPrice);
-  const action = yield* generateShouldBuyAction(financialAnalysis.response, stockProfile);
-
-  const response = {
-    newsSummary,
-    financialAnalysis,
-    action,
-    date: new Date(),
-  };
-
-  return response;
-});
 
 export const GET = withRequiredUser(
   withPosthog(async (request) => {
@@ -44,7 +18,7 @@ export const GET = withRequiredUser(
       }
 
       const stockService = await Effect.runPromise(FinnhubCachedStocksService);
-      const getFinnhubAnalysis = Effect.provideService(getAnalysis(symbol), StocksService, stockService);
+      const getFinnhubAnalysis = Effect.provideService(getStockAnalysis(symbol), StocksService, stockService);
       const getCachedAnalysis = withCacheEffect(`ai-analysis:${symbol}`, 60 * 60 * 24 * 7, getFinnhubAnalysis);
       const response = await Effect.runPromise(getCachedAnalysis);
 

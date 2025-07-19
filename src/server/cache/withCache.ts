@@ -24,11 +24,11 @@ function withCachePromise<T>(key: string, ttl: number = 60 * 60 * 24, fn: () => 
   });
 }
 
-export function withCacheEffect<TResponse, TError>(
+export function withCacheEffect<TResponse, TError, TContext>(
   key: string,
   ttl: number = 60 * 60 * 24,
-  fn: Effect.Effect<TResponse, TError>,
-): Effect.Effect<TResponse, TError | Error> {
+  fn: Effect.Effect<TResponse, TError, TContext>,
+) {
   return Effect.gen(function* () {
     const cached = yield* getCache<TResponse>(key);
     if (cached) {

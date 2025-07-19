@@ -1,5 +1,5 @@
 import { Skeleton } from '@/components/ui/skeleton';
-import { InfoCard } from '../InfoCard';
+import { InfoCard } from '../../../../../../components/InfoCard';
 
 export function NewsCarouselSkeleton() {
   return (

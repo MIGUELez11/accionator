@@ -3,7 +3,7 @@
 import { stockInfoQuery } from '@/queries/stockInfoQuery';
 import { ResponsiveBar } from '@nivo/bar';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { InfoCard } from './InfoCard';
+import { InfoCard } from '../../../../../components/InfoCard';
 
 export function Recommendations({ symbol }: { symbol: string }) {
   const { data } = useSuspenseQuery({

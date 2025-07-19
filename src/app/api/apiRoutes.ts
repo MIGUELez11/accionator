@@ -1,5 +1,5 @@
 import { StockScreenerResponse, SymbolSearchResponse } from '@/server/stocks/clients/getFinancialmodelingprepClient';
-import { AIAnalysisResponse, CompanyNews, Screeners, StockInfo } from '@/server/types';
+import { AIAnalysisResponse, CompanyNews, InvestmentPlanResponse, Screeners, StockInfo } from '@/server/types';
 
 // This is the type to ensure API_ROUTES object is used when calling the fetch function
 export type API_ROUTES = (typeof API_ROUTES)[keyof typeof API_ROUTES];
@@ -24,6 +24,9 @@ export type API_ROUTES_QUERY = {
   screener: {
     screener: Screeners;
   };
+  investmentPlan: {
+    investmentCapital: number;
+  };
   stocksSearch: {
     query: string;
     exchange?: string;
@@ -38,6 +41,7 @@ export const API_ROUTES = {
   fetchGeneratedAiAnalysis: 'fetchGeneratedAiAnalysis',
   refreshAiAnalysis: 'refreshAiAnalysis',
   screener: 'screener',
+  investmentPlan: 'investmentPlan',
   stocksSearch: 'stocksSearch',
 } as const satisfies Record<keyof API_ROUTES_QUERY, keyof typeof API_ROUTES_URLS>;
 
@@ -49,6 +53,7 @@ export const API_ROUTES_URLS = {
   refreshAiAnalysis: '/api/analysis/refresh',
   fetchGeneratedAiAnalysis: '/api/analysis/generated',
   screener: '/api/screener',
+  investmentPlan: '/api/investment-plan',
   stocksSearch: '/api/stocks/search',
 } as const satisfies Record<keyof API_ROUTES_QUERY, string>;
 
@@ -64,5 +69,6 @@ export type API_ROUTES_RESPONSE = {
     symbol: string;
   };
   screener: StockScreenerResponse[];
+  investmentPlan: InvestmentPlanResponse;
   stocksSearch: SymbolSearchResponse[];
 };

@@ -33,6 +33,8 @@ Utiliza la siguiente estructura para entregar tu respuesta, asegurándote de que
 
 <Date />
 
+<Language />
+
 <StockInfo />
 
 <Analysis />
