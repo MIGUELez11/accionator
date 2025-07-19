@@ -21,10 +21,10 @@ export function StockInvestmentPlan({
         <div className="sticky top-0 left-0 z-10 bg-white">
           <StockHeader
             symbol={plan.symbol}
-            name={stockInfo.stockProfile.name}
-            ticker={stockInfo.stockProfile.ticker}
+            name={stockInfo.stockProfile.name ?? 'Unknown'}
+            ticker={stockInfo.stockProfile.ticker ?? '????'}
             logo={stockInfo.stockProfile.logo}
-            price={stockInfo.price.price}
+            price={stockInfo.price.price ?? 0}
             percentChange={stockInfo.price.percentChange}
           />
         </div>

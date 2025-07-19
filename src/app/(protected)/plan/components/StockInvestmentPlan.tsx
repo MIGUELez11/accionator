@@ -20,10 +20,10 @@ export function StockInvestmentPlan({
       <div className="flex flex-col gap-4 max-h-[452px] overflow-y-auto px-4">
         <StockHeader
           symbol={plan.symbol}
-          name={stockInfo.stockProfile.name!}
-          ticker={stockInfo.stockProfile.ticker!}
+          name={stockInfo.stockProfile.name ?? 'Unknown'}
+          ticker={stockInfo.stockProfile.ticker ?? '????'}
           logo={stockInfo.stockProfile.logo}
-          price={stockInfo.price.price!}
+          price={stockInfo.price.price ?? 0}
           percentChange={stockInfo.price.percentChange}
         />
 
