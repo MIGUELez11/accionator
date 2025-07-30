@@ -12,7 +12,13 @@ const COLUMN_HEIGHT = 564;
 const COLUMN_GAP = 16;
 const ITEM_WIDTH = COLUMN_WIDTH + COLUMN_GAP;
 
-export function StocksList({ data }: { data: InvestmentPlanResponse['response']['investmentSuggestions'] }) {
+export function StocksList({
+  data,
+  investmentAmount,
+}: {
+  data: InvestmentPlanResponse['response']['investmentSuggestions'];
+  investmentAmount: number;
+}) {
   const sortedData = useMemo(() => data.toSorted((a, b) => b.quantityToInvest - a.quantityToInvest), [data]);
 
   const Column = ({ index, style }: { index: number; style: React.CSSProperties }) => {
@@ -23,7 +29,7 @@ export function StocksList({ data }: { data: InvestmentPlanResponse['response'][
         <div style={{ width: COLUMN_WIDTH, height: COLUMN_HEIGHT - 16 }}>
           <StockInvestmentErrorBoundary symbol={item.symbol}>
             <Suspense fallback={<StockInvestmentPlanSkeleton />}>
-              <StockInvestmentPlan plan={item} />
+              <StockInvestmentPlan plan={item} investmentAmount={investmentAmount} />
             </Suspense>
           </StockInvestmentErrorBoundary>
         </div>

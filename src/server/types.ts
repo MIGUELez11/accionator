@@ -79,7 +79,6 @@ export interface InvestmentPlanResponse extends Omit<SummaryResponse<true>, 'res
       estimatedTime: string;
     }>;
     overallStrategyReasoning: string;
-    investmentAmount: number;
     expectedProfit: number;
     expectedLoss: number;
     timeframe: string;

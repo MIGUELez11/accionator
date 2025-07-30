@@ -4,11 +4,7 @@ import { getPrompt } from '../analysis/utils/getPrompt';
 import { InvestmentPlanResponse } from '../types';
 import { analyzeRecommendedStocks } from './analyzeRecommendedStocks';
 
-export const generateInvestmentPlan = Effect.fn(function* (investmentCapital: number) {
-  if (!Number.isFinite(investmentCapital) || investmentCapital <= 0) {
-    throw new Error('Investment capital must be a positive number');
-  }
-
+export const generateInvestmentPlan = Effect.fn(function* () {
   const start = performance.now();
 
   const analysis = yield* analyzeRecommendedStocks;
@@ -19,7 +15,6 @@ export const generateInvestmentPlan = Effect.fn(function* (investmentCapital: nu
 
   const prompt = yield* getPrompt('INVESTMENT_PLAN', {
     StocksAnalysis: JSON.stringify(suggestedStocks),
-    InvestmentCapital: `You have $${investmentCapital} to invest`,
   });
 
   yield* Effect.log('Getting investment plan');

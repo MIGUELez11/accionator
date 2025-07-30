@@ -21,7 +21,7 @@ export const PROMPTS = {
   },
   INVESTMENT_PLAN: {
     path: () => import('./investment_plan_prompt.md'),
-    replaces: ['StocksAnalysis', 'InvestmentCapital'],
+    replaces: ['StocksAnalysis'],
   },
 } as const;
 

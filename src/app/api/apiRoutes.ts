@@ -24,9 +24,8 @@ export type API_ROUTES_QUERY = {
   screener: {
     screener: Screeners;
   };
-  investmentPlan: {
-    investmentCapital: number;
-  };
+  investmentPlan: never;
+  refreshInvestmentPlan: never;
   stocksSearch: {
     query: string;
     exchange?: string;
@@ -42,6 +41,7 @@ export const API_ROUTES = {
   refreshAiAnalysis: 'refreshAiAnalysis',
   screener: 'screener',
   investmentPlan: 'investmentPlan',
+  refreshInvestmentPlan: 'refreshInvestmentPlan',
   stocksSearch: 'stocksSearch',
 } as const satisfies Record<keyof API_ROUTES_QUERY, keyof typeof API_ROUTES_URLS>;
 
@@ -54,6 +54,7 @@ export const API_ROUTES_URLS = {
   fetchGeneratedAiAnalysis: '/api/analysis/generated',
   screener: '/api/screener',
   investmentPlan: '/api/investment-plan',
+  refreshInvestmentPlan: '/api/investment-plan/refresh',
   stocksSearch: '/api/stocks/search',
 } as const satisfies Record<keyof API_ROUTES_QUERY, string>;
 
@@ -70,5 +71,9 @@ export type API_ROUTES_RESPONSE = {
   };
   screener: StockScreenerResponse[];
   investmentPlan: InvestmentPlanResponse;
+  refreshInvestmentPlan: {
+    message: string;
+    success: boolean;
+  };
   stocksSearch: SymbolSearchResponse[];
 };
