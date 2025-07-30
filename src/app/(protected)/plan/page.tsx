@@ -4,8 +4,10 @@ import { investmentPlanQuery } from '@/queries/investmentPlanQuery';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { InvestmentStrategyCard, PlanHeader, StocksList } from './components';
 
+const INVESTMENT_AMOUNT = 3980;
+
 export default function PlanPage() {
-  const { data: stocks } = useSuspenseQuery(investmentPlanQuery(3980));
+  const { data: stocks } = useSuspenseQuery(investmentPlanQuery);
   const investmentPlan = stocks.response;
 
   return (
@@ -13,14 +15,14 @@ export default function PlanPage() {
       <PlanHeader title="Plan de inversión" createdAt={investmentPlan.createdAt} />
 
       <InvestmentStrategyCard
-        investmentAmount={investmentPlan.investmentAmount}
+        investmentAmount={INVESTMENT_AMOUNT}
         expectedProfit={investmentPlan.expectedProfit}
         expectedLoss={investmentPlan.expectedLoss}
         timeframe={investmentPlan.timeframe}
         overallStrategyReasoning={investmentPlan.overallStrategyReasoning}
       />
 
-      <StocksList data={investmentPlan.investmentSuggestions} />
+      <StocksList data={investmentPlan.investmentSuggestions} investmentAmount={INVESTMENT_AMOUNT} />
     </div>
   );
 }

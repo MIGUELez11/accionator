@@ -7,8 +7,10 @@ import { AnalysisButton, EntryPriceRange, ExitStrategy, InvestmentMetrics, Stock
 
 export function StockInvestmentPlan({
   plan,
+  investmentAmount,
 }: {
   plan: InvestmentPlanResponse['response']['investmentSuggestions'][number];
+  investmentAmount: number;
 }) {
   const { data: stockInfo } = useSuspenseQuery(stockInfoQuery(plan.symbol));
 
@@ -36,7 +38,7 @@ export function StockInvestmentPlan({
         <EntryPriceRange minPrice={plan.entryPriceMin} maxPrice={plan.entryPriceMax} />
 
         <InvestmentMetrics
-          quantityToInvest={plan.quantityToInvest}
+          quantityToInvest={plan.quantityToInvest * investmentAmount}
           stopLossPrice={plan.stopLossPrice}
           estimatedTime={plan.estimatedTime}
           estimatedProfitPercentage={plan.estimatedProfitPercentage}
