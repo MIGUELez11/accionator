@@ -53,7 +53,8 @@ Your analysis should consider:
 <OutputFormat>
   Your response must be a JSON object containing two main parts: `investmentSuggestions` and `overallStrategyReasoning`.
 
-`investmentSuggestions` should be an array of objects, sorted with the highest priority investments first. Each object in this array must adhere to the `InvestSuggestion` interface. The quantityToInvest matches a percentage of the total money the user will invest, so the sum of all individual stocks should be 100%. Ensure all the stocks suggested has some capital assigned and no 0% is recommended:
+`investmentSuggestions` must be an array of objects (highest-priority investments first) following the `InvestSuggestion` interface.
+`quantityToInvest` is a FRACTION between 0 and 1 of the total capital; therefore, the sum of all `quantityToInvest` values must equal **1.0** (i.e., 100 %). Ensure no stock receives 0.
 
 ```ts
 interface InvestSuggestion {
