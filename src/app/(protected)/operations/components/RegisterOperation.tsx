@@ -1,13 +1,18 @@
 'use client';
 
+import { TOPBAR_HEIGHT } from '@/components/TopBar/TopBar';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { useConvexMutation } from '@convex-dev/react-query';
+import { api } from '@convex/_generated/api';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { AutocompleteTags } from './AutocompleteTags';
 
 const formSchema = z.object({
   symbol: z.string().min(1, 'Símbolo es requerido'),
@@ -17,7 +22,7 @@ const formSchema = z.object({
   quantity: z.number().min(1, 'Cantidad debe ser mayor a 0'),
   price: z.number().min(0, 'Precio debe ser mayor a 0'),
   date: z.string().min(1, 'Fecha es requerida'),
-  tags: z.string().min(1, 'Etiqueta es requerida'),
+  tags: z.array(z.string().min(1, 'Etiqueta es requerida')),
 });
 
 type FormSchema = z.infer<typeof formSchema>;
@@ -29,18 +34,25 @@ export function RegisterOperation() {
       type: 'buy',
       quantity: 0,
       price: 0,
-      date: '',
-      tags: '',
+      date: new Date().toISOString().split('T')[0],
+      tags: [],
     },
     resolver: zodResolver(formSchema),
   });
 
+  const { mutate: addOperation } = useMutation({
+    mutationFn: useConvexMutation(api.mutations.operations.add),
+    onSuccess: () => {
+      form.reset();
+    },
+  });
+
   return (
     <form
-      onSubmit={form.handleSubmit(() => {
-        console.log('submit');
+      onSubmit={form.handleSubmit((data) => {
+        addOperation(data);
       })}
-      className="flex flex-col gap-4 p-4 border border-gray-200 min-h-screen border-r"
+      className={`flex flex-col gap-4 p-4 border border-gray-200 h-[calc(100vh-${TOPBAR_HEIGHT}px)] overflow-y-auto border-r`}
     >
       <Form {...form}>
         <header className="flex flex-col gap-2">
@@ -68,7 +80,7 @@ export function RegisterOperation() {
             <FormItem>
               <FormLabel>Tipo de operación</FormLabel>
               <FormControl>
-                <RadioGroup {...field}>
+                <RadioGroup {...field} onValueChange={field.onChange}>
                   <div className="flex gap-4">
                     <div className="flex items-center">
                       <RadioGroupItem value="buy" id="buy" />
@@ -96,7 +108,12 @@ export function RegisterOperation() {
             <FormItem>
               <FormLabel>Cantidad</FormLabel>
               <FormControl>
-                <Input type="number" placeholder="0" {...field} />
+                <Input
+                  type="number"
+                  placeholder="0"
+                  {...field}
+                  onChange={(e) => field.onChange(Number(e.target.value))}
+                />
               </FormControl>
             </FormItem>
           )}
@@ -109,7 +126,13 @@ export function RegisterOperation() {
             <FormItem>
               <FormLabel>Precio unitario ($)</FormLabel>
               <FormControl>
-                <Input type="number" step="0.01" placeholder="0.00" {...field} />
+                <Input
+                  type="number"
+                  step="0.01"
+                  placeholder="0.00"
+                  {...field}
+                  onChange={(e) => field.onChange(Number(e.target.value))}
+                />
               </FormControl>
             </FormItem>
           )}
@@ -128,20 +151,9 @@ export function RegisterOperation() {
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="tags"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Etiqueta</FormLabel>
-              <FormControl>
-                <Input placeholder="Ej. Tecnología" {...field} />
-              </FormControl>
-            </FormItem>
-          )}
-        />
+        <AutocompleteTags name="tags" />
 
-        <Button type="submit" className="w-full mt-4">
+        <Button type="submit" className="w-full mt-4 cursor-pointer">
           Añadir Operación
         </Button>
       </Form>
