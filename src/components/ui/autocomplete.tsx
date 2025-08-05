@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { PopoverContent } from '@radix-ui/react-popover';
 import { Command as CommandPrimitive } from 'cmdk';
 import { useState } from 'react';
@@ -72,6 +73,9 @@ export function Autocomplete<T = { id: string; label: string }, R = (suggestion:
                 <CommandItem
                   key={suggestion.id}
                   value={suggestion.id}
+                  className={cn('cursor-pointer', {
+                    'cursor-not-allowed': 'disabled' in suggestion && suggestion.disabled,
+                  })}
                   onSelect={() => onSelectedValueChange?.(suggestion, () => setOpen(false))}
                 >
                   {typeof RenderComponent === 'function' ? RenderComponent({ suggestion }) : null}
