@@ -1,5 +1,12 @@
 import { StockScreenerResponse, SymbolSearchResponse } from '@/server/stocks/clients/getFinancialmodelingprepClient';
-import { AIAnalysisResponse, CompanyNews, InvestmentPlanResponse, Screeners, StockInfo } from '@/server/types';
+import {
+  AIAnalysisResponse,
+  CompanyNews,
+  InvestmentPlanResponse,
+  Screeners,
+  StockInfo,
+  StockProfile,
+} from '@/server/types';
 
 // This is the type to ensure API_ROUTES object is used when calling the fetch function
 export type API_ROUTES = (typeof API_ROUTES)[keyof typeof API_ROUTES];
@@ -10,6 +17,9 @@ export type API_ROUTES_QUERY = {
     symbol: string;
   };
   stockNews: {
+    symbol: string;
+  };
+  stockProfile: {
     symbol: string;
   };
   generateAiAnalysis: {
@@ -36,6 +46,7 @@ export type API_ROUTES_QUERY = {
 export const API_ROUTES = {
   stockInfo: 'stockInfo',
   stockNews: 'stockNews',
+  stockProfile: 'stockProfile',
   generateAiAnalysis: 'generateAiAnalysis',
   fetchGeneratedAiAnalysis: 'fetchGeneratedAiAnalysis',
   refreshAiAnalysis: 'refreshAiAnalysis',
@@ -49,6 +60,7 @@ export const API_ROUTES = {
 export const API_ROUTES_URLS = {
   stockInfo: '/api/stocks',
   stockNews: '/api/stocks/news',
+  stockProfile: '/api/stocks/profile',
   generateAiAnalysis: '/api/analysis',
   refreshAiAnalysis: '/api/analysis/refresh',
   fetchGeneratedAiAnalysis: '/api/analysis/generated',
@@ -62,6 +74,7 @@ export const API_ROUTES_URLS = {
 export type API_ROUTES_RESPONSE = {
   stockInfo: StockInfo;
   stockNews: CompanyNews;
+  stockProfile: StockProfile;
   generateAiAnalysis: AIAnalysisResponse;
   fetchGeneratedAiAnalysis: AIAnalysisResponse | null;
   refreshAiAnalysis: {
