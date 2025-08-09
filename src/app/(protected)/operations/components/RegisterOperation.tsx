@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from '@/components/ui/form';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -21,7 +21,7 @@ const formSchema = z.object({
   quantity: z.number().min(1, 'Cantidad debe ser mayor a 0'),
   price: z.number().min(0, 'Precio debe ser mayor a 0'),
   date: z.string().min(1, 'Fecha es requerida'),
-  tags: z.array(z.string().min(1, 'Etiqueta es requerida')),
+  tags: z.array(z.string().min(1, 'Etiqueta es requerida')).max(3, 'Máximo 3 etiquetas'),
 });
 
 type FormSchema = z.infer<typeof formSchema>;
@@ -42,6 +42,7 @@ export function RegisterOperation() {
   const { mutate: addOperation } = useMutation({
     mutationFn: useConvexMutation(api.mutations.operations.add),
     onSuccess: () => {
+      form.setFocus('symbol');
       form.reset();
     },
   });
@@ -66,8 +67,14 @@ export function RegisterOperation() {
             <FormItem>
               <FormLabel>Símbolo</FormLabel>
               <FormControl>
-                <Input placeholder="Ej. AAPL" {...field} onChange={(e) => field.onChange(e.target.value)} />
+                <Input
+                  placeholder="Ej. AAPL"
+                  {...field}
+                  onChange={(e) => field.onChange(e.target.value)}
+                  tabIndex={0}
+                />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -96,6 +103,7 @@ export function RegisterOperation() {
                   </div>
                 </RadioGroup>
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -114,6 +122,7 @@ export function RegisterOperation() {
                   onChange={(e) => field.onChange(Number(e.target.value))}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -133,6 +142,7 @@ export function RegisterOperation() {
                   onChange={(e) => field.onChange(Number(e.target.value))}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -146,6 +156,7 @@ export function RegisterOperation() {
               <FormControl>
                 <Input type="date" {...field} />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -154,15 +165,6 @@ export function RegisterOperation() {
 
         <Button type="submit" className="w-full mt-4 cursor-pointer">
           Añadir Operación
-        </Button>
-
-        <Button
-          className="cursor-pointer"
-          onClick={() => {
-            form.setFocus('symbol');
-          }}
-        >
-          Focus Symbol
         </Button>
       </Form>
     </form>

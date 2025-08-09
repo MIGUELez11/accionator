@@ -61,7 +61,7 @@ function Tag({ tag, color }: { tag: string; color: string }) {
 
 function Tags({ tags }: { tags: { id: Id<'operationTags'>; tag: string }[] }) {
   return (
-    <div className="flex flex-row gap-2 items-center max-w-[200px] overflow-x-auto">
+    <div className="flex flex-row gap-2 items-center">
       {tags.map((tag) => (
         <Tag key={tag.id} tag={tag.tag} color="bg-gray-200 text-gray-800" />
       ))}

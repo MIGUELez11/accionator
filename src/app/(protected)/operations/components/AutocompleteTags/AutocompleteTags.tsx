@@ -1,7 +1,7 @@
 'use client';
 
 import { Autocomplete } from '@/components/ui/autocomplete';
-import { FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useElementSize } from '@/hooks/useResizeObserver';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { SelectedTags } from './components/SelectedTags';
@@ -25,7 +25,7 @@ export function AutocompleteTags({ name }: AutocompleteTagsProps) {
       name={name}
       render={({ field }) => (
         <FormItem ref={resizeObserverRef}>
-          <FormLabel>Etiqueta</FormLabel>
+          <FormLabel>Etiquetas</FormLabel>
           <FormControl>
             <Autocomplete
               maxWidth={maxWidth}
@@ -42,6 +42,7 @@ export function AutocompleteTags({ name }: AutocompleteTagsProps) {
               isSearching={isFetching}
             />
           </FormControl>
+          <FormMessage />
 
           <SelectedTags tags={field.value} onChange={field.onChange} />
         </FormItem>
