@@ -14,6 +14,7 @@ import type {
   FunctionReference,
 } from "convex/server";
 import type * as helpers_operation_add from "../helpers/operation/add.js";
+import type * as helpers_operation_investmentPerformance from "../helpers/operation/investmentPerformance.js";
 import type * as helpers_operation_paginateHistory from "../helpers/operation/paginateHistory.js";
 import type * as helpers_operation_remove from "../helpers/operation/remove.js";
 import type * as helpers_stocks_getSearchedSectors from "../helpers/stocks/getSearchedSectors.js";
@@ -54,6 +55,7 @@ import type * as queries_users from "../queries/users.js";
  */
 declare const fullApi: ApiFromModules<{
   "helpers/operation/add": typeof helpers_operation_add;
+  "helpers/operation/investmentPerformance": typeof helpers_operation_investmentPerformance;
   "helpers/operation/paginateHistory": typeof helpers_operation_paginateHistory;
   "helpers/operation/remove": typeof helpers_operation_remove;
   "helpers/stocks/getSearchedSectors": typeof helpers_stocks_getSearchedSectors;
