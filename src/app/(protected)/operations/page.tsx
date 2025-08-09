@@ -1,5 +1,6 @@
-import { OperationsList } from './components/OperationsList';
-import { RegisterOperation } from './components/RegisterOperation';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { RegisterOperation } from './components/Form/RegisterOperation';
+import { OperationTab } from './components/Operations';
 
 export default function OperationsPage() {
   return (
@@ -9,8 +10,30 @@ export default function OperationsPage() {
       </aside>
 
       <main className={`w-3/4 h-full pl-4 py-4 flex flex-col gap-4`}>
-        <h1 className="text-2xl font-bold">Operaciones</h1>
-        <OperationsList />
+        <h1 className="text-2xl font-bold">Gestión de operaciones</h1>
+        <Tabs defaultValue="operations" className="h-full">
+          <TabsList>
+            <TabsTrigger value="summary">Resumen</TabsTrigger>
+            <TabsTrigger value="operations">Operaciones</TabsTrigger>
+            <TabsTrigger value="tags">Por etiqueta</TabsTrigger>
+            <TabsTrigger value="symbols">Por símbolo</TabsTrigger>
+          </TabsList>
+
+          <div className="mt-4 h-full">
+            <TabsContent value="summary">
+              <p>Unknown</p>
+            </TabsContent>
+            <TabsContent value="operations" className="h-full">
+              <OperationTab />
+            </TabsContent>
+            <TabsContent value="tags">
+              <p>Unknown</p>
+            </TabsContent>
+            <TabsContent value="symbols">
+              <p>Unknown</p>
+            </TabsContent>
+          </div>
+        </Tabs>
       </main>
     </div>
   );
