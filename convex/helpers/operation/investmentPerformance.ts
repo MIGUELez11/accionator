@@ -23,14 +23,23 @@ export interface TickerPerformance {
   profitPercentage: number;
 }
 
+/**
+ * Performance metrics for the investment portfolio
+ */
 export interface InvestmentPerformance {
+  /** Total amount invested across all operations */
   totalInvestment: number;
+  /** Profit/loss from completed operations (sold shares) */
   relativeProfit: number;
+  /** Percentage profit/loss from completed operations */
   relativeProfitPercentage: number;
 
+  /** Current investment value in portfolio (unsold shares) */
   holdingInvestment: number;
 
+  /** Total profit/loss including both sold and unsold positions */
   profit: number;
+  /** Total profit/loss percentage */
   profitPercentage: number;
 }
 
@@ -106,6 +115,7 @@ export async function getInvestmentPerformanceHelper(
 ): Promise<InvestmentPerformance> {
   const tickerPerformances = await getInvestmentPerformancePerTickerHelper(ctx, { userId });
 
+  // Aggregate values across all tickers
   let totalInvestment = 0;
   let relativeProfit = 0;
   let holdingInvestment = 0;
@@ -118,6 +128,7 @@ export async function getInvestmentPerformanceHelper(
     profit += ticker.profit;
   });
 
+  // Calculate weighted percentages based on investment size
   let relativeProfitPercentage = 0;
   let profitPercentage = 0;
 
