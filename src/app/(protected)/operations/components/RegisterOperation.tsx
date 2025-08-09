@@ -67,12 +67,7 @@ export function RegisterOperation() {
             <FormItem>
               <FormLabel>Símbolo</FormLabel>
               <FormControl>
-                <Input
-                  placeholder="Ej. AAPL"
-                  {...field}
-                  onChange={(e) => field.onChange(e.target.value)}
-                  tabIndex={0}
-                />
+                <Input placeholder="Ej. AAPL" {...field} onChange={(e) => field.onChange(e.target.value)} />
               </FormControl>
               <FormMessage />
             </FormItem>

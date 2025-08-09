@@ -56,7 +56,7 @@ export class OperationError extends Component<Props, State> {
             </p>
           </div>
           <div className="absolute right-4 top-1/2 -translate-y-1/2">
-            <OperationActions operation={{ _id: this.props._id }} />
+            <OperationActions operation={{ _id: this.props._id, symbol: this.symbol, quantity: this.quantity }} />
           </div>
         </div>
       );

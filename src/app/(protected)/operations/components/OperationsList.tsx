@@ -8,6 +8,7 @@ import { Virtuoso } from 'react-virtuoso';
 import { Operation } from './Operation';
 import { OperationError } from './OperationError';
 import { OperationSkeleton } from './OperationSkeleton';
+import { OperationsEmptyState } from './OperationsEmptyState';
 
 const INITIAL_NUM_ITEMS = 30;
 const LOAD_MORE_STEP = 30;
@@ -24,6 +25,7 @@ export function OperationsList() {
   const isLoadingFirstPage = status === 'LoadingFirstPage';
   const isLoadingMore = status === 'LoadingMore';
   const canLoadMore = status === 'CanLoadMore';
+  const isEmpty = results.length === 0;
 
   const handleEndReached = useCallback(
     (canLoadMore: boolean, isLoadingMore: boolean) => {
@@ -36,6 +38,10 @@ export function OperationsList() {
 
   if (isLoadingFirstPage) {
     return <div>Loading...</div>;
+  }
+
+  if (isEmpty) {
+    return <OperationsEmptyState />;
   }
 
   return (
