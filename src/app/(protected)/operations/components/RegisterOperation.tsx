@@ -1,6 +1,5 @@
 'use client';
 
-import { TOPBAR_HEIGHT } from '@/components/TopBar/TopBar';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -52,7 +51,7 @@ export function RegisterOperation() {
       onSubmit={form.handleSubmit((data) => {
         addOperation(data);
       })}
-      className={`flex flex-col gap-4 p-4 border border-gray-200 h-[calc(100vh-${TOPBAR_HEIGHT}px)] overflow-y-auto border-r`}
+      className={`flex flex-col gap-4 p-4 border border-gray-200 h-[calc(100vh-64px)] overflow-y-auto border-r`}
     >
       <Form {...form}>
         <header className="flex flex-col gap-2">
@@ -155,6 +154,15 @@ export function RegisterOperation() {
 
         <Button type="submit" className="w-full mt-4 cursor-pointer">
           Añadir Operación
+        </Button>
+
+        <Button
+          className="cursor-pointer"
+          onClick={() => {
+            form.setFocus('symbol');
+          }}
+        >
+          Focus Symbol
         </Button>
       </Form>
     </form>
