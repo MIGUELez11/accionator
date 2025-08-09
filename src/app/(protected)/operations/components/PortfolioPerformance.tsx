@@ -30,7 +30,7 @@ export function PortfolioPerformance() {
 
         {/* Beneficio de Operaciones Realizadas */}
         <MetricCard
-          title="Beneficio de Operaciones Realizadas"
+          title="Beneficio de operaciones realizadas"
           value={portfolioPerformance.relativeProfit}
           format="currency"
           className={`${
@@ -42,7 +42,7 @@ export function PortfolioPerformance() {
 
         {/* Inversión Actual en Cartera */}
         <MetricCard
-          title="Inversión Actual en Cartera"
+          title="Inversión actual en cartera"
           value={portfolioPerformance.holdingInvestment}
           format="currency"
           className="bg-purple-50 border-purple-200"
@@ -51,7 +51,7 @@ export function PortfolioPerformance() {
 
         {/* Beneficio Total */}
         <MetricCard
-          title="Beneficio Total"
+          title="Beneficio total"
           value={portfolioPerformance.profit}
           format="currency"
           className={`${
