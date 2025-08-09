@@ -67,7 +67,15 @@ export const FinnhubStocksService = StocksService.of({
     const response =
       yield *
       Effect.tryPromise({
-        try: () => finnhubClient.companyProfile2(symbol),
+        try: async () => {
+          const profile = await finnhubClient.companyProfile2(symbol);
+
+          if (!profile.data.ticker) {
+            throw new Error(`No profile found for ${symbol}`);
+          }
+
+          return profile;
+        },
         catch: (error) => new Error(`Failed to get stock profile for ${symbol}`, { cause: error }),
       });
 
