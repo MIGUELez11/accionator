@@ -45,7 +45,7 @@ export function OperationsList() {
   }
 
   return (
-    <div className="flex flex-col w-full h-full pr-4 pb-4">
+    <div className="flex flex-col w-full h-full">
       <Virtuoso
         data={results}
         endReached={() => handleEndReached(canLoadMore, isLoadingMore)}
@@ -69,8 +69,8 @@ export function OperationsList() {
                 </div>
               </div>
             ) : null,
+          List: (props) => <div className="h-full overflow-y-auto pr-4" {...props} />,
         }}
-        style={{ height: '100%', paddingBottom: '100px' }}
       />
     </div>
   );
