@@ -67,5 +67,6 @@ export default defineSchema({
     tags: v.array(v.id('operationTags')),
   })
     .index('by_user', ['userId'])
-    .index('by_user_date', ['userId', 'date']),
+    .index('by_user_date', ['userId', 'date'])
+    .index('by_user_symbol', ['userId', 'symbol']),
 });

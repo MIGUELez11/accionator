@@ -43,7 +43,7 @@ export interface InvestmentPerformance {
   profitPercentage: number;
 }
 
-function calculateTickerPerformance(operations: Doc<'operations'>[]): TickerPerformance {
+export function calculateTickerPerformance(operations: Doc<'operations'>[]): TickerPerformance {
   const buyOperations = operations.filter((operation) => operation.type === 'buy');
   const sellOperations = operations.filter((operation) => operation.type === 'sell');
 
