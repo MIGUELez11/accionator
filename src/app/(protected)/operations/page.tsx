@@ -1,7 +1,10 @@
+'use client';
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useTabParams } from '@/hooks/useTabParams';
 import { RegisterOperation } from './components/Form/RegisterOperation';
 import { OperationTab } from './components/Operations';
+import { SymbolTab } from './components/Symbol';
 
 export default function OperationsPage() {
   const { selectedTab, handleTabChange } = useTabParams({ queryName: 'tab', defaultValue: 'summary' });
@@ -32,8 +35,8 @@ export default function OperationsPage() {
             <TabsContent value="tags" className="h-full">
               <p>Unknown</p>
             </TabsContent>
-            <TabsContent value="symbols">
-              <p>Unknown</p>
+            <TabsContent value="symbols" className="h-full">
+              <SymbolTab />
             </TabsContent>
           </div>
         </Tabs>

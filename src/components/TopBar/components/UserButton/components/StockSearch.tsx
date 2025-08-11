@@ -7,7 +7,7 @@ import { SymbolSearchResponse } from '@/server/stocks/clients/getFinancialmodeli
 import { useQuery } from '@tanstack/react-query';
 import { SearchIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 function StockSearchRenderComponent({ suggestion: symbol }: { suggestion: SymbolSearchResponse & { id: string } }) {
   return (
@@ -32,10 +32,6 @@ export function StockSearch() {
         ...item,
       })),
   });
-
-  useEffect(() => {
-    console.log('results', data);
-  }, [data]);
 
   return (
     <div className="w-64">
