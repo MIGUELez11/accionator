@@ -5,10 +5,10 @@ import { api } from '@convex/_generated/api';
 import { Loader2Icon } from 'lucide-react';
 import { Suspense, useCallback } from 'react';
 import { Virtuoso } from 'react-virtuoso';
+import { OperationsEmptyState } from '../../OperationsEmptyState';
 import { Operation } from './Operation';
 import { OperationError } from './OperationError';
 import { OperationSkeleton } from './OperationSkeleton';
-import { OperationsEmptyState } from './OperationsEmptyState';
 
 const INITIAL_NUM_ITEMS = 30;
 const LOAD_MORE_STEP = 30;
@@ -36,11 +36,7 @@ export function OperationsList() {
     [loadMore],
   );
 
-  if (isLoadingFirstPage) {
-    return <div>Loading...</div>;
-  }
-
-  if (isEmpty) {
+  if (isEmpty || isLoadingFirstPage) {
     return <OperationsEmptyState />;
   }
 

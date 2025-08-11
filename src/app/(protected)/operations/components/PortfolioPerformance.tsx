@@ -17,7 +17,7 @@ export function PortfolioPerformance() {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-gray-900">Rendimiento del Portafolio</h2>
+      <h2 className="text-2xl font-bold text-gray-900">Rendimiento de la Cartera</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Total Invertido */}
@@ -36,7 +36,7 @@ export function PortfolioPerformance() {
           className={`${
             portfolioPerformance.relativeProfit >= 0 ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'
           }`}
-          subtitle={`${portfolioPerformance.relativeProfitPercentage >= 0 ? '+' : ''}${(portfolioPerformance.relativeProfitPercentage * 100).toFixed(2)}%`}
+          subtitle={`${portfolioPerformance.relativeProfitPercentage > 0 ? '+' : ''}${(portfolioPerformance.relativeProfitPercentage * 100).toFixed(2)}%`}
           colorizeSubtitle
         />
 
@@ -57,7 +57,7 @@ export function PortfolioPerformance() {
           className={`${
             portfolioPerformance.profit >= 0 ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'
           }`}
-          subtitle={`${portfolioPerformance.profitPercentage >= 0 ? '+' : ''}${(portfolioPerformance.profitPercentage * 100).toFixed(2)}%`}
+          subtitle={`${portfolioPerformance.profitPercentage > 0 ? '+' : ''}${(portfolioPerformance.profitPercentage * 100).toFixed(2)}%`}
           colorizeSubtitle
         />
       </div>
@@ -98,9 +98,9 @@ function MetricCard({ title, value, format, className = '', subtitle, colorizeSu
       {subtitle && (
         <div
           className={cn('text-sm mt-1', {
-            'text-green-600': colorizeSubtitle && value >= 0,
+            'text-green-600': colorizeSubtitle && value > 0,
             'text-red-600': colorizeSubtitle && value < 0,
-            'text-gray-600': !colorizeSubtitle,
+            'text-gray-600': !colorizeSubtitle || value === 0,
           })}
         >
           {subtitle}

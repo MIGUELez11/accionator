@@ -11,6 +11,7 @@ export function OperationTab() {
           <PortfolioPerformance />
         </Suspense>
       </div>
+      <h2 className="text-lg font-bold">Cartera</h2>
       <OperationsList />
     </div>
   );
