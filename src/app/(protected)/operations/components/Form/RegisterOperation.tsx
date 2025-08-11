@@ -18,8 +18,8 @@ const formSchema = z.object({
   type: z.enum(['buy', 'sell'], {
     required_error: 'Tipo de operación es requerido',
   }),
-  quantity: z.number().min(1, 'Cantidad debe ser mayor a 0'),
-  price: z.number().min(0, 'Precio debe ser mayor a 0'),
+  quantity: z.number().min(Number.EPSILON, 'Cantidad debe ser mayor a 0'),
+  price: z.number().min(Number.EPSILON, 'Precio debe ser mayor a 0'),
   date: z.string().min(1, 'Fecha es requerida'),
   tags: z.array(z.string().min(1, 'Etiqueta es requerida')).max(3, 'Máximo 3 etiquetas'),
 });
@@ -131,7 +131,6 @@ export function RegisterOperation() {
               <FormControl>
                 <Input
                   type="number"
-                  step="0.01"
                   placeholder="0.00"
                   {...field}
                   onChange={(e) => field.onChange(Number(e.target.value))}
