@@ -46,21 +46,12 @@ export default function OperationsPage() {
         <h1 className="text-2xl font-bold">Gestión de operaciones</h1>
         <Tabs defaultValue={selectedTab} className="h-full" onValueChange={handleTabChange}>
           <TabsList>
-            <TabsTrigger value="summary">Resumen</TabsTrigger>
             <TabsTrigger value="operations">Operaciones</TabsTrigger>
-            <TabsTrigger value="tags">Por etiqueta</TabsTrigger>
             <TabsTrigger value="symbols">Por símbolo</TabsTrigger>
           </TabsList>
-
           <div className="mt-4 h-full">
-            <TabsContent value="summary" className="h-full">
-              <p>Unknown</p>
-            </TabsContent>
             <TabsContent value="operations" className="h-full">
               <OperationTab onEditOperation={handleEditOperation} editingOperationId={editingOperationId} />
-            </TabsContent>
-            <TabsContent value="tags" className="h-full">
-              <p>Unknown</p>
             </TabsContent>
             <TabsContent value="symbols" className="h-full">
               <SymbolTab />
