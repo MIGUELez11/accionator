@@ -38,9 +38,8 @@ function StockInfo({ symbol }: { symbol: string }) {
   const { data: stockProfile } = useSuspenseQuery(stockProfileQuery(symbol));
 
   const logo = stockProfile.logo;
-  const name = stockProfile.name!;
-  const ticker = stockProfile.ticker!;
-
+  const name = stockProfile.name ?? symbol;
+  const ticker = stockProfile.ticker ?? symbol;
   return (
     <header className="flex flex-row gap-2 h-12">
       {logo ? (
@@ -90,7 +89,7 @@ export function OperationActions({
   };
   onEdit: () => void;
 }) {
-  const { mutate: deleteOperation } = useMutation({
+  const { mutate: deleteOperation, isPending: isDeleting } = useMutation({
     mutationFn: useConvexMutation(api.mutations.operations.remove),
   });
 
@@ -115,6 +114,9 @@ export function OperationActions({
             variant="ghost"
             size="icon"
             className="cursor-pointer"
+            title="Eliminar operación"
+            aria-label="Eliminar operación"
+            disabled={isDeleting}
             onClick={handleShiftClick({ onShiftClick: () => deleteOperation({ id: operation._id }) })}
           >
             <Trash2Icon />
