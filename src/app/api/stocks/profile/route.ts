@@ -8,7 +8,7 @@ export const GET = withRequiredUser(
   withPosthog(async (request) => {
     const symbol = request.nextUrl.searchParams.get('symbol');
     if (!symbol) {
-      return NextResponse.json({ error: 'Symbol is required' }, { status: 400 });
+      return NextResponse.json({ error: 'Symbol is required' }, { status: 422 });
     }
 
     try {
@@ -16,7 +16,8 @@ export const GET = withRequiredUser(
       const stockInfo = await Effect.runPromise(stockService.getStockProfile(symbol));
 
       return NextResponse.json(stockInfo);
-    } catch {
+    } catch (error) {
+      console.error('Failed to fetch stock info', { symbol, error });
       return NextResponse.json({ error: 'Failed to fetch stock info' }, { status: 500 });
     }
   }),
