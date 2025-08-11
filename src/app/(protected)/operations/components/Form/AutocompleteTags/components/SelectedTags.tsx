@@ -1,4 +1,5 @@
 import { Badge } from '@/components/ui/badge';
+import { handleOnKeyboardClick } from '@/lib/handleOnKeyboardClick';
 
 interface SelectedTagsProps {
   tags: string[];
@@ -7,7 +8,15 @@ interface SelectedTagsProps {
 
 function Tag({ tag, onRemove }: { tag: string; onRemove: (tag: string) => void }) {
   return (
-    <Badge variant="outline" className="bg-gray-100 text-gray-800 cursor-pointer" onClick={() => onRemove(tag)}>
+    <Badge
+      variant="outline"
+      className="bg-gray-100 text-gray-800 cursor-pointer"
+      onClick={() => onRemove(tag)}
+      onKeyDown={handleOnKeyboardClick(() => onRemove(tag))}
+      role="button"
+      tabIndex={0}
+      aria-label={`Remove tag ${tag}`}
+    >
       {tag}
     </Badge>
   );
