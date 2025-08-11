@@ -1,3 +1,5 @@
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { cn } from '@/lib/utils';
 import { stockProfileQuery } from '@/queries/stockProfileQuery';
 import { TickerPerformance } from '@convex/helpers/operation/investmentPerformance';
 import { useSuspenseQuery } from '@tanstack/react-query';
@@ -46,6 +48,8 @@ function getBackgroundColor(value: number) {
 }
 
 export function SymbolCard({ symbol, performance }: { symbol: string; performance: TickerPerformance }) {
+  const moreSoldThanBought = performance.soldQuantity > performance.buyedQuantity;
+
   return (
     <section className="overflow-hidden bg-white border border-gray-100 rounded-xl p-6 shadow-sm transition-all duration-300">
       <div className="flex flex-col gap-6">
@@ -55,9 +59,23 @@ export function SymbolCard({ symbol, performance }: { symbol: string; performanc
           <div className="bg-gray-50 rounded-lg p-4 transition-colors">
             <DataPoint label="Acciones compradas" value={performance.buyedQuantity.toLocaleString()} />
           </div>
-          <div className="bg-gray-50 rounded-lg p-4 transition-colors">
-            <DataPoint label="Acciones vendidas" value={performance.soldQuantity.toLocaleString()} />
-          </div>
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div
+                className={cn('bg-gray-50 rounded-lg p-4 transition-colors', {
+                  'cursor-help bg-red-200': moreSoldThanBought,
+                })}
+              >
+                <DataPoint label="Acciones vendidas" value={performance.soldQuantity.toLocaleString()} />
+              </div>
+            </TooltipTrigger>
+            {moreSoldThanBought && (
+              <TooltipContent>
+                <p>{performance.soldQuantity - performance.buyedQuantity} acciones vendidas más que compradas</p>
+              </TooltipContent>
+            )}
+          </Tooltip>
           <div className="bg-gray-50 rounded-lg p-4 transition-colors">
             <DataPoint label="Acciones en cartera" value={performance.holdingQuantity.toLocaleString()} />
           </div>
