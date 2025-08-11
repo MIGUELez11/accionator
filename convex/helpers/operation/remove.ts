@@ -6,7 +6,10 @@ interface RemoveOperationHelperArgs {
   operationId: Id<'operations'>;
 }
 
-export async function removeOperationHelper(ctx: GenericMutationCtx<DataModel>, { operationId }: RemoveOperationHelperArgs) {
+export async function removeOperationHelper(
+  ctx: GenericMutationCtx<DataModel>,
+  { operationId }: RemoveOperationHelperArgs,
+) {
   const userId = await getUserId(ctx, true);
 
   const id = ctx.db.normalizeId('operations', operationId);
@@ -16,15 +19,11 @@ export async function removeOperationHelper(ctx: GenericMutationCtx<DataModel>, 
 
   const operation = await ctx.db.get(id);
 
-  if (!operation) {
+  if (!operation || operation.userId !== userId) {
     throw new Error('Operation not found');
-  }
-
-  if (operation.userId !== userId) {
-    throw new Error('Unauthorized');
   }
 
   await ctx.db.delete(id);
 
-  return true
+  return true;
 }
