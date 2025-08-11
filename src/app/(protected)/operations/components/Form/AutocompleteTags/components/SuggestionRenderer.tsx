@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils';
 import { PlusIcon } from 'lucide-react';
-import { useAutocompleteTags } from '../hooks/useAutocompleteTags';
+import type { useAutocompleteTags } from '../hooks/useAutocompleteTags';
 
 type Tag = NonNullable<ReturnType<typeof useAutocompleteTags>['tagsWithSearch']>[number];
 
