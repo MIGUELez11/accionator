@@ -1,4 +1,7 @@
+'use client';
+
 import { useConvexPaginatedQuery } from '@convex-dev/react-query';
+
 import { api } from '@convex/_generated/api';
 import { Loader2Icon } from 'lucide-react';
 import { Suspense, useCallback } from 'react';
@@ -32,7 +35,15 @@ export function SymbolList() {
     [loadMore],
   );
 
-  if (isEmpty || isLoadingFirstPage) {
+  if (isLoadingFirstPage) {
+    return (
+      <div className="flex h-full items-center justify-center py-8">
+        <Loader2Icon className="w-5 h-5 animate-spin text-gray-400" />
+      </div>
+    );
+  }
+
+  if (isEmpty) {
     return <OperationsEmptyState />;
   }
 

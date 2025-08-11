@@ -49,6 +49,7 @@ export function OperationsList({ onEditOperation, editingOperationId }: Operatio
       </div>
     );
   }
+
   if (isEmpty) {
     return <OperationsEmptyState />;
   }
