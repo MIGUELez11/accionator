@@ -17,7 +17,7 @@ export function AutocompleteTags({ name }: AutocompleteTagsProps) {
   const tags = useWatch({ control: form.control, name: name });
 
   const [resizeObserverRef, { width: maxWidth }] = useElementSize();
-  const { onSearchChange, tagsWithSearch, isFetching } = useAutocompleteTags(tags);
+  const { onSearchChange, tagsWithSearch, isFetching } = useAutocompleteTags(Array.isArray(tags) ? tags : []);
 
   return (
     <FormField
@@ -35,6 +35,12 @@ export function AutocompleteTags({ name }: AutocompleteTagsProps) {
                   return;
                 }
 
+                const fieldIncludesValue = field.value.includes(value.label);
+
+                if (fieldIncludesValue) {
+                  return;
+                }
+
                 field.onChange([...field.value, value.label]);
               }}
               onSearchValueChange={onSearchChange}
@@ -44,7 +50,7 @@ export function AutocompleteTags({ name }: AutocompleteTagsProps) {
           </FormControl>
           <FormMessage />
 
-          <SelectedTags tags={field.value} onChange={field.onChange} />
+          <SelectedTags tags={field.value ?? []} onChange={field.onChange} />
         </FormItem>
       )}
     />
