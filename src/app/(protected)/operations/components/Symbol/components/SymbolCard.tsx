@@ -23,7 +23,7 @@ export function StockInfo({ symbol }: { symbol: string }) {
   const ticker = stockProfile.ticker!;
 
   return (
-    <Link href={`/analysis/${symbol}`} target="_blank" rel="stock-analysis">
+    <Link href={`/analysis/${symbol}`} target="_blank" rel="noopener noreferrer">
       <header className="flex flex-row gap-2 h-12 cursor-pointer" role="link" aria-label={`Ver análisis de ${name}`}>
         {logo ? (
           <Image src={logo} alt={name} width={48} height={48} className="rounded-md" />
