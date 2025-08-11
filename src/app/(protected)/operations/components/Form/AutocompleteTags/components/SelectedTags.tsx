@@ -1,5 +1,4 @@
-import { Button } from '@/components/ui/button';
-import { XIcon } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 interface SelectedTagsProps {
   tags: string[];
@@ -8,19 +7,9 @@ interface SelectedTagsProps {
 
 function Tag({ tag, onRemove }: { tag: string; onRemove: (tag: string) => void }) {
   return (
-    <div key={tag} className="flex flex-row items-center gap-2 bg-gray-100 rounded-lg pr-2">
-      <Button
-        variant="ghost"
-        size="icon"
-        className="h-6 w-6 hover:bg-gray-200 rounded-lg cursor-pointer"
-        onClick={() => onRemove(tag)}
-      >
-        <XIcon className="w-3 h-3" />
-      </Button>
-      <span title={tag} className="line-clamp-1 text-sm">
-        {tag}
-      </span>
-    </div>
+    <Badge variant="outline" className="bg-gray-100 text-gray-800 cursor-pointer" onClick={() => onRemove(tag)}>
+      {tag}
+    </Badge>
   );
 }
 

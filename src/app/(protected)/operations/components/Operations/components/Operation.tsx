@@ -9,9 +9,9 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { handleShiftClick } from '@/lib/handleShiftClick';
-import { cn } from '@/lib/utils';
 import { stockProfileQuery } from '@/queries/stockProfileQuery';
 import { useConvexMutation } from '@convex-dev/react-query';
 import { api } from '@convex/_generated/api';
@@ -27,7 +27,11 @@ function useColor(type: 'buy' | 'sell') {
 function TypeTag({ type }: { type: 'buy' | 'sell' }) {
   const color = useColor(type);
 
-  return <Tag tag={type === 'buy' ? 'Compra' : 'Venta'} color={color} />;
+  return (
+    <Badge variant="outline" className={color}>
+      {type === 'buy' ? 'Compra' : 'Venta'}
+    </Badge>
+  );
 }
 
 function StockInfo({ symbol }: { symbol: string }) {
@@ -63,19 +67,13 @@ function DataPoint({ label, value }: { label: string; value: string }) {
   );
 }
 
-function Tag({ tag, color }: { tag: string; color: string }) {
-  return (
-    <div className={cn('text-xs font-medium rounded-md px-2 py-1 max-h-6 flex items-center justify-center', color)}>
-      <span className="line-clamp-1">{tag}</span>
-    </div>
-  );
-}
-
 function Tags({ tags }: { tags: { id: Id<'operationTags'>; tag: string }[] }) {
   return (
     <div className="flex flex-row gap-2 items-center">
       {tags.map((tag) => (
-        <Tag key={tag.id} tag={tag.tag} color="bg-gray-200 text-gray-800" />
+        <Badge key={tag.id} variant="outline" className="bg-gray-200 text-gray-800">
+          {tag.tag}
+        </Badge>
       ))}
     </div>
   );
