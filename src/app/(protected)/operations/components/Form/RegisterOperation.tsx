@@ -20,8 +20,8 @@ const formSchema = z.object({
   type: z.enum(['buy', 'sell'], {
     required_error: 'Tipo de operación es requerido',
   }),
-  quantity: z.number().min(Number.EPSILON, 'Cantidad debe ser mayor a 0'),
-  price: z.number().min(Number.EPSILON, 'Precio debe ser mayor a 0'),
+  quantity: z.number().min(0.0001, 'Cantidad debe ser mayor a 0.0001'),
+  price: z.number().min(0.01, 'Precio debe ser mayor a 0.01'),
   date: z.string().min(1, 'Fecha es requerida'),
   tags: z.array(z.string().min(1, 'Etiqueta es requerida')).max(3, 'Máximo 3 etiquetas'),
 });
@@ -206,7 +206,10 @@ export const RegisterOperation = forwardRef<RegisterOperationRef, RegisterOperat
                     type="number"
                     placeholder="0"
                     {...field}
-                    onChange={(e) => field.onChange(Number(e.target.value))}
+                    onChange={(e) => {
+                      const value = parseFloat(e.target.value);
+                      field.onChange(isNaN(value) ? 0 : value);
+                    }}
                   />
                 </FormControl>
                 <FormMessage />
@@ -225,7 +228,10 @@ export const RegisterOperation = forwardRef<RegisterOperationRef, RegisterOperat
                     type="number"
                     placeholder="0.00"
                     {...field}
-                    onChange={(e) => field.onChange(Number(e.target.value))}
+                    onChange={(e) => {
+                      const value = parseFloat(e.target.value);
+                      field.onChange(isNaN(value) ? 0 : value);
+                    }}
                   />
                 </FormControl>
                 <FormMessage />
