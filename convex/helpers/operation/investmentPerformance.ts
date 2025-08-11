@@ -69,6 +69,13 @@ export function calculateTickerPerformance(operations: Doc<'operations'>[]): Tic
   const relativeProfit = soldQuantity * averageSellPrice - soldQuantity * averageBuyPrice; // We only take into account the sold quantity to calculate the profit. The rest is still in the portfolio.
   const holdingQuantity = buyedQuantity - soldQuantity;
 
+  const holdingInvestment = holdingQuantity * averageBuyPrice;
+  const profit = totalSoldPrice + holdingInvestment - totalInvestment;
+
+  if (!operations.length) {
+    throw new Error('No operations found');
+  }
+
   return {
     symbol: operations[0].symbol,
     buyedQuantity,
@@ -82,8 +89,8 @@ export function calculateTickerPerformance(operations: Doc<'operations'>[]): Tic
     holdingQuantity,
     holdingPrice: averageBuyPrice,
 
-    profit: totalSoldPrice - totalInvestment,
-    profitPercentage: totalInvestment > 0 ? (totalSoldPrice - totalInvestment) / totalInvestment : 0,
+    profit,
+    profitPercentage: totalInvestment > 0 ? profit / totalInvestment : 0,
   };
 }
 
@@ -133,6 +140,10 @@ export async function getInvestmentPerformanceHelper(
   let profitPercentage = 0;
 
   tickerPerformances.forEach((ticker) => {
+    if (ticker.totalInvestment === 0) {
+      return;
+    }
+
     const weight = ticker.totalInvestment / totalInvestment;
 
     relativeProfitPercentage += ticker.relativeProfitPercentage * weight;
