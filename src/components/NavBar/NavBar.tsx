@@ -9,6 +9,10 @@ const pages = {
     href: '/plan',
     label: 'Plan de inversión',
   },
+  operations: {
+    href: '/operations',
+    label: 'Operaciones',
+  },
 };
 
 export function NavBar() {

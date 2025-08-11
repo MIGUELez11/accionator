@@ -48,4 +48,25 @@ export default defineSchema({
   })
     .index('by_user_sector', ['userId', 'sector'])
     .index('by_user_last_searched', ['userId', 'lastSearched']),
+
+  operationTags: defineTable({
+    userId: v.string(),
+    tag: v.string(),
+    count: v.number(),
+  })
+    .index('by_user', ['userId'])
+    .searchIndex('by_tag', { searchField: 'tag', filterFields: ['userId'] }),
+
+  operations: defineTable({
+    userId: v.string(),
+    symbol: v.string(),
+    type: v.union(v.literal('buy'), v.literal('sell')),
+    quantity: v.number(),
+    price: v.number(),
+    date: v.number(),
+    tags: v.array(v.id('operationTags')),
+  })
+    .index('by_user', ['userId'])
+    .index('by_user_date', ['userId', 'date'])
+    .index('by_user_symbol', ['userId', 'symbol']),
 });
