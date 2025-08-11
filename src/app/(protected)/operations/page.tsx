@@ -35,7 +35,7 @@ function useRegisterOperationLogic() {
 }
 
 export default function OperationsPage() {
-  const { selectedTab, handleTabChange } = useTabParams({ queryName: 'tab', defaultValue: 'summary' });
+  const { selectedTab, handleTabChange } = useTabParams({ queryName: 'tab', defaultValue: 'operations' });
   const { formRef, editingOperationId, handleEditOperation, handleEditingChange } = useRegisterOperationLogic();
 
   return (
