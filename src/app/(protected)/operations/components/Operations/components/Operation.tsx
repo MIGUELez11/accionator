@@ -17,7 +17,7 @@ import { useConvexMutation } from '@convex-dev/react-query';
 import { api } from '@convex/_generated/api';
 import { Id } from '@convex/_generated/dataModel';
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
-import { Trash2Icon } from 'lucide-react';
+import { PencilIcon, Trash2Icon } from 'lucide-react';
 import Image from 'next/image';
 
 function useColor(type: 'buy' | 'sell') {
@@ -83,19 +83,34 @@ function Tags({ tags }: { tags: { id: Id<'operationTags'>; tag: string }[] }) {
 
 export function OperationActions({
   operation,
+  onEdit,
 }: {
   operation: {
     _id: Id<'operations'>;
     symbol: string;
     quantity: number;
   };
+  onEdit: () => void;
 }) {
   const { mutate: deleteOperation } = useMutation({
     mutationFn: useConvexMutation(api.mutations.operations.remove),
   });
 
   return (
-    <div className="flex flex-row gap-2 items-center">
+    <div className="flex flex-row gap-1 items-center">
+      {/* Edit operation */}
+      <Button
+        variant="ghost"
+        size="icon"
+        title="Editar operación"
+        aria-label="Editar operación"
+        className="cursor-pointer"
+        onClick={onEdit}
+      >
+        <PencilIcon />
+      </Button>
+
+      {/* Delete operation */}
       <AlertDialog>
         <AlertDialogTrigger asChild>
           <Button
@@ -134,9 +149,11 @@ export function OperationActions({
 
 interface OperationProps {
   operation: (typeof api.queries.operations.listOperations._returnType)['page'][number];
+  onEdit: () => void;
+  isEditing?: boolean;
 }
 
-export function Operation({ operation }: OperationProps) {
+export function Operation({ operation, onEdit, isEditing = false }: OperationProps) {
   const date = new Date(operation.date).toLocaleDateString('es-ES', {
     year: 'numeric',
     month: '2-digit',
@@ -144,7 +161,11 @@ export function Operation({ operation }: OperationProps) {
   });
 
   return (
-    <section className="flex flex-row gap-4 border border-gray-200 rounded-md p-4 shadow-md justify-between items-center h-24">
+    <section
+      className={`flex flex-row gap-4 border rounded-md p-4 shadow-md justify-between items-center h-24 transition-all duration-200 ${
+        isEditing ? 'border-blue-300 bg-blue-50 shadow-blue-100' : 'border-gray-200 hover:border-gray-300'
+      }`}
+    >
       <div className="flex flex-row gap-4 items-center h-12">
         <StockInfo symbol={operation.symbol} />
         <div className="flex flex-row gap-4 items-center h-full pt-0.5">
@@ -158,10 +179,13 @@ export function Operation({ operation }: OperationProps) {
           <div className="flex flex-row gap-2 items-center">
             <Tags tags={operation.tags} />
             <TypeTag type={operation.type} />
+            {isEditing && (
+              <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full font-medium">Editando</span>
+            )}
           </div>
           <p className="text-sm text-gray-500">{date}</p>
         </div>
-        <OperationActions operation={operation} />
+        <OperationActions operation={operation} onEdit={onEdit} />
       </div>
     </section>
   );

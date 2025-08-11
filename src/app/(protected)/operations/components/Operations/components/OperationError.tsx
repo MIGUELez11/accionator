@@ -11,6 +11,7 @@ interface Props {
   quantity: number;
   price: number;
   _id: Id<'operations'>;
+  onEdit: () => void;
 }
 
 interface State {
@@ -56,7 +57,10 @@ export class OperationError extends Component<Props, State> {
             </p>
           </div>
           <div className="absolute right-4 top-1/2 -translate-y-1/2">
-            <OperationActions operation={{ _id: this.props._id, symbol: this.symbol, quantity: this.quantity }} />
+            <OperationActions
+              operation={{ _id: this.props._id, symbol: this.symbol, quantity: this.quantity }}
+              onEdit={this.props.onEdit}
+            />
           </div>
         </div>
       );

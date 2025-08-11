@@ -2,6 +2,7 @@
 
 import { useConvexPaginatedQuery } from '@convex-dev/react-query';
 import { api } from '@convex/_generated/api';
+import { Id } from '@convex/_generated/dataModel';
 import { Loader2Icon } from 'lucide-react';
 import { Suspense, useCallback } from 'react';
 import { Virtuoso } from 'react-virtuoso';
@@ -13,7 +14,12 @@ import { OperationSkeleton } from './OperationSkeleton';
 const INITIAL_NUM_ITEMS = 30;
 const LOAD_MORE_STEP = 30;
 
-export function OperationsList() {
+interface OperationsListProps {
+  onEditOperation?: (operation: (typeof api.queries.operations.listOperations._returnType)['page'][number]) => void;
+  editingOperationId?: Id<'operations'> | null;
+}
+
+export function OperationsList({ onEditOperation, editingOperationId }: OperationsListProps) {
   const { results, loadMore, status } = useConvexPaginatedQuery(
     api.queries.operations.listOperations,
     {},
@@ -48,9 +54,13 @@ export function OperationsList() {
         increaseViewportBy={200}
         itemContent={(index, operation) => (
           <div className="mb-4">
-            <OperationError {...operation} key={operation._id}>
+            <OperationError {...operation} onEdit={() => onEditOperation?.(operation)} key={operation._id}>
               <Suspense key={operation._id} fallback={<OperationSkeleton />}>
-                <Operation operation={operation} />
+                <Operation
+                  operation={operation}
+                  onEdit={() => onEditOperation?.(operation)}
+                  isEditing={editingOperationId === operation._id}
+                />
               </Suspense>
             </OperationError>
           </div>
