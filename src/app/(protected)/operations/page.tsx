@@ -16,8 +16,10 @@ function useRegisterOperationLogic() {
   const handleEditOperation = useCallback(
     (operation: (typeof api.queries.operations.listOperations._returnType)['page'][number]) => {
       formRef.current?.setEditingOperation(operation);
+      // Reflect editing state immediately in the right pane
+      setEditingOperationId(operation._id as Id<'operations'>);
     },
-    [],
+    [setEditingOperationId],
   );
 
   const handleEditingChange = useCallback((editingId: Id<'operations'> | null) => {
