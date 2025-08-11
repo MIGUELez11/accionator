@@ -1,5 +1,3 @@
-'use client';
-
 import { Suspense } from 'react';
 import { PortfolioPerformance } from '../PortfolioPerformance';
 import { PortfolioPerformanceSkeleton } from '../PortfolioPerformanceSkeleton';
