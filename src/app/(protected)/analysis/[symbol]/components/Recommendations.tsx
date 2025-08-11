@@ -9,17 +9,19 @@ export function Recommendations({ symbol }: { symbol: string }) {
   const { data } = useSuspenseQuery({
     ...stockInfoQuery(symbol),
     select: (data) =>
-      data.recommendations.map((rec) => ({
-        date: new Date(rec.period!).toLocaleDateString(undefined, {
-          month: 'short',
-          year: 'numeric',
-        }),
-        'Strong Buy': rec.strongBuy!,
-        Buy: rec.buy!,
-        Hold: rec.hold!,
-        Sell: rec.sell!,
-        'Strong Sell': rec.strongSell!,
-      })),
+      data.recommendations
+        .sort((a, b) => new Date(a.period!).getTime() - new Date(b.period!).getTime())
+        .map((rec) => ({
+          date: new Date(rec.period!).toLocaleDateString(undefined, {
+            month: 'short',
+            year: 'numeric',
+          }),
+          'Strong Buy': rec.strongBuy!,
+          Buy: rec.buy!,
+          Hold: rec.hold!,
+          Sell: rec.sell!,
+          'Strong Sell': rec.strongSell!,
+        })),
   });
 
   return (
