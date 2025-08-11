@@ -71,10 +71,10 @@ export async function paginateBySymbolHelper(
     }),
   );
 
-  const tickerPerformance = Object.entries(operations).map(([symbol, operations]) => {
+  const tickerPerformance = paginatedSymbols.map((symbol) => {
     return {
       symbol,
-      performance: calculateTickerPerformance(operations),
+      performance: calculateTickerPerformance(operations[symbol] || []),
     };
   });
 
