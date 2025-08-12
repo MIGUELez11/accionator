@@ -1,1 +1,7 @@
-{}
+{
+  "nav": {
+    "operations": "Operaciones",
+    "plan": "Plan de inversión",
+    "screener": "Screener"
+  }
+}
