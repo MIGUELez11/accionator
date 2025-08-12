@@ -1,0 +1,21 @@
+{
+  "$schema": "https://docs.tolgee.io/cli-schema.json",
+  "projectId": 2,
+  "apiUrl": "http://localhost:8090",
+  "format": "JSON_TOLGEE",
+  "pull": {
+    "path": "./src/i18n"
+  },
+  "push": {
+    "files": [
+      {
+        "path": "./src/i18n/en.json",
+        "key": "en"
+      },
+      {
+        "path": "./src/i18n/es.json",
+        "key": "es"
+      }
+    ]
+  }
+}

@@ -77,6 +77,15 @@ importers:
       '@tanstack/react-table':
         specifier: ^8.21.3
         version: 8.21.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@tolgee/format-icu':
+        specifier: ^6.2.7
+        version: 6.2.7
+      '@tolgee/react':
+        specifier: ^6.2.7
+        version: 6.2.7(react@19.1.0)
+      '@tolgee/web':
+        specifier: ^6.2.7
+        version: 6.2.7
       '@types/react-window':
         specifier: ^1.8.8
         version: 1.8.8
@@ -1961,6 +1970,20 @@ packages:
   '@tanstack/table-core@8.21.3':
     resolution: {integrity: sha512-ldZXEhOBb8Is7xLs01fR3YEc3DERiz5silj8tnGkFZytt1abEvl/GhUmCE0PMLaMPTa3Jk4HbKmRlHmu+gCftg==}
     engines: {node: '>=12'}
+
+  '@tolgee/core@6.2.7':
+    resolution: {integrity: sha512-0Au+m9R23/gmeaLJY0X6lKcR2LSy9dW7hEFrpFvPdJoGvxc8XCNZpKlgnm1N534CwmtIBJ4rzOK6vOrSKbl45w==}
+
+  '@tolgee/format-icu@6.2.7':
+    resolution: {integrity: sha512-rLa8EZZVX3pDYC3I6HLnLvTgwLr2PAyOw+7SanS7d7SXp9cvcxbX8O6nqHubv6K7YDqVblcj9FoFbvGBQ22PgQ==}
+
+  '@tolgee/react@6.2.7':
+    resolution: {integrity: sha512-acZ2bThetoFp/VIWxStrza4RtXX+M7Bfy/f3uMBu2h+fXj3u+BxTR/3YAX67umbhF5RNoOTBPt74EOD+bDtcpQ==}
+    peerDependencies:
+      react: ^16.14.0 || ^17.0.1 || ^18.1.0 || ^19
+
+  '@tolgee/web@6.2.7':
+    resolution: {integrity: sha512-MAgHGkL5RYREwAjUansJt98fCuQFV4uDfP11NLOCHan2Hx9rpuszv88eXX7enq9CE8eS/Ed2pELiSwb5rlYiKg==}
 
   '@tybys/wasm-util@0.8.3':
     resolution: {integrity: sha512-Z96T/L6dUFFxgFJ+pQtkPpne9q7i6kIPYCFnQBHSgSPV9idTsKfIhCss0h5iM9irweZCatkrdeP8yi5uM1eX6Q==}
@@ -6166,6 +6189,19 @@ snapshots:
       react-dom: 19.1.0(react@19.1.0)
 
   '@tanstack/table-core@8.21.3': {}
+
+  '@tolgee/core@6.2.7': {}
+
+  '@tolgee/format-icu@6.2.7': {}
+
+  '@tolgee/react@6.2.7(react@19.1.0)':
+    dependencies:
+      '@tolgee/web': 6.2.7
+      react: 19.1.0
+
+  '@tolgee/web@6.2.7':
+    dependencies:
+      '@tolgee/core': 6.2.7
 
   '@tybys/wasm-util@0.8.3':
     dependencies:
