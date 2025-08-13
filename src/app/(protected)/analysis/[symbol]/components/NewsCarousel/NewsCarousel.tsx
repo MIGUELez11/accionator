@@ -2,6 +2,7 @@
 
 import { stockNewsQuery } from '@/queries/stockNewsQuery';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { useTranslate } from '@tolgee/react';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList as List } from 'react-window';
 import { InfoCard } from '../../../../../../components/InfoCard';
@@ -19,6 +20,7 @@ const ITEM_WIDTH = COLUMN_WIDTH + COLUMN_GAP;
 
 export function NewsCarousel({ symbol }: NewsCarouselProps) {
   const { data: news } = useSuspenseQuery(stockNewsQuery(symbol));
+  const { t } = useTranslate();
   const columnCount = Math.ceil(news.length / 2);
 
   if (!news.length) {
@@ -42,7 +44,7 @@ export function NewsCarousel({ symbol }: NewsCarouselProps) {
 
   return (
     <div className="px-4">
-      <InfoCard title="News" className="pb-0">
+      <InfoCard title={t('page.analysis.news.title')} className="pb-0">
         <div className="mx-6 h-[256px]">
           <AutoSizer>
             {({ width }) => (

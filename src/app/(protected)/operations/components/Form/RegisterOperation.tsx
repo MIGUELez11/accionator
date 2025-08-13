@@ -10,23 +10,28 @@ import { api } from '@convex/_generated/api';
 import { Id } from '@convex/_generated/dataModel';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
+import { useTranslate } from '@tolgee/react';
 import { forwardRef, useImperativeHandle, useState } from 'react';
 import { useForm, UseFormReturn } from 'react-hook-form';
 import { z } from 'zod';
 import { AutocompleteTags } from './AutocompleteTags';
 
-const formSchema = z.object({
-  symbol: z.string().min(1, 'Símbolo es requerido'),
-  type: z.enum(['buy', 'sell'], {
-    required_error: 'Tipo de operación es requerido',
-  }),
-  quantity: z.number().min(0.0001, 'Cantidad debe ser mayor a 0.0001'),
-  price: z.number().min(0.01, 'Precio debe ser mayor a 0.01'),
-  date: z.string().min(1, 'Fecha es requerida'),
-  tags: z.array(z.string().min(1, 'Etiqueta es requerida')).max(3, 'Máximo 3 etiquetas'),
-});
+function useFormSchema() {
+  const { t } = useTranslate();
 
-type FormSchema = z.infer<typeof formSchema>;
+  return z.object({
+    symbol: z.string().min(1, t('view.operations.form.validation.symbol')),
+    type: z.enum(['buy', 'sell'], {
+      required_error: t('view.operations.form.validation.type'),
+    }),
+    quantity: z.number().min(0.0001, t('view.operations.form.validation.quantity')),
+    price: z.number().min(0.01, t('view.operations.form.validation.price')),
+    date: z.string().min(1, t('view.operations.form.validation.date')),
+    tags: z.array(z.string().max(3, t('view.operations.form.validation.tagsMax'))),
+  });
+}
+
+type FormSchema = z.infer<ReturnType<typeof useFormSchema>>;
 
 type EditingOperation = {
   _id: Id<'operations'>;
@@ -75,6 +80,8 @@ function resetForm(form: UseFormReturn<FormSchema>, operation: EditingOperation 
 export const RegisterOperation = forwardRef<RegisterOperationRef, RegisterOperationProps>(
   ({ onEditingChange }, ref) => {
     const [editingOperation, setEditingOperationState] = useState<EditingOperation | null>(null);
+    const { t } = useTranslate();
+    const formSchema = useFormSchema();
 
     const form = useForm<FormSchema>({
       defaultValues: {
@@ -140,15 +147,19 @@ export const RegisterOperation = forwardRef<RegisterOperationRef, RegisterOperat
         <Form {...form}>
           <header className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold">{isEditing ? 'Editar operación' : 'Nueva operación'}</h2>
+              <h2 className="text-2xl font-bold">
+                {isEditing ? t('view.operations.form.titleEdit') : t('view.operations.form.titleNew')}
+              </h2>
               {isEditing && (
                 <div className="flex items-center gap-2">
-                  <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Modo edición</span>
+                  <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
+                    {t('view.operations.form.editMode')}
+                  </span>
                 </div>
               )}
             </div>
             <FormDescription>
-              {isEditing ? 'Modifica los datos de la operación' : 'Añade una nueva operación de compra o venta'}
+              {isEditing ? t('view.operations.form.descriptionEdit') : t('view.operations.form.descriptionNew')}
             </FormDescription>
           </header>
 
@@ -157,9 +168,13 @@ export const RegisterOperation = forwardRef<RegisterOperationRef, RegisterOperat
             name="symbol"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Símbolo</FormLabel>
+                <FormLabel>{t('view.operations.form.symbol')}</FormLabel>
                 <FormControl>
-                  <Input placeholder="Ej. AAPL" {...field} onChange={(e) => field.onChange(e.target.value)} />
+                  <Input
+                    placeholder={t('view.operations.form.symbolPlaceholder')}
+                    {...field}
+                    onChange={(e) => field.onChange(e.target.value)}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -171,20 +186,20 @@ export const RegisterOperation = forwardRef<RegisterOperationRef, RegisterOperat
             name="type"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Tipo de operación</FormLabel>
+                <FormLabel>{t('view.operations.form.type')}</FormLabel>
                 <FormControl>
                   <RadioGroup {...field} onValueChange={field.onChange}>
                     <div className="flex gap-4">
                       <div className="flex items-center">
                         <RadioGroupItem value="buy" id="buy" />
                         <Label htmlFor="buy" className="ml-2">
-                          Compra
+                          {t('view.operations.form.buy')}
                         </Label>
                       </div>
                       <div className="flex items-center">
                         <RadioGroupItem value="sell" id="sell" />
                         <Label htmlFor="sell" className="ml-2">
-                          Venta
+                          {t('view.operations.form.sell')}
                         </Label>
                       </div>
                     </div>
@@ -200,11 +215,11 @@ export const RegisterOperation = forwardRef<RegisterOperationRef, RegisterOperat
             name="quantity"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Cantidad</FormLabel>
+                <FormLabel>{t('view.operations.form.quantity')}</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
-                    placeholder="0"
+                    placeholder={t('view.operations.form.quantityPlaceholder')}
                     {...field}
                     onChange={(e) => {
                       const value = parseFloat(e.target.value);
@@ -222,11 +237,11 @@ export const RegisterOperation = forwardRef<RegisterOperationRef, RegisterOperat
             name="price"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Precio unitario ($)</FormLabel>
+                <FormLabel>{t('view.operations.form.price')}</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
-                    placeholder="0.00"
+                    placeholder={t('view.operations.form.pricePlaceholder')}
                     {...field}
                     onChange={(e) => {
                       const value = parseFloat(e.target.value);
@@ -244,7 +259,7 @@ export const RegisterOperation = forwardRef<RegisterOperationRef, RegisterOperat
             name="date"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Fecha</FormLabel>
+                <FormLabel>{t('view.operations.form.date')}</FormLabel>
                 <FormControl>
                   <Input type="date" {...field} />
                 </FormControl>
@@ -257,11 +272,11 @@ export const RegisterOperation = forwardRef<RegisterOperationRef, RegisterOperat
 
           <div className="flex gap-2 mt-4">
             <Button type="submit" className="flex-1 cursor-pointer">
-              {isEditing ? 'Actualizar Operación' : 'Añadir Operación'}
+              {isEditing ? t('view.operations.form.submitUpdate') : t('view.operations.form.submitAdd')}
             </Button>
             {isEditing && (
               <Button type="button" variant="outline" onClick={handleCancelEdit} className="cursor-pointer">
-                Cancelar
+                {t('view.operations.form.cancel')}
               </Button>
             )}
           </div>

@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { useRefreshInvestmentPlan } from '@/mutations/useRefreshInvestmentPlan';
 import { investmentPlanQuery } from '@/queries/investmentPlanQuery';
 import { useQuery } from '@tanstack/react-query';
+import { useTranslate } from '@tolgee/react';
 import { BrainIcon, ClockIcon, RefreshCcwIcon } from 'lucide-react';
 
 interface PlanHeaderProps {
@@ -16,6 +17,7 @@ interface PlanHeaderProps {
 export function PlanHeader({ title, createdAt }: PlanHeaderProps) {
   const { isFetching } = useQuery(investmentPlanQuery);
   const { mutate: refreshInvestmentPlan, isPending: isRefreshing } = useRefreshInvestmentPlan();
+  const { t } = useTranslate();
 
   return (
     <header className="flex flex-col gap-2">
@@ -46,7 +48,7 @@ export function PlanHeader({ title, createdAt }: PlanHeaderProps) {
 
       <div className="flex items-center gap-1 text-muted-foreground">
         <ClockIcon className="w-4 h-4 mr-1" />
-        <span>Generado</span>
+        <span>{t('view.planHeader.generated')}</span>
         <TimePassed date={createdAt} className="text-base" />
       </div>
     </header>

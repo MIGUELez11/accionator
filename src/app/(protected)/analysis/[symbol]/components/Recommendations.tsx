@@ -3,9 +3,11 @@
 import { stockInfoQuery } from '@/queries/stockInfoQuery';
 import { ResponsiveBar } from '@nivo/bar';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { useTranslate } from '@tolgee/react';
 import { InfoCard } from '../../../../../components/InfoCard';
 
 export function Recommendations({ symbol }: { symbol: string }) {
+  const { t } = useTranslate();
   const { data } = useSuspenseQuery({
     ...stockInfoQuery(symbol),
     select: (data) =>
@@ -25,7 +27,7 @@ export function Recommendations({ symbol }: { symbol: string }) {
   });
 
   return (
-    <InfoCard title="Recomendaciones de analistas">
+    <InfoCard title={t('page.analysis.recommendations.title')}>
       <div className="h-[470px] w-full px-4">
         <ResponsiveBar
           data={data}
@@ -45,7 +47,7 @@ export function Recommendations({ symbol }: { symbol: string }) {
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: 'Fecha',
+            legend: t('page.analysis.recommendations.axis.date'),
             legendPosition: 'middle',
             legendOffset: 35,
             truncateTickAt: 0,
@@ -54,7 +56,7 @@ export function Recommendations({ symbol }: { symbol: string }) {
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: '# Analistas',
+            legend: t('page.analysis.recommendations.axis.analysts'),
             legendPosition: 'middle',
             legendOffset: -40,
             truncateTickAt: 0,
@@ -117,7 +119,7 @@ export function Recommendations({ symbol }: { symbol: string }) {
             },
           ]}
           role="application"
-          ariaLabel="Tendencias de recomendaciones de analistas"
+          ariaLabel={t('page.analysis.recommendations.ariaLabel')}
         />
       </div>
     </InfoCard>

@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useTabParams } from '@/hooks/useTabParams';
 import { api } from '@convex/_generated/api';
 import { Id } from '@convex/_generated/dataModel';
+import { useTranslate } from '@tolgee/react';
 import { useCallback, useRef, useState } from 'react';
 import { RegisterOperation, RegisterOperationRef } from './components/Form/RegisterOperation';
 import { OperationTab } from './components/Operations';
@@ -37,6 +38,7 @@ function useRegisterOperationLogic() {
 export default function OperationsPage() {
   const { selectedTab, handleTabChange } = useTabParams({ queryName: 'tab', defaultValue: 'operations' });
   const { formRef, editingOperationId, handleEditOperation, handleEditingChange } = useRegisterOperationLogic();
+  const { t } = useTranslate();
 
   return (
     <div className={`flex h-[calc(100vh-65px)] overflow-hidden`}>
@@ -45,11 +47,11 @@ export default function OperationsPage() {
       </aside>
 
       <main className={`w-3/4 h-full pl-4 py-4 flex flex-col gap-4`}>
-        <h1 className="text-2xl font-bold">Gestión de operaciones</h1>
+        <h1 className="text-2xl font-bold">{t('page.operations.title')}</h1>
         <Tabs defaultValue={selectedTab} className="h-full" onValueChange={handleTabChange}>
           <TabsList>
-            <TabsTrigger value="operations">Operaciones</TabsTrigger>
-            <TabsTrigger value="symbols">Por símbolo</TabsTrigger>
+            <TabsTrigger value="operations">{t('page.operations.tabs.operations')}</TabsTrigger>
+            <TabsTrigger value="symbols">{t('page.operations.tabs.symbols')}</TabsTrigger>
           </TabsList>
           <div className="mt-4 h-full">
             <TabsContent value="operations" className="h-full">

@@ -5,6 +5,7 @@ import { useDeferedValue } from '@/hooks/useDeferedValue';
 import { searchSymbolQuery } from '@/queries/searchSymbolQuery';
 import { SymbolSearchResponse } from '@/server/stocks/clients/getFinancialmodelingprepClient';
 import { useQuery } from '@tanstack/react-query';
+import { useTranslate } from '@tolgee/react';
 import { SearchIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -20,6 +21,7 @@ function StockSearchRenderComponent({ suggestion: symbol }: { suggestion: Symbol
 
 export function StockSearch() {
   const router = useRouter();
+  const { t } = useTranslate();
 
   const [query, setQuery] = useState('');
 
@@ -37,7 +39,7 @@ export function StockSearch() {
     <div className="w-64">
       <Autocomplete
         leftIcon={SearchIcon}
-        placeholder="Search for a stock"
+        placeholder={t('component.stockSearch.placeholder')}
         searchValue={query}
         onSearchValueChange={setQuery}
         suggestions={data}

@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 import { stockProfileQuery } from '@/queries/stockProfileQuery';
 import { TickerPerformance } from '@convex/helpers/operation/investmentPerformance';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { useTranslate } from '@tolgee/react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -17,6 +18,7 @@ export function DataPoint({ label, value }: { label: string; value: string }) {
 
 export function StockInfo({ symbol }: { symbol: string }) {
   const { data: stockProfile } = useSuspenseQuery(stockProfileQuery(symbol));
+  const { t } = useTranslate();
 
   const logo = stockProfile.logo;
   const name = stockProfile.name!;
@@ -24,7 +26,11 @@ export function StockInfo({ symbol }: { symbol: string }) {
 
   return (
     <Link href={`/analysis/${symbol}`} target="_blank" rel="noopener noreferrer">
-      <header className="flex flex-row gap-2 h-12 cursor-pointer" role="link" aria-label={`Ver análisis de ${name}`}>
+      <header
+        className="flex flex-row gap-2 h-12 cursor-pointer"
+        role="link"
+        aria-label={t('view.operations.symbolCard.viewAnalysis', { name })}
+      >
         {logo ? (
           <Image src={logo} alt={name} width={48} height={48} className="rounded-md" />
         ) : (
@@ -49,6 +55,7 @@ function getBackgroundColor(value: number) {
 
 export function SymbolCard({ symbol, performance }: { symbol: string; performance: TickerPerformance }) {
   const moreSoldThanBought = performance.soldQuantity > performance.buyedQuantity;
+  const { t } = useTranslate();
 
   return (
     <section className="overflow-hidden bg-white border border-gray-100 rounded-xl p-6 shadow-sm transition-all duration-300">
@@ -57,7 +64,10 @@ export function SymbolCard({ symbol, performance }: { symbol: string; performanc
 
         <div className="grid grid-cols-3 gap-6">
           <div className="bg-gray-50 rounded-lg p-4 transition-colors">
-            <DataPoint label="Acciones compradas" value={performance.buyedQuantity.toLocaleString()} />
+            <DataPoint
+              label={t('view.operations.symbolCard.boughtShares')}
+              value={performance.buyedQuantity.toLocaleString()}
+            />
           </div>
 
           <Tooltip>
@@ -67,46 +77,65 @@ export function SymbolCard({ symbol, performance }: { symbol: string; performanc
                   'cursor-help bg-red-200': moreSoldThanBought,
                 })}
               >
-                <DataPoint label="Acciones vendidas" value={performance.soldQuantity.toLocaleString()} />
+                <DataPoint
+                  label={t('view.operations.symbolCard.soldShares')}
+                  value={performance.soldQuantity.toLocaleString()}
+                />
               </div>
             </TooltipTrigger>
             {moreSoldThanBought && (
               <TooltipContent>
-                <p>{performance.soldQuantity - performance.buyedQuantity} acciones vendidas más que compradas</p>
+                <p>
+                  {t('view.operations.symbolCard.soldMoreTooltip', {
+                    difference: performance.soldQuantity - performance.buyedQuantity,
+                  })}
+                </p>
               </TooltipContent>
             )}
           </Tooltip>
           <div className="bg-gray-50 rounded-lg p-4 transition-colors">
-            <DataPoint label="Acciones en cartera" value={performance.holdingQuantity.toLocaleString()} />
+            <DataPoint
+              label={t('view.operations.symbolCard.holdingShares')}
+              value={performance.holdingQuantity.toLocaleString()}
+            />
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-6">
           <div className="space-y-4">
             <div className="bg-gray-50 rounded-lg p-4 transition-colors">
-              <DataPoint label="Inversión total" value={`$${performance.totalInvestment.toLocaleString()}`} />
+              <DataPoint
+                label={t('view.operations.symbolCard.totalInvestment')}
+                value={`$${performance.totalInvestment.toLocaleString()}`}
+              />
             </div>
             <div className={`rounded-lg p-4 transition-colors ${getBackgroundColor(performance.profit)}`}>
-              <DataPoint label="Beneficios" value={`$${performance.profit.toLocaleString()}`} />
+              <DataPoint
+                label={t('view.operations.symbolCard.profit')}
+                value={`$${performance.profit.toLocaleString()}`}
+              />
             </div>
           </div>
 
           <div className="space-y-4">
             <div className={`rounded-lg p-4 transition-colors ${getBackgroundColor(performance.relativeProfit)}`}>
               <DataPoint
-                label="Beneficios de acciones vendidas"
+                label={t('view.operations.symbolCard.soldProfit')}
                 value={`$${performance.relativeProfit.toLocaleString()}`}
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className={`rounded-lg p-4 transition-colors ${getBackgroundColor(performance.profitPercentage)}`}>
-                <DataPoint label="% Beneficios" value={`${(performance.profitPercentage * 100).toFixed(2)}%`} />
+                <DataPoint
+                  label={t('view.operations.symbolCard.profitPercentage')}
+                  value={`${(performance.profitPercentage * 100).toFixed(2)}%`}
+                />
               </div>
               <div
                 className={`rounded-lg p-4 transition-colors ${getBackgroundColor(performance.relativeProfitPercentage)}`}
               >
                 <DataPoint
-                  label="% Beneficios vendidos"
+                  label={t('view.operations.symbolCard.soldProfitPercentage')}
                   value={`${(performance.relativeProfitPercentage * 100).toFixed(2)}%`}
                 />
               </div>

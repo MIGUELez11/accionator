@@ -17,6 +17,7 @@ import { useConvexMutation } from '@convex-dev/react-query';
 import { api } from '@convex/_generated/api';
 import { Id } from '@convex/_generated/dataModel';
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
+import { useTranslate } from '@tolgee/react';
 import { PencilIcon, Trash2Icon } from 'lucide-react';
 import Image from 'next/image';
 
@@ -26,10 +27,11 @@ function useColor(type: 'buy' | 'sell') {
 
 function TypeTag({ type }: { type: 'buy' | 'sell' }) {
   const color = useColor(type);
+  const { t } = useTranslate();
 
   return (
     <Badge variant="outline" className={color}>
-      {type === 'buy' ? 'Compra' : 'Venta'}
+      {type === 'buy' ? t('view.operations.form.buy') : t('view.operations.form.sell')}
     </Badge>
   );
 }
@@ -92,6 +94,7 @@ export function OperationActions({
   const { mutate: deleteOperation, isPending: isDeleting } = useMutation({
     mutationFn: useConvexMutation(api.mutations.operations.remove),
   });
+  const { t } = useTranslate();
 
   return (
     <div className="flex flex-row gap-1 items-center">
@@ -99,8 +102,8 @@ export function OperationActions({
       <Button
         variant="ghost"
         size="icon"
-        title="Editar operación"
-        aria-label="Editar operación"
+        title={t('view.operations.list.edit')}
+        aria-label={t('view.operations.list.edit')}
         className="cursor-pointer"
         onClick={onEdit}
       >
@@ -114,8 +117,8 @@ export function OperationActions({
             variant="ghost"
             size="icon"
             className="cursor-pointer"
-            title="Eliminar operación"
-            aria-label="Eliminar operación"
+            title={t('view.operations.list.delete')}
+            aria-label={t('view.operations.list.delete')}
             disabled={isDeleting}
             onClick={handleShiftClick({ onShiftClick: () => deleteOperation({ id: operation._id }) })}
           >
@@ -125,20 +128,23 @@ export function OperationActions({
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>
-              Eliminar {operation.quantity} acciones de {operation.symbol}
+              {t('view.operations.list.confirmDeleteTitle', {
+                quantity: operation.quantity,
+                symbol: operation.symbol.toUpperCase(),
+              })}
             </AlertDialogTitle>
-            <AlertDialogDescription>¿Estás seguro de querer eliminar esta operación?</AlertDialogDescription>
+            <AlertDialogDescription>{t('view.operations.list.confirmDeleteDescription')}</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel className="cursor-pointer" type="button">
-              Cancelar
+              {t('view.operations.list.cancel')}
             </AlertDialogCancel>
             <AlertDialogAction
               className="cursor-pointer bg-red-500 text-white hover:bg-red-600"
               type="submit"
               onClick={() => deleteOperation({ id: operation._id })}
             >
-              Eliminar
+              {t('view.operations.list.deleteAction')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -154,6 +160,8 @@ interface OperationProps {
 }
 
 export function Operation({ operation, onEdit, isEditing = false }: OperationProps) {
+  const { t } = useTranslate();
+
   const date = new Date(operation.date).toLocaleDateString('es-ES', {
     year: 'numeric',
     month: '2-digit',
@@ -169,9 +177,12 @@ export function Operation({ operation, onEdit, isEditing = false }: OperationPro
       <div className="flex flex-row gap-4 items-center h-12">
         <StockInfo symbol={operation.symbol} />
         <div className="flex flex-row gap-4 items-center h-full pt-0.5">
-          <DataPoint label="Cantidad" value={operation.quantity.toLocaleString()} />
-          <DataPoint label="Precio" value={`$${operation.price.toLocaleString()}`} />
-          <DataPoint label="Total" value={`$${(operation.price * operation.quantity).toLocaleString()}`} />
+          <DataPoint label={t('view.operations.operationCard.quantity')} value={operation.quantity.toLocaleString()} />
+          <DataPoint label={t('view.operations.operationCard.price')} value={`$${operation.price.toLocaleString()}`} />
+          <DataPoint
+            label={t('view.operations.operationCard.total')}
+            value={`$${(operation.price * operation.quantity).toLocaleString()}`}
+          />
         </div>
       </div>
       <div className="flex flex-row gap-2 items-center">
@@ -180,7 +191,9 @@ export function Operation({ operation, onEdit, isEditing = false }: OperationPro
             <Tags tags={operation.tags} />
             <TypeTag type={operation.type} />
             {isEditing && (
-              <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full font-medium">Editando</span>
+              <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full font-medium">
+                {t('view.operations.list.editingBadge')}
+              </span>
             )}
           </div>
           <p className="text-sm text-gray-500">{date}</p>

@@ -1,5 +1,6 @@
 import { StockScreenerResponse } from '@/server/stocks/clients/getFinancialmodelingprepClient';
 import { ColumnDef } from '@tanstack/react-table';
+import { useTranslate } from '@tolgee/react';
 import { ArrowDownRightIcon, ArrowRightIcon, ArrowUpRightIcon, TrendingDownIcon, TrendingUpIcon } from 'lucide-react';
 import { useMemo } from 'react';
 import { CompanyRenderer } from './components/CompanyRenderer';
@@ -47,87 +48,95 @@ function AnalysisColumnRenderer({ getValue }: { getValue: () => unknown }) {
   );
 }
 
-const columns: ColumnDef<StockScreenerResponse>[] = [
-  {
-    header: 'Company',
-    accessorKey: 'symbol',
-    cell: ({ row }) => <CompanyRenderer companyName={row.original.companyName} symbol={row.original.symbol} />,
-  },
-  {
-    header: 'Price',
-    accessorKey: 'price',
-  },
-  {
-    header: 'Beta',
-    accessorKey: 'beta',
-    cell: ({ getValue }) => {
-      const value = getValue<number>();
-      return value ? value.toFixed(2) : null;
+function useColumnsBase(): ColumnDef<StockScreenerResponse>[] {
+  const { t } = useTranslate();
+  return [
+    {
+      header: t('view.screenerTable.columns.company'),
+      accessorKey: 'symbol',
+      cell: ({ row }) => <CompanyRenderer companyName={row.original.companyName} symbol={row.original.symbol} />,
     },
-  },
-  {
-    header: 'Volume',
-    accessorKey: 'volume',
-    cell: ({ getValue }) => {
-      const value = getValue<number>();
-      return value ? `${(value / 1e6).toFixed(2)}M` : null;
+    {
+      header: t('view.screenerTable.columns.price'),
+      accessorKey: 'price',
     },
-  },
-  {
-    header: 'Capitalization',
-    accessorKey: 'marketCap',
-    cell: ({ getValue }) => {
-      const value = getValue<number>();
-      return value ? `$${(value / 1e9).toFixed(2)}B` : null;
+    {
+      header: t('view.screenerTable.columns.beta'),
+      accessorKey: 'beta',
+      cell: ({ getValue }) => {
+        const value = getValue<number>();
+        return value ? value.toFixed(2) : null;
+      },
     },
-  },
-  {
-    header: 'Sector',
-    accessorKey: 'sector',
-  },
-  {
-    header: 'Country',
-    accessorKey: 'country',
-  },
-  {
-    header: 'Last dividend',
-    accessorKey: 'lastAnnualDividend',
-    cell: ({ getValue }) => {
-      const value = getValue<number>();
-      return value ? `$${value.toFixed(2)}` : null;
+    {
+      header: t('view.screenerTable.columns.volume'),
+      accessorKey: 'volume',
+      cell: ({ getValue }) => {
+        const value = getValue<number>();
+        return value ? `${(value / 1e6).toFixed(2)}M` : null;
+      },
     },
-  },
-];
+    {
+      header: t('view.screenerTable.columns.capitalization'),
+      accessorKey: 'marketCap',
+      cell: ({ getValue }) => {
+        const value = getValue<number>();
+        return value ? `$${(value / 1e9).toFixed(2)}B` : null;
+      },
+    },
+    {
+      header: t('view.screenerTable.columns.sector'),
+      accessorKey: 'sector',
+    },
+    {
+      header: t('view.screenerTable.columns.country'),
+      accessorKey: 'country',
+    },
+    {
+      header: t('view.screenerTable.columns.lastDividend'),
+      accessorKey: 'lastAnnualDividend',
+      cell: ({ getValue }) => {
+        const value = getValue<number>();
+        return value ? `$${value.toFixed(2)}` : null;
+      },
+    },
+  ];
+}
 
-const AnalysisColumns: ColumnDef<StockScreenerResponse>[] = [
-  {
-    header: 'Analyst Rating',
-    accessorKey: 'analystsRating',
-    cell: AnalysisColumnRenderer,
-  },
-  {
-    header: 'Tech Rating',
-    accessorKey: 'techRating',
-    cell: AnalysisColumnRenderer,
-  },
-  {
-    header: 'Moving Average Rating',
-    accessorKey: 'movingAverageRating',
-    cell: AnalysisColumnRenderer,
-  },
-  {
-    header: 'Oscillators Rating',
-    accessorKey: 'oscillatorsRating',
-    cell: AnalysisColumnRenderer,
-  },
-];
+function useAnalysisColumns(): ColumnDef<StockScreenerResponse>[] {
+  const { t } = useTranslate();
+  return [
+    {
+      header: t('view.screenerTable.columns.analystRating'),
+      accessorKey: 'analystsRating',
+      cell: AnalysisColumnRenderer,
+    },
+    {
+      header: t('view.screenerTable.columns.techRating'),
+      accessorKey: 'techRating',
+      cell: AnalysisColumnRenderer,
+    },
+    {
+      header: t('view.screenerTable.columns.movingAverageRating'),
+      accessorKey: 'movingAverageRating',
+      cell: AnalysisColumnRenderer,
+    },
+    {
+      header: t('view.screenerTable.columns.oscillatorsRating'),
+      accessorKey: 'oscillatorsRating',
+      cell: AnalysisColumnRenderer,
+    },
+  ];
+}
 
 export function useColumns(hasAnalysisData: boolean) {
+  const columns = useColumnsBase();
+  const analysisColumns = useAnalysisColumns();
+
   return useMemo(() => {
     if (hasAnalysisData) {
-      return [...columns.slice(0, 4), ...AnalysisColumns, ...columns.slice(4)];
+      return [...columns.slice(0, 4), ...analysisColumns, ...columns.slice(4)];
     }
-
     return columns;
-  }, [hasAnalysisData]);
+  }, [hasAnalysisData, columns, analysisColumns]);
 }

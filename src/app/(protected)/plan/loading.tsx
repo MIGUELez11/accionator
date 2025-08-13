@@ -1,8 +1,11 @@
 import { InfoCard } from '@/components/InfoCard';
 import { Card, CardContent } from '@/components/ui/card';
+import { getTranslate } from '@/i18n/tolgee/server';
 import { BrainIcon, ClockIcon, TrendingUpIcon } from 'lucide-react';
 
-export default function PlanLoader() {
+export default async function PlanLoader() {
+  const t = await getTranslate();
+
   return (
     <div className="p-4 flex flex-col gap-6 max-w-7xl mx-auto">
       {/* Header Section */}
@@ -11,16 +14,16 @@ export default function PlanLoader() {
           <div className="p-2 bg-primary/10 rounded-lg">
             <BrainIcon className="h-6 w-6 text-primary" />
           </div>
-          <h1 className="text-2xl font-bold">Plan de inversión</h1>
+          <h1 className="text-2xl font-bold">{t('page.plan.loading.headerTitle')}</h1>
         </div>
         <div className="flex items-center gap-1 text-muted-foreground">
           <ClockIcon className="h-4 w-4" />
-          <span>Generando plan personalizado...</span>
+          <span>{t('page.plan.loading.generating')}</span>
         </div>
       </div>
 
       {/* Loading Section */}
-      <InfoCard title="Generando plan personalizado...">
+      <InfoCard title={t('page.plan.loading.generating')}>
         <div className="flex items-center justify-center py-8">
           <div className="flex flex-col items-center gap-4">
             <div className="relative">
@@ -30,8 +33,8 @@ export default function PlanLoader() {
               </div>
             </div>
             <div className="text-center space-y-2">
-              <p className="text-sm font-medium">Analizando mercado y calculando estrategias</p>
-              <p className="text-xs text-muted-foreground">Esto puede tomar entre 10 segundos y 5 minutos</p>
+              <p className="text-sm font-medium">{t('page.plan.loading.analyzing')}</p>
+              <p className="text-xs text-muted-foreground">{t('page.plan.loading.duration')}</p>
             </div>
           </div>
         </div>
@@ -43,11 +46,8 @@ export default function PlanLoader() {
           <div className="flex items-start gap-3">
             <TrendingUpIcon className="h-5 w-5 text-blue-600 mt-0.5" />
             <div className="space-y-1">
-              <p className="text-sm font-medium text-blue-900">Generando plan de inversión personalizado</p>
-              <p className="text-sm text-blue-700">
-                El tiempo de generación puede variar entre 10 segundos (cache) y 5 minutos dependiendo de la complejidad
-                del análisis y la carga del sistema.
-              </p>
+              <p className="text-sm font-medium text-blue-900">{t('page.plan.loading.infoTitle')}</p>
+              <p className="text-sm text-blue-700">{t('page.plan.loading.infoDescription')}</p>
             </div>
           </div>
         </CardContent>

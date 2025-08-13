@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { useRefreshAnalysisMutation } from '@/mutations/useRefreshAnalysisMutation';
+import { useTranslate } from '@tolgee/react';
 import { RefreshCcwIcon } from 'lucide-react';
 import { useAIAnalysis } from './hooks/useAIAnalysis';
 
@@ -15,12 +16,13 @@ const SHOULD_SHOW_PRICE = process.env.NEXT_PUBLIC_SHOULD_SHOW_PRICE === 'true';
 export function AIAnalysis({ symbol }: { symbol: string }) {
   const { generateAnalysis, shouldGenerate, data, isLoading, isFetching, error } = useAIAnalysis(symbol);
   const refreshAnalysisMutation = useRefreshAnalysisMutation();
+  const { t } = useTranslate();
 
   if (!data && !shouldGenerate) {
     return (
-      <InfoCard title="Recomendación IA">
+      <InfoCard title={t('page.analysis.aiAnalysis.title')}>
         <div className="h-full w-full px-6">
-          <Button onClick={generateAnalysis}>Generar análisis</Button>
+          <Button onClick={generateAnalysis}>{t('page.analysis.aiAnalysis.generate')}</Button>
         </div>
       </InfoCard>
     );
@@ -28,9 +30,9 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
 
   if (isLoading) {
     return (
-      <InfoCard title="Recomendación IA">
+      <InfoCard title={t('page.analysis.aiAnalysis.title')}>
         <div className="h-full w-full px-6">
-          <p>Generando análisis...</p>
+          <p>{t('page.analysis.aiAnalysis.generating')}</p>
         </div>
       </InfoCard>
     );
@@ -55,9 +57,13 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
 
   if (error) {
     return (
-      <InfoCard title="Recomendación IA" rightIcon={refreshButton}>
+      <InfoCard title={t('page.analysis.aiAnalysis.title')} rightIcon={refreshButton}>
         <div className="h-full w-full px-6">
-          <p>Error al generar análisis: {error.message ? error.message : 'error desconocido'}</p>
+          <p>
+            {t('page.analysis.aiAnalysis.error', {
+              message: error.message ?? t('page.analysis.aiAnalysis.unknownError'),
+            })}
+          </p>
         </div>
       </InfoCard>
     );
@@ -65,15 +71,15 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
 
   if (!data) {
     return (
-      <InfoCard title="Recomendación IA">
+      <InfoCard title={t('page.analysis.aiAnalysis.title')}>
         <div className="h-full w-full px-6">
-          <p>No se encontró ningún análisis</p>
+          <p>{t('page.analysis.aiAnalysis.notFound')}</p>
         </div>
       </InfoCard>
     );
   }
 
-  let title = 'Recomendación IA';
+  let title = t('page.analysis.aiAnalysis.title');
 
   if (SHOULD_SHOW_PRICE) {
     const inputTokens = data.action.inputTokens + data.financialAnalysis.inputTokens + data.newsSummary.inputTokens;
@@ -89,9 +95,9 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
 
   let action;
   if (data.action.response.action === 'buy') {
-    action = 'Comprar';
+    action = t('common.buy', { defaultValue: 'Comprar' });
   } else if (data.action.response.action === 'doNotBuy') {
-    action = 'No comprar';
+    action = t('common.doNotBuy', { defaultValue: 'No comprar' });
   } else {
     action = data.action.response.action;
   }
@@ -101,36 +107,38 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-4 px-6">
           <div className="flex flex-col gap-1">
-            <h3 className="text-lg font-medium">Plan de acción ({data.action.response.estimatedTime})</h3>
+            <h3 className="text-lg font-medium">
+              {t('page.analysis.aiAnalysis.actionPlan', { estimatedTime: data.action.response.estimatedTime })}
+            </h3>
             {data.action.response.analysis ? <p>{data.action.response.analysis}</p> : null}
           </div>
           <div className="grid grid-cols-3 gap-4">
             <EconomicIndicator
-              title="Acción"
+              title={t('page.analysis.aiAnalysis.action')}
               value={action}
               className={data.action.response.action === 'buy' ? 'text-green-600' : 'text-red-600'}
             />
             <EconomicIndicator
-              title="Rango de entrada"
+              title={t('page.analysis.aiAnalysis.entryRange')}
               value={`$${data.action.response.entryPrice.min.toFixed(2)} - $${data.action.response.entryPrice.max.toFixed(2)}`}
             />
             <EconomicIndicator
-              title="Precio objetivo"
+              title={t('page.analysis.aiAnalysis.targetPrice')}
               value={`$${data.action.response.desiredPrice.toFixed(2)}`}
               className="text-green-600"
             />
             <EconomicIndicator
-              title="Stop loss"
+              title={t('page.analysis.aiAnalysis.stopLoss')}
               value={`$${data.action.response.stopLoss.toFixed(2)}`}
               className="text-red-600"
             />
             <EconomicIndicator
-              title="Beneficio potencial"
+              title={t('page.analysis.aiAnalysis.potentialProfit')}
               value={`${(data.action.response.profit * 100).toFixed(2)}%`}
               className="text-green-600"
             />
             <EconomicIndicator
-              title="Pérdida potencial"
+              title={t('page.analysis.aiAnalysis.potentialLoss')}
               value={`${(data.action.response.loss * 100).toFixed(2)}%`}
               className="text-red-600"
             />
@@ -142,7 +150,7 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
             <Separator className="my-2" />
 
             <div className="flex flex-col gap-4 px-6">
-              <h3 className="text-lg font-medium">Estrategia de salida</h3>
+              <h3 className="text-lg font-medium">{t('page.analysis.aiAnalysis.exitStrategy')}</h3>
               <div className="grid gap-3">
                 {Object.entries(data.action.response.exitStrategies)
                   .sort(([priceA], [priceB]) => Number(priceA) - Number(priceB))
@@ -154,12 +162,12 @@ export function AIAnalysis({ symbol }: { symbol: string }) {
                         </div>
                         <div>
                           <p className="font-medium">${Number(price).toFixed(2)}</p>
-                          <p className="text-sm text-gray-500">Precio objetivo</p>
+                          <p className="text-sm text-gray-500">{t('page.analysis.aiAnalysis.objectivePrice')}</p>
                         </div>
                       </div>
                       <div className="text-right">
                         <p className="font-medium text-green-600">{(Number(percentage) * 100).toFixed(2)}%</p>
-                        <p className="text-sm text-gray-500">Vender</p>
+                        <p className="text-sm text-gray-500">{t('page.analysis.aiAnalysis.sell')}</p>
                       </div>
                     </div>
                   ))}
