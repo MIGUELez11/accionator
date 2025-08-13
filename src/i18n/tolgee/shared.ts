@@ -5,6 +5,7 @@ const apiKey = process.env.NEXT_PUBLIC_TOLGEE_API_KEY;
 const apiUrl = process.env.NEXT_PUBLIC_TOLGEE_API_URL;
 
 export const ALL_LANGUAGES = ['es', 'en'] as const;
+export type ALL_LANGUAGES = (typeof ALL_LANGUAGES)[number];
 
 export const DEFAULT_LANGUAGE = 'es' satisfies (typeof ALL_LANGUAGES)[number];
 

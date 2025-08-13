@@ -15,12 +15,12 @@ export async function setLanguage(locale: string) {
 
 export async function getLanguage() {
   const cookieStore = await cookies();
-  const locale = cookieStore.get(LANGUAGE_COOKIE)?.value;
+  const locale = cookieStore.get(LANGUAGE_COOKIE)?.value as ALL_LANGUAGES | undefined;
   if (locale && ALL_LANGUAGES.includes(locale)) {
     return locale;
   }
 
   // try to detect language from headers or use default
-  const detected = detectLanguageFromHeaders(await headers(), ALL_LANGUAGES);
+  const detected = detectLanguageFromHeaders(await headers(), Array.from(ALL_LANGUAGES)) as ALL_LANGUAGES;
   return detected || DEFAULT_LANGUAGE;
 }
