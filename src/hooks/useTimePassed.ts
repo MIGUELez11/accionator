@@ -1,6 +1,5 @@
-import { DEFAULT_LANGUAGE } from '@/i18n/tolgee/shared';
-import { useTolgee } from '@tolgee/react';
 import { useEffect, useState } from 'react';
+import { useLocale } from './useLocale';
 
 const TIME_CONSTANTS = {
   SECOND: 1000,
@@ -33,8 +32,7 @@ export function getTimePassed(date: Date, locale: string) {
 }
 
 export function useTimePassed(date: Date) {
-  const tolgee = useTolgee(['language']);
-  const locale = tolgee.getLanguage() ?? DEFAULT_LANGUAGE;
+  const locale = useLocale();
 
   const [timePassed, setTimePassed] = useState<string>('');
 

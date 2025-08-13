@@ -10,6 +10,7 @@
     },
     "common": {
       "loading": "Cargando...",
+      "noDataAvailable": "No hay datos disponibles",
       "somethingWentWrong": "Ha ocurrido un error"
     },
     "hero": {
@@ -18,6 +19,14 @@
     "loginButton": {
       "signIn": "Iniciar sesión",
       "signUp": "Crear cuenta"
+    },
+    "remainingCredits": {
+      "lifetimeRemaining": "Te quedan ${amount}",
+      "monthlyRemaining": "Este mes te quedan ${amount}",
+      "nextRenewal": "Próxima renovación: {date}",
+      "of": "de",
+      "usage": "Uso",
+      "usageThisMonth": "Uso este mes"
     },
     "stockSearch": {
       "placeholder": "Busca una acción"

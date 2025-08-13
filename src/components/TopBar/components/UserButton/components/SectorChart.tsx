@@ -1,14 +1,16 @@
 import { ResponsivePie } from '@nivo/pie';
+import { useTranslate } from '@tolgee/react';
 
 interface SectorChartProps {
   data: { name: string; queries: number }[];
 }
 
 export function SectorChart({ data }: SectorChartProps) {
+  const { t } = useTranslate();
   const total = data.reduce((acc, curr) => acc + curr.queries, 0);
 
   if (total === 0) {
-    return <div style={{ height: 150 }}>No data available</div>;
+    return <div style={{ height: 150 }}>{t('component.common.noDataAvailable')}</div>;
   }
 
   const chartData = data.map(({ name, queries }) => ({

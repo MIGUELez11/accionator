@@ -10,6 +10,7 @@
     },
     "common": {
       "loading": "Loading...",
+      "noDataAvailable": "No data available",
       "somethingWentWrong": "Something went wrong"
     },
     "hero": {
@@ -18,6 +19,14 @@
     "loginButton": {
       "signIn": "Sign in",
       "signUp": "Sign up"
+    },
+    "remainingCredits": {
+      "lifetimeRemaining": "You have ${amount} remaining",
+      "monthlyRemaining": "This month you have ${amount} remaining",
+      "nextRenewal": "Next renewal: {date}",
+      "of": "of",
+      "usage": "Usage",
+      "usageThisMonth": "Usage this month"
     },
     "stockSearch": {
       "placeholder": "Search for a stock"

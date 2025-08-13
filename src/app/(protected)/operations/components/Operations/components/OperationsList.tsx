@@ -3,6 +3,7 @@
 import { useConvexPaginatedQuery } from '@convex-dev/react-query';
 import { api } from '@convex/_generated/api';
 import { Id } from '@convex/_generated/dataModel';
+import { useTranslate } from '@tolgee/react';
 import { Loader2Icon } from 'lucide-react';
 import { Suspense, useCallback } from 'react';
 import { Virtuoso } from 'react-virtuoso';
@@ -20,6 +21,7 @@ interface OperationsListProps {
 }
 
 export function OperationsList({ onEditOperation, editingOperationId }: OperationsListProps) {
+  const { t } = useTranslate();
   const { results, loadMore, status } = useConvexPaginatedQuery(
     api.queries.operations.listOperations,
     {},
@@ -79,7 +81,7 @@ export function OperationsList({ onEditOperation, editingOperationId }: Operatio
               <div className="flex justify-center py-4">
                 <div className="flex items-center gap-2 text-gray-500">
                   {isLoadingMore && <Loader2Icon className="w-4 h-4 animate-spin" />}
-                  {isLoadingMore ? 'Cargando más...' : 'Desplaza para cargar más'}
+                  {isLoadingMore ? t('component.symbolList.loadingMore') : t('component.symbolList.loadMoreHint')}
                 </div>
               </div>
             ) : null,

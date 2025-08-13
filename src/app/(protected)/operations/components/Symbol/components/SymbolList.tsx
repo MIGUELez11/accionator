@@ -57,7 +57,7 @@ export function SymbolList() {
         increaseViewportBy={200}
         itemContent={(index, result) => (
           <div className="mb-4">
-            <Suspense key={result.symbol} fallback={<div>Loading...</div>}>
+            <Suspense key={result.symbol} fallback={<div>{t('component.common.loading')}</div>}>
               <SymbolCard symbol={result.symbol} performance={result.performance} />
             </Suspense>
           </div>

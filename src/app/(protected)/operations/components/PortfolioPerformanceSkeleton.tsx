@@ -1,9 +1,11 @@
 import { Skeleton } from '@/components/ui/skeleton';
+import { useTranslate } from '@tolgee/react';
 
 export function PortfolioPerformanceSkeleton() {
+  const { t } = useTranslate();
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-gray-900">Rendimiento de la Cartera</h2>
+      <h2 className="text-2xl font-bold text-gray-900">{t('view.portfolioPerformance.title')}</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Total Invertido */}
         <div className="p-6 rounded-lg border bg-blue-50 border-blue-200">
