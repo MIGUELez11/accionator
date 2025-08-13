@@ -25,36 +25,39 @@ export function AutocompleteTags({ name }: AutocompleteTagsProps) {
     <FormField
       control={form.control}
       name={name}
-      render={({ field }) => (
-        <FormItem ref={resizeObserverRef}>
-          <FormLabel>{t('view.operations.form.tags')}</FormLabel>
-          <FormControl>
-            <Autocomplete
-              maxWidth={maxWidth}
-              suggestions={tagsWithSearch}
-              onSelectedValueChange={(value) => {
-                if (value.disabled) {
-                  return;
-                }
+      render={({ field, fieldState }) => {
+        console.log('error', fieldState.error);
+        return (
+          <FormItem ref={resizeObserverRef}>
+            <FormLabel>{t('view.operations.form.tags')}</FormLabel>
+            <FormControl>
+              <Autocomplete
+                maxWidth={maxWidth}
+                suggestions={tagsWithSearch}
+                onSelectedValueChange={(value) => {
+                  if (value.disabled) {
+                    return;
+                  }
 
-                const fieldIncludesValue = field.value.includes(value.label);
+                  const fieldIncludesValue = field.value.includes(value.label);
 
-                if (fieldIncludesValue) {
-                  return;
-                }
+                  if (fieldIncludesValue) {
+                    return;
+                  }
 
-                field.onChange([...field.value, value.label]);
-              }}
-              onSearchValueChange={onSearchChange}
-              renderComponent={SuggestionRenderer}
-              isSearching={isFetching}
-            />
-          </FormControl>
-          <FormMessage />
+                  field.onChange([...field.value, value.label]);
+                }}
+                onSearchValueChange={onSearchChange}
+                renderComponent={SuggestionRenderer}
+                isSearching={isFetching}
+              />
+            </FormControl>
+            <FormMessage />
 
-          <SelectedTags tags={field.value ?? []} onChange={field.onChange} />
-        </FormItem>
-      )}
+            <SelectedTags tags={field.value ?? []} onChange={field.onChange} />
+          </FormItem>
+        );
+      }}
     />
   );
 }

@@ -27,7 +27,7 @@ function useFormSchema() {
     quantity: z.number().min(0.0001, t('view.operations.form.validation.quantity')),
     price: z.number().min(0.01, t('view.operations.form.validation.price')),
     date: z.string().min(1, t('view.operations.form.validation.date')),
-    tags: z.array(z.string().max(3, t('view.operations.form.validation.tagsMax'))),
+    tags: z.array(z.string()).max(3, t('view.operations.form.validation.tagsMax')),
   });
 }
 
