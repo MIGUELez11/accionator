@@ -1,6 +1,6 @@
 import { useTranslate } from '@tolgee/react';
 import { NewspaperIcon } from 'lucide-react';
-import { InfoCard } from '../../../../../../../components/InfoCard';
+import { InfoCard } from '../../../../../../../../components/InfoCard';
 
 export default function EmptyState() {
   const { t } = useTranslate();

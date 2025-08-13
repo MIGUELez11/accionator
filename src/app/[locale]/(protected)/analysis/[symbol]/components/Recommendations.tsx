@@ -4,7 +4,7 @@ import { stockInfoQuery } from '@/queries/stockInfoQuery';
 import { ResponsiveBar } from '@nivo/bar';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useTranslate } from '@tolgee/react';
-import { InfoCard } from '../../../../../components/InfoCard';
+import { InfoCard } from '../../../../../../components/InfoCard';
 
 export function Recommendations({ symbol }: { symbol: string }) {
   const { t } = useTranslate();

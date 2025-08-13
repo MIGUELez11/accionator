@@ -1,7 +1,7 @@
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import { getTranslate } from '@/i18n/tolgee/server';
-import { InfoCard } from '../../../../../../components/InfoCard';
+import { InfoCard } from '../../../../../../../components/InfoCard';
 
 export async function BusinessInfoSkeleton() {
   const t = await getTranslate();

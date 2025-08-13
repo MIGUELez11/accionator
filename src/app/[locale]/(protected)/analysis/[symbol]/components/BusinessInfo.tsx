@@ -5,8 +5,8 @@ import { stockInfoQuery } from '@/queries/stockInfoQuery';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useTranslate } from '@tolgee/react';
 import { GlobeIcon, MapPinIcon } from 'lucide-react';
-import { EconomicIndicator } from '../../../../../components/EconomicIndicator';
-import { InfoCard } from '../../../../../components/InfoCard';
+import { EconomicIndicator } from '../../../../../../components/EconomicIndicator';
+import { InfoCard } from '../../../../../../components/InfoCard';
 
 export interface BusinessInfoProps {
   exchange: string;

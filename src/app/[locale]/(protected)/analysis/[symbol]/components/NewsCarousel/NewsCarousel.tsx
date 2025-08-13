@@ -5,7 +5,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { useTranslate } from '@tolgee/react';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList as List } from 'react-window';
-import { InfoCard } from '../../../../../../components/InfoCard';
+import { InfoCard } from '../../../../../../../components/InfoCard';
 import EmptyState from './components/EmptyState';
 import NewsCard from './components/NewsCard';
 
