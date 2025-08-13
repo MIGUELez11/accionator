@@ -1,9 +1,9 @@
 import { Skeleton } from '@/components/ui/skeleton';
-import { useTranslate } from '@tolgee/react';
+import { getTranslate } from '@/i18n/tolgee/server';
 import { InfoCard } from '../../../../../../components/InfoCard';
 
-export function NewsCarouselSkeleton() {
-  const { t } = useTranslate();
+export async function NewsCarouselSkeleton() {
+  const t = await getTranslate();
   return (
     <div className="px-4">
       <InfoCard title={t('page.analysis.news.title')}>

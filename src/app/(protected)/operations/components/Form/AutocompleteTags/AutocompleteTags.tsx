@@ -3,6 +3,7 @@
 import { Autocomplete } from '@/components/ui/autocomplete';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useElementSize } from '@/hooks/useResizeObserver';
+import { useTranslate } from '@tolgee/react';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { SelectedTags } from './components/SelectedTags';
 import { SuggestionRenderer } from './components/SuggestionRenderer';
@@ -13,6 +14,7 @@ interface AutocompleteTagsProps {
 }
 
 export function AutocompleteTags({ name }: AutocompleteTagsProps) {
+  const { t } = useTranslate();
   const form = useFormContext();
   const tags = useWatch({ control: form.control, name: name });
 
@@ -25,7 +27,7 @@ export function AutocompleteTags({ name }: AutocompleteTagsProps) {
       name={name}
       render={({ field }) => (
         <FormItem ref={resizeObserverRef}>
-          <FormLabel>Etiquetas</FormLabel>
+          <FormLabel>{t('view.operations.form.tags')}</FormLabel>
           <FormControl>
             <Autocomplete
               maxWidth={maxWidth}

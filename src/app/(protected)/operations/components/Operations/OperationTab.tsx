@@ -1,5 +1,6 @@
 import { api } from '@convex/_generated/api';
 import { Id } from '@convex/_generated/dataModel';
+import { useTranslate } from '@tolgee/react';
 import { Suspense } from 'react';
 import { PortfolioPerformance } from '../PortfolioPerformance';
 import { PortfolioPerformanceSkeleton } from '../PortfolioPerformanceSkeleton';
@@ -11,6 +12,7 @@ interface OperationTabProps {
 }
 
 export function OperationTab({ onEditOperation, editingOperationId }: OperationTabProps) {
+  const { t } = useTranslate();
   return (
     <div className="h-full flex flex-col gap-4">
       <div className="pr-4">
@@ -18,7 +20,7 @@ export function OperationTab({ onEditOperation, editingOperationId }: OperationT
           <PortfolioPerformance />
         </Suspense>
       </div>
-      <h2 className="text-lg font-bold">Cartera</h2>
+      <h2 className="text-lg font-bold">{t('view.operations.operations.title')}</h2>
       <OperationsList onEditOperation={onEditOperation} editingOperationId={editingOperationId} />
     </div>
   );

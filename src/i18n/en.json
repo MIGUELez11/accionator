@@ -74,6 +74,21 @@
       }
     },
     "home": {
+      "features": {
+        "advancedScreener": {
+          "description": "Filter and analyze thousands of stocks in real-time with customizable criteria and advanced technical analysis.",
+          "title": "Advanced Screener"
+        },
+        "aiAnalysis": {
+          "description": "Get personalized recommendations based on AI models trained with millions of historical data points.",
+          "title": "AI Analysis"
+        },
+        "realTimeData": {
+          "description": "Access real-time market data, relevant news, and updated fundamental analysis.",
+          "title": "Real-time Data"
+        },
+        "title": "Main features"
+      },
       "hero": {
         "cta": "Get started now",
         "description": "Make informed decisions with our AI-backed analysis. Discover unique investment opportunities with our expert analysis system.",
@@ -124,6 +139,9 @@
   },
   "view": {
     "operations": {
+      "bySymbol": {
+        "title": "Wallet by symbol"
+      },
       "form": {
         "buy": "Buy",
         "cancel": "Cancel",
@@ -140,6 +158,7 @@
         "submitUpdate": "Update Operation",
         "symbol": "Symbol",
         "symbolPlaceholder": "e.g. AAPL",
+        "tags": "Tags",
         "titleEdit": "Edit operation",
         "titleNew": "New operation",
         "type": "Operation type",
@@ -166,6 +185,9 @@
         "quantity": "Quantity",
         "tags": "Tags",
         "total": "Total"
+      },
+      "operations": {
+        "title": "Wallet"
       },
       "symbolCard": {
         "boughtShares": "Shares bought",

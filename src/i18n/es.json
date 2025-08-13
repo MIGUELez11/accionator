@@ -74,6 +74,21 @@
       }
     },
     "home": {
+      "features": {
+        "advancedScreener": {
+          "description": "Filtra y analiza miles de acciones en tiempo real con criterios personalizables y análisis técnico avanzado.",
+          "title": "Screener Avanzado"
+        },
+        "aiAnalysis": {
+          "description": "Obtén recomendaciones personalizadas basadas en modelos de IA entrenados con millones de datos históricos.",
+          "title": "Análisis por IA"
+        },
+        "realTimeData": {
+          "description": "Accede a datos del mercado en tiempo real, noticias relevantes y análisis fundamentales actualizados.",
+          "title": "Datos en Tiempo Real"
+        },
+        "title": "Características principales"
+      },
       "hero": {
         "cta": "Comenzar ahora",
         "description": "Toma decisiones informadas con nuestro análisis respaldado por IA. Descubre oportunidades de inversión únicas con nuestro experto sistema de análisis.",
@@ -124,6 +139,9 @@
   },
   "view": {
     "operations": {
+      "bySymbol": {
+        "title": "Cartera por símbolo"
+      },
       "form": {
         "buy": "Compra",
         "cancel": "Cancelar",
@@ -140,6 +158,7 @@
         "submitUpdate": "Actualizar Operación",
         "symbol": "Símbolo",
         "symbolPlaceholder": "Ej. AAPL",
+        "tags": "Etiquetas",
         "titleEdit": "Editar operación",
         "titleNew": "Nueva operación",
         "type": "Tipo de operación",
@@ -166,6 +185,9 @@
         "quantity": "Cantidad",
         "tags": "Etiquetas",
         "total": "Total"
+      },
+      "operations": {
+        "title": "Cartera"
       },
       "symbolCard": {
         "boughtShares": "Acciones compradas",
