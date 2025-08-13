@@ -116,6 +116,30 @@
         "infoDescription": "Generation time may vary between 10 seconds (cache) and 5 minutes depending on the complexity of the analysis and system load.",
         "infoTitle": "Generating personalized investment plan"
       },
+      "stock": {
+        "analysisButton": "See analysis",
+        "ariaLabel": "{symbol} investment plan",
+        "entryPriceRange": "Entry range",
+        "error": {
+          "description": "An error occurred when loading the information for this stock. Please, try again later",
+          "subtitle": "The information couldn't be loaded",
+          "title": "{symbol} error"
+        },
+        "exitStrategy": "Exit strategy",
+        "exitStrategy.percentage": "Capital {percentage}",
+        "investmentMetrics": {
+          "duration": "Duration",
+          "estimatedLoss": "Est. lost",
+          "estimatedProfit": "Est. profit",
+          "profitProbability": "Profit prob.",
+          "quantity": "Quantity",
+          "stopLoss": "Stop loss"
+        }
+      },
+      "stocksList": {
+        "title": "Actions"
+      },
+      "strategy": "Strategy",
       "title": "Investment plan"
     },
     "profile": {
@@ -141,6 +165,13 @@
     "operations": {
       "bySymbol": {
         "title": "Wallet by symbol"
+      },
+      "error": {
+        "buy": "Buy",
+        "description": "Please, refresh the page or edit the operation",
+        "details": "{quantity} actions at ${price}",
+        "sell": "Sell",
+        "title": "Error loading the operation"
       },
       "form": {
         "buy": "Buy",

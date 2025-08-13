@@ -1,6 +1,7 @@
 'use client';
 
 import { Id } from '@convex/_generated/dataModel';
+import { useTranslate } from '@tolgee/react';
 import { Component, ErrorInfo, ReactNode } from 'react';
 import { OperationActions } from './Operation';
 
@@ -46,26 +47,29 @@ export class OperationError extends Component<Props, State> {
 
   public render() {
     if (this.state.hasError) {
-      return (
-        <div className="relative p-4 border border-red-200 rounded-md bg-red-50 text-red-800">
-          <div className="flex flex-col gap-2 items-center justify-center">
-            <h2 className="text-lg font-semibold">Error al cargar la operación</h2>
-            <p className="text-sm">Por favor, intenta recargar la página o editar la operación</p>
-            <p className="text-sm">
-              &quot;{this.symbol}&quot; {this.type === 'buy' ? 'Compra' : 'Venta'} de {this.quantity} acciones a $
-              {this.price.toFixed(2)}
-            </p>
-          </div>
-          <div className="absolute right-4 top-1/2 -translate-y-1/2">
-            <OperationActions
-              operation={{ _id: this.props._id, symbol: this.symbol, quantity: this.quantity }}
-              onEdit={this.props.onEdit}
-            />
-          </div>
-        </div>
-      );
+      return <ErrorRender {...this.props} />;
     }
 
     return this.props.children;
   }
+}
+
+function ErrorRender({ symbol, type, quantity, price, _id, onEdit }: Props) {
+  const { t } = useTranslate();
+
+  return (
+    <div className="relative p-4 border border-red-200 rounded-md bg-red-50 text-red-800">
+      <div className="flex flex-col gap-2 items-center justify-center">
+        <h2 className="text-lg font-semibold">{t('view.operations.error.title')}</h2>
+        <p className="text-sm">{t('view.operations.error.description')}</p>
+        <p className="text-sm">
+          &quot;{symbol}&quot; {type === 'buy' ? t('view.operations.error.buy') : t('view.operations.error.sell')}{' '}
+          {t('view.operations.error.details', { quantity, price: price.toFixed(2) })}
+        </p>
+      </div>
+      <div className="absolute right-4 top-1/2 -translate-y-1/2">
+        <OperationActions operation={{ _id, symbol, quantity }} onEdit={onEdit} />
+      </div>
+    </div>
+  );
 }

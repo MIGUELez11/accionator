@@ -3,6 +3,7 @@
 import { stockInfoQuery } from '@/queries/stockInfoQuery';
 import { InvestmentPlanResponse } from '@/server/types';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { useTranslate } from '@tolgee/react';
 import { AnalysisButton, EntryPriceRange, ExitStrategy, InvestmentMetrics, StockHeader } from './';
 
 export function StockInvestmentPlan({
@@ -13,10 +14,10 @@ export function StockInvestmentPlan({
   investmentAmount: number;
 }) {
   const { data: stockInfo } = useSuspenseQuery(stockInfoQuery(plan.symbol));
-
+  const { t } = useTranslate();
   return (
     <article
-      aria-roledescription={`${plan.symbol} investment plan`}
+      aria-roledescription={t('page.plan.stock.ariaLabel', { symbol: plan.symbol })}
       className="flex flex-col gap-4 h-full justify-between py-4 border shadow-sm rounded-lg "
     >
       <div className="flex flex-col gap-4 max-h-[452px] overflow-y-auto px-4">
@@ -38,7 +39,7 @@ export function StockInvestmentPlan({
         <EntryPriceRange minPrice={plan.entryPriceMin} maxPrice={plan.entryPriceMax} />
 
         <InvestmentMetrics
-          quantityToInvest={plan.quantityToInvest * investmentAmount}
+          quantityToInvest={Number((plan.quantityToInvest * investmentAmount).toFixed(2))}
           stopLossPrice={plan.stopLossPrice}
           estimatedTime={plan.estimatedTime}
           estimatedProfitPercentage={plan.estimatedProfitPercentage}

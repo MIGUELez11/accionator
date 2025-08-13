@@ -1,3 +1,5 @@
+import { DEFAULT_LANGUAGE } from '@/i18n/tolgee/shared';
+import { useTolgee } from '@tolgee/react';
 import { useEffect, useState } from 'react';
 
 const TIME_CONSTANTS = {
@@ -7,13 +9,13 @@ const TIME_CONSTANTS = {
   DAY: 1000 * 60 * 60 * 24,
 } as const;
 
-export function getTimePassed(date: Date) {
+export function getTimePassed(date: Date, locale: string) {
   if (!date || isNaN(date?.getTime())) {
     throw new Error('Invalid date provided');
   }
 
   const diffMs = Date.now() - date.getTime();
-  const formatter = new Intl.RelativeTimeFormat('es', { numeric: 'auto' });
+  const formatter = new Intl.RelativeTimeFormat(locale, { numeric: 'auto' });
 
   let since;
 
@@ -31,10 +33,13 @@ export function getTimePassed(date: Date) {
 }
 
 export function useTimePassed(date: Date) {
+  const tolgee = useTolgee(['language']);
+  const locale = tolgee.getLanguage() ?? DEFAULT_LANGUAGE;
+
   const [timePassed, setTimePassed] = useState<string>('');
 
   useEffect(() => {
-    const updateTimePassed = () => setTimePassed(getTimePassed(date));
+    const updateTimePassed = () => setTimePassed(getTimePassed(date, locale));
     updateTimePassed();
 
     const diffMs = Date.now() - date.getTime();
@@ -51,7 +56,7 @@ export function useTimePassed(date: Date) {
     }
 
     return () => clearInterval(interval);
-  }, [date]);
+  }, [date, locale]);
 
   return timePassed;
 }

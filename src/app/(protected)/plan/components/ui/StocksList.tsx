@@ -1,6 +1,7 @@
 'use client';
 
 import { InvestmentPlanResponse } from '@/server/types';
+import { useTranslate } from '@tolgee/react';
 import { Suspense, useMemo } from 'react';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList as List } from 'react-window';
@@ -19,6 +20,7 @@ export function StocksList({
   data: InvestmentPlanResponse['response']['investmentSuggestions'];
   investmentAmount: number;
 }) {
+  const { t } = useTranslate();
   const sortedData = useMemo(() => data.toSorted((a, b) => b.quantityToInvest - a.quantityToInvest), [data]);
 
   const Column = ({ index, style }: { index: number; style: React.CSSProperties }) => {
@@ -40,7 +42,7 @@ export function StocksList({
   return (
     <section className="flex flex-col gap-4 mb-16">
       <div className="flex items-center gap-2">
-        <h2 className="text-lg font-bold">Acciones</h2>
+        <h2 className="text-lg font-bold">{t('page.plan.stocksList.title')}</h2>
       </div>
       <div className="mr-4 h-[512px]">
         <AutoSizer>

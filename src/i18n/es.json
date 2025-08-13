@@ -116,6 +116,30 @@
         "infoDescription": "El tiempo de generación puede variar entre 10 segundos (cache) y 5 minutos dependiendo de la complejidad del análisis y la carga del sistema.",
         "infoTitle": "Generando plan de inversión personalizado"
       },
+      "stock": {
+        "analysisButton": "Ver análisis",
+        "ariaLabel": "Plan de inversión de {symbol}",
+        "entryPriceRange": "Rango de entrada",
+        "error": {
+          "description": "Ocurrió un error al cargar la información de esta acción. Por favor, intente nuevamente más tarde.",
+          "subtitle": "No se puedo cargar la información",
+          "title": "{symbol} error"
+        },
+        "exitStrategy": "Estrategia de salida",
+        "exitStrategy.percentage": "{percentage} del capital",
+        "investmentMetrics": {
+          "duration": "Duración",
+          "estimatedLoss": "Pérdida est.",
+          "estimatedProfit": "Beneficio est.",
+          "profitProbability": "Prob. Beneficio",
+          "quantity": "Cantidad",
+          "stopLoss": "Stop Loss"
+        }
+      },
+      "stocksList": {
+        "title": "Acciones"
+      },
+      "strategy": "Estrategia",
       "title": "Plan de inversión"
     },
     "profile": {
@@ -141,6 +165,13 @@
     "operations": {
       "bySymbol": {
         "title": "Cartera por símbolo"
+      },
+      "error": {
+        "buy": "Compra",
+        "description": "Por favor, intenta recargar la página o editar la operación",
+        "details": "{quantity} acciones a ${price}",
+        "sell": "Venta",
+        "title": "Error al cargar la operación"
       },
       "form": {
         "buy": "Compra",

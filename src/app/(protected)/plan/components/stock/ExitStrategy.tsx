@@ -1,5 +1,7 @@
 'use client';
 
+import { useTranslate } from '@tolgee/react';
+
 interface ExitStrategyItem {
   price: number;
   percentage: number;
@@ -10,9 +12,11 @@ interface ExitStrategyProps {
 }
 
 export function ExitStrategy({ strategies }: ExitStrategyProps) {
+  const { t } = useTranslate();
+
   return (
     <div className="flex flex-col gap-2">
-      <p className="text-sm text-muted-foreground">Estrategia de salida</p>
+      <p className="text-sm text-muted-foreground">{t('page.plan.stock.exitStrategy')}</p>
       <div className="flex flex-col gap-1">
         {strategies
           .sort((a, b) => a.price - b.price)
@@ -26,7 +30,9 @@ export function ExitStrategy({ strategies }: ExitStrategyProps) {
                 <span className="font-medium">${strategy.price}</span>
               </div>
               <span className="text-sm text-muted-foreground">
-                {(strategy.percentage * 100).toFixed(0)}% del capital
+                {t('page.plan.stock.exitStrategy.percentage', {
+                  percentage: `${(strategy.percentage * 100).toFixed(0)}%`,
+                })}
               </span>
             </div>
           ))}
