@@ -1,228 +1,228 @@
 {
+  "common": {
+    "buy": "Comprar",
+    "doNotBuy": "No comprar"
+  },
+  "component": {
+    "autocomplete": {
+      "noResults": "Sin resultados",
+      "searching": "Buscando..."
+    },
+    "common": {
+      "loading": "Cargando...",
+      "somethingWentWrong": "Ha ocurrido un error"
+    },
+    "hero": {
+      "cta": "Comenzar ahora"
+    },
+    "loginButton": {
+      "signIn": "Iniciar sesión",
+      "signUp": "Crear cuenta"
+    },
+    "stockSearch": {
+      "placeholder": "Busca una acción"
+    },
+    "symbolList": {
+      "loadMoreHint": "Desplaza para cargar más",
+      "loading": "Cargando...",
+      "loadingMore": "Cargando más..."
+    }
+  },
   "nav": {
     "operations": "Operaciones",
     "plan": "Plan de inversión",
     "screener": "Screener"
   },
   "page": {
-    "home": {
-      "hero": {
-        "title": "Análisis inteligente del mercado de valores",
-        "description": "Toma decisiones informadas con nuestro análisis respaldado por IA. Descubre oportunidades de inversión únicas con nuestro experto sistema de análisis.",
-        "cta": "Comenzar ahora",
-        "imageAlt": "Vista previa del gráfico del mercado de valores"
+    "analysis": {
+      "aiAnalysis": {
+        "action": "Acción",
+        "actionPlan": "Plan de acción ({estimatedTime})",
+        "entryRange": "Rango de entrada",
+        "error": "Error al generar análisis: {message}",
+        "exitStrategy": "Estrategia de salida",
+        "generate": "Generar análisis",
+        "generating": "Generando análisis...",
+        "notFound": "No se encontró ningún análisis",
+        "objectivePrice": "Precio objetivo",
+        "potentialLoss": "Pérdida potencial",
+        "potentialProfit": "Beneficio potencial",
+        "sell": "Vender",
+        "stopLoss": "Stop loss",
+        "targetPrice": "Precio objetivo",
+        "title": "Recomendación IA",
+        "unknownError": "error desconocido"
+      },
+      "businessInfo": {
+        "capitalization": "Capitalización",
+        "currency": "Moneda",
+        "exchange": "Exchange",
+        "sector": "Sector",
+        "title": "Información del negocio"
+      },
+      "news": {
+        "empty": "No hay noticias disponibles",
+        "title": "Noticias"
+      },
+      "recommendations": {
+        "ariaLabel": "Recomendaciones de analistas",
+        "axis": {
+          "analysts": "# Analistas",
+          "date": "Fecha"
+        },
+        "title": "Recomendaciones de analistas"
       }
     },
-    "screener": {
-      "title": "Descubre oportunidades de inversión",
-      "subtitle": "Selecciona un screener para encontrar acciones con potencial de inversión a corto plazo",
-      "loading": "Cargando...",
-      "error": "Ha ocurrido un error"
-    },
-    "plan": {
-      "title": "Plan de inversión",
-      "loading": {
-        "headerTitle": "Plan de inversión",
-        "generating": "Generando plan personalizado...",
-        "analyzing": "Analizando mercado y calculando estrategias",
-        "duration": "Esto puede tomar entre 10 segundos y 5 minutos",
-        "infoTitle": "Generando plan de inversión personalizado",
-        "infoDescription": "El tiempo de generación puede variar entre 10 segundos (cache) y 5 minutos dependiendo de la complejidad del análisis y la carga del sistema."
+    "home": {
+      "hero": {
+        "cta": "Comenzar ahora",
+        "description": "Toma decisiones informadas con nuestro análisis respaldado por IA. Descubre oportunidades de inversión únicas con nuestro experto sistema de análisis.",
+        "imageAlt": "Vista previa del gráfico del mercado de valores",
+        "title": "Análisis inteligente del mercado de valores"
       }
     },
     "operations": {
-      "title": "Gestión de operaciones",
+      "emptyState": {
+        "description": "Comienza registrando tu primera operación utilizando el formulario de la izquierda",
+        "title": "No hay operaciones registradas"
+      },
       "tabs": {
         "operations": "Operaciones",
         "symbols": "Por símbolo"
       },
-      "emptyState": {
-        "title": "No hay operaciones registradas",
-        "description": "Comienza registrando tu primera operación usando el formulario de la izquierda"
-      }
+      "title": "Gestión de operaciones"
+    },
+    "plan": {
+      "loading": {
+        "analyzing": "Analizando mercado y calculando estrategias",
+        "duration": "Esto puede tomar entre 10 segundos y 5 minutos",
+        "generating": "Generando plan personalizado...",
+        "headerTitle": "Plan de inversión",
+        "infoDescription": "El tiempo de generación puede variar entre 10 segundos (cache) y 5 minutos dependiendo de la complejidad del análisis y la carga del sistema.",
+        "infoTitle": "Generando plan de inversión personalizado"
+      },
+      "title": "Plan de inversión"
     },
     "profile": {
       "credits": {
-        "title": "Créditos",
-        "loading": "Cargando...",
         "error": "Error: {message}",
-        "noStats": "Sin estadísticas",
-        "stocksAnalyzed": "Acciones analizadas",
-        "remainingCredits": "Créditos restantes",
+        "loading": "Cargando...",
         "mostAnalyzedSectors": "Sectores más analizados",
+        "noStats": "Sin estadísticas",
+        "remainingCredits": "Créditos restantes",
+        "stocksAnalyzed": "Acciones analizadas",
+        "title": "Créditos",
         "usageTrends": "Tendencias de uso"
       }
     },
-    "analysis": {
-      "aiAnalysis": {
-        "title": "Recomendación IA",
-        "generate": "Generar análisis",
-        "generating": "Generando análisis...",
-        "error": "Error al generar análisis: {message}",
-        "unknownError": "error desconocido",
-        "notFound": "No se encontró ningún análisis",
-        "actionPlan": "Plan de acción ({estimatedTime})",
-        "action": "Acción",
-        "entryRange": "Rango de entrada",
-        "targetPrice": "Precio objetivo",
-        "stopLoss": "Stop loss",
-        "potentialProfit": "Beneficio potencial",
-        "potentialLoss": "Pérdida potencial",
-        "exitStrategy": "Estrategia de salida",
-        "sell": "Vender",
-        "objectivePrice": "Precio objetivo"
-      },
-      "businessInfo": {
-        "title": "Información del negocio",
-        "exchange": "Exchange",
-        "sector": "Sector",
-        "capitalization": "Capitalización",
-        "currency": "Moneda"
-      },
-      "news": {
-        "title": "Noticias",
-        "empty": "No hay noticias disponibles"
-      },
-      "recommendations": {
-        "title": "Recomendaciones de analistas",
-        "ariaLabel": "Tendencias de recomendaciones de analistas",
-        "axis": {
-          "date": "Fecha",
-          "analysts": "# Analistas"
-        }
-      }
+    "screener": {
+      "error": "Ha ocurrido un error",
+      "loading": "Cargando...",
+      "subtitle": "Selecciona un screener para encontrar acciones con potencial de inversión a corto plazo",
+      "title": "Descubre oportunidades de inversión"
     }
   },
   "view": {
+    "operations": {
+      "form": {
+        "buy": "Compra",
+        "cancel": "Cancelar",
+        "date": "Fecha",
+        "descriptionEdit": "Modifica los datos de la operación",
+        "descriptionNew": "Añade una nueva operación de compra o venta",
+        "editMode": "Modo edición",
+        "price": "Precio unitario ($)",
+        "pricePlaceholder": "0.00",
+        "quantity": "Cantidad",
+        "quantityPlaceholder": "0",
+        "sell": "Venta",
+        "submitAdd": "Añadir Operación",
+        "submitUpdate": "Actualizar Operación",
+        "symbol": "Símbolo",
+        "symbolPlaceholder": "Ej. AAPL",
+        "titleEdit": "Editar operación",
+        "titleNew": "Nueva operación",
+        "type": "Tipo de operación",
+        "validation": {
+          "date": "La fecha es requerida",
+          "price": "El precio debe ser mayor a 0.01",
+          "quantity": "La cantidad debe ser mayor a 0.0001",
+          "symbol": "Símbolo es requerido",
+          "tagsMax": "Máximo 3 etiquetas",
+          "type": "Tipo de operación es requerido"
+        }
+      },
+      "list": {
+        "cancel": "Cancelar",
+        "confirmDeleteDescription": "¿Estás seguro de querer eliminar esta operación?",
+        "confirmDeleteTitle": "Eliminar {quantity} acciones de {symbol}",
+        "delete": "Eliminar operación",
+        "deleteAction": "Eliminar",
+        "edit": "Editar operación",
+        "editingBadge": "Editando"
+      },
+      "operationCard": {
+        "price": "Precio unitario ($)",
+        "quantity": "Cantidad",
+        "tags": "Etiquetas",
+        "total": "Total"
+      },
+      "symbolCard": {
+        "boughtShares": "Acciones compradas",
+        "holdingShares": "Acciones en cartera",
+        "profit": "Beneficios",
+        "profitPercentage": "% Beneficios",
+        "soldMoreTooltip": "{difference} acciones vendidas más que compradas",
+        "soldProfit": "Beneficios de acciones vendidas",
+        "soldProfitPercentage": "% Beneficios vendidos",
+        "soldShares": "Acciones vendidas",
+        "totalInvestment": "Inversión total",
+        "viewAnalysis": "Ver análisis de {name}"
+      }
+    },
     "planHeader": {
       "generated": "Generado"
     },
+    "portfolioPerformance": {
+      "holdingInvestment": "Inversión actual en cartera",
+      "relativeProfit": "Beneficio de operaciones realizadas",
+      "title": "Rendimiento de la Cartera",
+      "totalInvested": "Total Invertido",
+      "totalProfit": "Beneficio total"
+    },
     "screenerPicker": {
       "highVolatilityWithGrow": {
-        "title": "Volatilidad con crecimiento",
-        "description": "Acciones con volatilidad y crecimiento potencial"
+        "description": "Acciones con volatilidad y crecimiento potencial",
+        "title": "Volatilidad con crecimiento"
       },
       "nasdaq100": {
-        "title": "NASDAQ 100",
-        "description": "Acciones de la NASDAQ 100"
+        "description": "Acciones del NASDAQ 100",
+        "title": "NASDAQ 100"
       },
       "pennyHighBeta": {
-        "title": "Penny stocks",
-        "description": "Acciones de penny stocks con beta alta"
+        "description": "Penny stocks con alta beta",
+        "title": "Penny stocks"
       },
       "pennyStocksHighVolume": {
-        "title": "Penny stocks con volumen",
-        "description": "Acciones de penny stocks con volumen alto"
+        "description": "Penny stocks con alto volumen",
+        "title": "Penny stocks con volumen"
       }
     },
     "screenerTable": {
       "columns": {
-        "company": "Compañía",
-        "price": "Precio",
+        "analystRating": "Recomendación analistas",
         "beta": "Beta",
-        "volume": "Volumen",
         "capitalization": "Capitalización",
-        "sector": "Sector",
+        "company": "Compañía",
         "country": "País",
         "lastDividend": "Último dividendo",
-        "analystRating": "Recomendación analistas",
-        "techRating": "Recomendación técnica",
         "movingAverageRating": "Recomendación medias móviles",
-        "oscillatorsRating": "Recomendación osciladores"
+        "oscillatorsRating": "Recomendación osciladores",
+        "price": "Precio",
+        "sector": "Sector",
+        "techRating": "Recomendación técnica",
+        "volume": "Volumen"
       }
-    },
-    "operations": {
-      "list": {
-        "edit": "Editar operación",
-        "delete": "Eliminar operación",
-        "confirmDeleteTitle": "Eliminar {quantity} acciones de {symbol}",
-        "confirmDeleteDescription": "¿Estás seguro de querer eliminar esta operación?",
-        "cancel": "Cancelar",
-        "deleteAction": "Eliminar",
-        "editingBadge": "Editando"
-      },
-      "form": {
-        "titleNew": "Nueva operación",
-        "titleEdit": "Editar operación",
-        "editMode": "Modo edición",
-        "descriptionNew": "Añade una nueva operación de compra o venta",
-        "descriptionEdit": "Modifica los datos de la operación",
-        "symbol": "Símbolo",
-        "symbolPlaceholder": "Ej. AAPL",
-        "type": "Tipo de operación",
-        "buy": "Compra",
-        "sell": "Venta",
-        "quantity": "Cantidad",
-        "quantityPlaceholder": "0",
-        "price": "Precio unitario ($)",
-        "pricePlaceholder": "0.00",
-        "date": "Fecha",
-        "submitAdd": "Añadir Operación",
-        "submitUpdate": "Actualizar Operación",
-        "cancel": "Cancelar",
-        "validation": {
-          "symbol": "Símbolo es requerido",
-          "type": "Tipo de operación es requerido",
-          "quantity": "Cantidad debe ser mayor a 0.0001",
-          "price": "Precio debe ser mayor a 0.01",
-          "date": "Fecha es requerida",
-          "tagsMax": "Máximo 3 etiquetas"
-        }
-      },
-      "operationCard": {
-        "quantity": "Cantidad",
-        "price": "Precio unitario ($)",
-        "total": "Total",
-        "tags": "Etiquetas"
-      },
-      "symbolCard": {
-        "boughtShares": "Acciones compradas",
-        "soldShares": "Acciones vendidas",
-        "soldMoreTooltip": "{difference} acciones vendidas más que compradas",
-        "holdingShares": "Acciones en cartera",
-        "totalInvestment": "Inversión total",
-        "profit": "Beneficios",
-        "soldProfit": "Beneficios de acciones vendidas",
-        "profitPercentage": "% Beneficios",
-        "soldProfitPercentage": "% Beneficios vendidos",
-        "viewAnalysis": "Ver análisis de {name}"
-      }
-    },
-    "portfolioPerformance": {
-      "title": "Rendimiento de la Cartera",
-      "totalInvested": "Total Invertido",
-      "relativeProfit": "Beneficio de operaciones realizadas",
-      "holdingInvestment": "Inversión actual en cartera",
-      "totalProfit": "Beneficio total"
     }
-  },
-  "component": {
-    "common": {
-      "loading": "Cargando...",
-      "somethingWentWrong": "Ha ocurrido un error"
-    },
-    "loginButton": {
-      "signIn": "Iniciar sesión",
-      "signUp": "Crear cuenta"
-    },
-    "hero": {
-      "cta": "Comenzar ahora"
-    },
-    "stockSearch": {
-      "placeholder": "Busca una acción"
-    },
-    "autocomplete": {
-      "searching": "Buscando...",
-      "noResults": "Sin resultados"
-    },
-    "symbolList": {
-      "loading": "Cargando...",
-      "loadingMore": "Cargando más...",
-      "loadMoreHint": "Desplaza para cargar más"
-    }
-  },
-  "common": {
-    "buy": "Comprar",
-    "doNotBuy": "No comprar"
   }
 }
