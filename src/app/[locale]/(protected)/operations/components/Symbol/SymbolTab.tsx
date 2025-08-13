@@ -1,3 +1,5 @@
+'use client';
+
 import { useTranslate } from '@tolgee/react';
 import { Suspense } from 'react';
 import { PortfolioPerformance } from '../PortfolioPerformance';

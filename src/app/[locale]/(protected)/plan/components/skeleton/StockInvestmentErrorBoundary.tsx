@@ -1,6 +1,8 @@
+'use client';
+
 import { useTranslate } from '@tolgee/react';
 import posthog from 'posthog-js';
-import { Component } from 'react';
+import React, { Component } from 'react';
 
 export class StockInvestmentErrorBoundary extends Component<{ children: React.ReactNode; symbol: string }> {
   state = { hasError: false };

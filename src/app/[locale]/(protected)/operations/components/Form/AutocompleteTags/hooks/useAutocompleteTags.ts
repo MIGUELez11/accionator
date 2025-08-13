@@ -29,7 +29,7 @@ export function useAutocompleteTags(selectedTags: string[]) {
       return tagsWithoutSelected;
     }
 
-    const selectedTagsIncludesSearch = !!selectedTags.filter((tag) => tag.toLowerCase() === searchValue.toLowerCase())?.length;
+    const selectedTagsIncludesSearch = !!selectedTags.some((tag) => tag.toLowerCase() === searchValue.toLowerCase());
 
     return [{ id: 'search', label: searchValue, isSearch: true, disabled: selectedTagsIncludesSearch }, ...(tagsWithoutSelected ?? [])];
   }, [tagsWithoutSelected, searchValue, selectedTags]);

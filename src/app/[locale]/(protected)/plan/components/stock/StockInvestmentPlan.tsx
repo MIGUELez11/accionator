@@ -17,18 +17,18 @@ export function StockInvestmentPlan({
   const { t } = useTranslate();
   return (
     <article
-      aria-roledescription={t('page.plan.stock.ariaLabel', { symbol: plan.symbol })}
+      aria-label={t('page.plan.stock.ariaLabel', { symbol: plan.symbol })}
       className="flex flex-col gap-4 h-full justify-between py-4 border shadow-sm rounded-lg "
     >
       <div className="flex flex-col gap-4 max-h-[452px] overflow-y-auto px-4">
         <div className="sticky top-0 left-0 z-10 bg-white">
           <StockHeader
             symbol={plan.symbol}
-            name={stockInfo.stockProfile.name ?? 'Unknown'}
-            ticker={stockInfo.stockProfile.ticker ?? '????'}
-            logo={stockInfo.stockProfile.logo}
-            price={stockInfo.price.price ?? 0}
-            percentChange={stockInfo.price.percentChange}
+            name={stockInfo.stockProfile?.name ?? 'Unknown'}
+            ticker={stockInfo.stockProfile?.ticker ?? '????'}
+            logo={stockInfo.stockProfile?.logo}
+            price={stockInfo.price?.price ?? 0}
+            percentChange={stockInfo.price?.percentChange}
           />
         </div>
 

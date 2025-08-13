@@ -138,7 +138,7 @@
         "exitStrategy.percentage": "Capital {percentage}",
         "investmentMetrics": {
           "duration": "Duration",
-          "estimatedLoss": "Est. lost",
+          "estimatedLoss": "Est. loss",
           "estimatedProfit": "Est. profit",
           "profitProbability": "Profit prob.",
           "quantity": "Quantity",
@@ -146,9 +146,8 @@
         }
       },
       "stocksList": {
-        "title": "Actions"
+        "title": "Stocks"
       },
-      "strategy": "Strategy",
       "title": "Investment plan"
     },
     "profile": {
@@ -178,7 +177,7 @@
       "error": {
         "buy": "Buy",
         "description": "Please, refresh the page or edit the operation",
-        "details": "{quantity} actions at ${price}",
+        "details": "{quantity} shares at ${price}",
         "sell": "Sell",
         "title": "Error loading the operation"
       },
@@ -231,15 +230,14 @@
       },
       "symbolCard": {
         "boughtShares": "Shares bought",
-        "holdingShares": "Holding shares",
-        "profit": "Profits",
-        "profitPercentage": "% Profits",
+        "holdingShares": "Shares held",
+        "profit": "Profit",
+        "profitPercentage": "Profit %",
         "soldMoreTooltip": "{difference} more shares sold than bought",
-        "soldProfit": "Profits from sold shares",
-        "soldProfitPercentage": "% Sold profits",
+        "soldProfit": "Profit from sold shares",
+        "soldProfitPercentage": "Sold profit %",
         "soldShares": "Shares sold",
-        "totalInvestment": "Total investment",
-        "viewAnalysis": "View {name} analysis"
+        "totalInvestment": "Total investment"
       }
     },
     "planHeader": {

@@ -13,11 +13,11 @@ export function AnalysisButton({ symbol }: AnalysisButtonProps) {
   const { t } = useTranslate();
 
   return (
-    <Link href={`/analysis/${symbol}`} target="_blank" rel="noopener noreferrer" className="px-4">
-      <Button variant="outline" className="w-full cursor-pointer">
+    <Button asChild variant="outline" className="w-full">
+      <Link href={`/analysis/${symbol}`} target="_blank" rel="noopener noreferrer" className="px-4">
         {t('page.plan.stock.analysisButton')}
-        <ExternalLinkIcon className="w-4 h-4" />
-      </Button>
-    </Link>
+        <ExternalLinkIcon className="w-4 h-4" aria-hidden="true" />
+      </Link>
+    </Button>
   );
 }

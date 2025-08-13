@@ -2,6 +2,7 @@
 
 import { ConvexQueryClient } from '@convex-dev/react-query';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import React from 'react';
 import { convex } from './ConvexProvider';
 
 let queryClientWithConvex: QueryClient | null = null;

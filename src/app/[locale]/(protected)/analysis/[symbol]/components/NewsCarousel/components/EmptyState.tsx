@@ -1,3 +1,5 @@
+'use client';
+
 import { useTranslate } from '@tolgee/react';
 import { NewspaperIcon } from 'lucide-react';
 import { InfoCard } from '../../../../../../../../components/InfoCard';

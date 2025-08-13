@@ -1,5 +1,6 @@
 'use client';
 
+import { useLocale } from '@/hooks/useLocale';
 import { cn } from '@/lib/utils';
 import { convexQuery } from '@convex-dev/react-query';
 import { api } from '@convex/_generated/api';
@@ -77,10 +78,11 @@ interface MetricCardProps {
 }
 
 function MetricCard({ title, value, format, className = '', subtitle, colorizeSubtitle }: MetricCardProps) {
+  const locale = useLocale();
   const formatValue = (val: number, fmt: string) => {
     switch (fmt) {
       case 'currency':
-        return new Intl.NumberFormat('es-ES', {
+        return new Intl.NumberFormat(locale, {
           style: 'currency',
           currency: 'EUR',
           minimumFractionDigits: 2,
@@ -89,7 +91,7 @@ function MetricCard({ title, value, format, className = '', subtitle, colorizeSu
       case 'percentage':
         return `${val.toFixed(2)}%`;
       default:
-        return val.toLocaleString('es-ES');
+        return val.toLocaleString(locale);
     }
   };
 

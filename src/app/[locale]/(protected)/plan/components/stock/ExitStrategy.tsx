@@ -19,7 +19,7 @@ export function ExitStrategy({ strategies }: ExitStrategyProps) {
       <p className="text-sm text-muted-foreground">{t('page.plan.stock.exitStrategy')}</p>
       <div className="flex flex-col gap-1">
         {strategies
-          .sort((a, b) => a.price - b.price)
+          .toSorted((a, b) => a.price - b.price)
           .map((strategy) => (
             <div
               key={`${strategy.price}-${strategy.percentage}`}

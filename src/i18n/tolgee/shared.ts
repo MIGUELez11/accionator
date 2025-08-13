@@ -4,9 +4,9 @@ import { BackendFetch, DevTools, LanguageDetector, Tolgee } from '@tolgee/web';
 const apiKey = process.env.NEXT_PUBLIC_TOLGEE_API_KEY;
 const apiUrl = process.env.NEXT_PUBLIC_TOLGEE_API_URL;
 
-export const ALL_LANGUAGES = ['es', 'en'];
+export const ALL_LANGUAGES = ['es', 'en'] as const;
 
-export const DEFAULT_LANGUAGE = 'es';
+export const DEFAULT_LANGUAGE = 'es' satisfies (typeof ALL_LANGUAGES)[number];
 
 export function TolgeeBase() {
   return Tolgee()

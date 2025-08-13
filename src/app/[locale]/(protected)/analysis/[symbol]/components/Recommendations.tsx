@@ -18,11 +18,11 @@ export function Recommendations({ symbol }: { symbol: string }) {
             month: 'short',
             year: 'numeric',
           }),
-          'Strong Buy': rec.strongBuy!,
-          Buy: rec.buy!,
-          Hold: rec.hold!,
-          Sell: rec.sell!,
-          'Strong Sell': rec.strongSell!,
+          'Strong Buy': rec.strongBuy ?? 0,
+          Buy: rec.buy ?? 0,
+          Hold: rec.hold ?? 0,
+          Sell: rec.sell ?? 0,
+          'Strong Sell': rec.strongSell ?? 0,
         })),
   });
 

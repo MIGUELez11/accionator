@@ -19,6 +19,8 @@ async function clerkHandler(auth: ClerkMiddlewareAuth, req: NextRequest) {
   if (!isApiRoute(req)) {
     return handleNonApiRoutes(auth, req);
   }
+  // Let API routes continue through the middleware chain
+  return;
 }
 
 export default clerkMiddleware(clerkHandler);

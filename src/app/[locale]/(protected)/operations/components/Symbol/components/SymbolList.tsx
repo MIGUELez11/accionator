@@ -53,6 +53,7 @@ export function SymbolList() {
     <div className="flex flex-col w-full h-full">
       <Virtuoso
         data={results}
+        computeItemKey={(_, result) => result.symbol}
         endReached={() => handleEndReached(canLoadMore, isLoadingMore)}
         increaseViewportBy={200}
         itemContent={(index, result) => (

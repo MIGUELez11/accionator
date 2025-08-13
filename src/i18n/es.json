@@ -131,8 +131,8 @@
         "entryPriceRange": "Rango de entrada",
         "error": {
           "description": "Ocurrió un error al cargar la información de esta acción. Por favor, intente nuevamente más tarde.",
-          "subtitle": "No se puedo cargar la información",
-          "title": "{symbol} error"
+          "subtitle": "No se pudo cargar la información",
+          "title": "Error de {symbol}"
         },
         "exitStrategy": "Estrategia de salida",
         "exitStrategy.percentage": "{percentage} del capital",

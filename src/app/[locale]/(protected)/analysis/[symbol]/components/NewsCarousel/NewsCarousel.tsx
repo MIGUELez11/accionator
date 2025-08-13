@@ -3,6 +3,7 @@
 import { stockNewsQuery } from '@/queries/stockNewsQuery';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useTranslate } from '@tolgee/react';
+import React from 'react';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList as List } from 'react-window';
 import { InfoCard } from '../../../../../../../components/InfoCard';

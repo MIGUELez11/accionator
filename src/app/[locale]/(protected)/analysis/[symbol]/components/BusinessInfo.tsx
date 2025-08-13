@@ -8,26 +8,17 @@ import { GlobeIcon, MapPinIcon } from 'lucide-react';
 import { EconomicIndicator } from '../../../../../../components/EconomicIndicator';
 import { InfoCard } from '../../../../../../components/InfoCard';
 
-export interface BusinessInfoProps {
-  exchange: string;
-  sector: string;
-  capitalization: number;
-  currency: string;
-  website: string;
-  country: string;
-}
-
 function getCapitalization(capitalization: number) {
-  if (capitalization > 1e12) {
+  if (capitalization >= 1e12) {
     return (capitalization / 1e12).toFixed(2) + 'T';
   }
-  if (capitalization > 1e9) {
+  if (capitalization >= 1e9) {
     return (capitalization / 1e9).toFixed(2) + 'B';
   }
-  if (capitalization > 1e6) {
+  if (capitalization >= 1e6) {
     return (capitalization / 1e6).toFixed(2) + 'M';
   }
-  if (capitalization > 1e3) {
+  if (capitalization >= 1e3) {
     return (capitalization / 1e3).toFixed(2) + 'K';
   }
 

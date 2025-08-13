@@ -14,7 +14,7 @@ export function StockInvestmentPlan({
 
   return (
     <article
-      aria-roledescription={`${plan.symbol} investment plan`}
+      aria-label={`${plan.symbol} investment plan`}
       className="flex flex-col gap-4 h-full justify-between py-4 border shadow-sm rounded-lg "
     >
       <div className="flex flex-col gap-4 max-h-[452px] overflow-y-auto px-4">

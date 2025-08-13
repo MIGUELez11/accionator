@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { useLocale } from '@/hooks/useLocale';
 import { handleShiftClick } from '@/lib/handleShiftClick';
 import { stockProfileQuery } from '@/queries/stockProfileQuery';
 import { useConvexMutation } from '@convex-dev/react-query';
@@ -161,8 +162,9 @@ interface OperationProps {
 
 export function Operation({ operation, onEdit, isEditing = false }: OperationProps) {
   const { t } = useTranslate();
+  const locale = useLocale();
 
-  const date = new Date(operation.date).toLocaleDateString('es-ES', {
+  const date = new Date(operation.date).toLocaleDateString(locale, {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',

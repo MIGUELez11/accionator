@@ -1,3 +1,5 @@
+'use client';
+
 import { useTranslate } from '@tolgee/react';
 import { LineChartIcon } from 'lucide-react';
 

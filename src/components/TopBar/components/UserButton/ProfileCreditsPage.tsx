@@ -72,7 +72,7 @@ export function ProfileCreditsPage() {
         />
         <DataCard
           title={t('page.profile.credits.remainingCredits')}
-          value={((stats.maxCost - stats.cost) / stats.maxCost) * 100}
+          value={stats.maxCost > 0 ? ((stats.maxCost - stats.cost) / stats.maxCost) * 100 : 0}
           icon={ActivityIcon}
           isPercentage
         />

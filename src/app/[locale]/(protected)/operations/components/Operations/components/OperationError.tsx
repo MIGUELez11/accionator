@@ -20,19 +20,6 @@ interface State {
 }
 
 export class OperationError extends Component<Props, State> {
-  symbol: string;
-  type: 'buy' | 'sell';
-  quantity: number;
-  price: number;
-
-  constructor(props: Props) {
-    super(props);
-    this.symbol = props.symbol;
-    this.type = props.type;
-    this.quantity = props.quantity;
-    this.price = props.price;
-  }
-
   public state: State = {
     hasError: false,
   };

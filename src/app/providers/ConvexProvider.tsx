@@ -22,7 +22,7 @@ export const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL);
 export function ConvexClientProvider({ children }: { children: ReactNode }) {
   const tolgee = useTolgee(['language']);
   const locale: keyof typeof localizations = (tolgee.getLanguage() as keyof typeof localizations) ?? DEFAULT_LANGUAGE;
-  const localization = localizations[locale];
+  const localization = localizations[locale] ?? localizations[DEFAULT_LANGUAGE];
 
   return (
     <ClerkProvider localization={localization}>

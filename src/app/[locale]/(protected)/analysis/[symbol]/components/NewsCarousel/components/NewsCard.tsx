@@ -1,3 +1,5 @@
+'use client';
+
 import type { CompanyNews } from '@/server/types';
 import { useState } from 'react';
 
@@ -6,17 +8,27 @@ interface NewsCardProps {
 }
 
 function unixToDate(unix?: number) {
-  if (!unix) {
+  if (unix == undefined) {
     return '';
   }
 
   return new Date(unix * 1000).toLocaleDateString();
 }
 
-function WrapWithLink({ children, href }: { children: React.ReactNode; href?: string }) {
-  const isSecure = href && href.startsWith('https://');
+function isSecure(href: string | undefined) {
+  return () => {
+    if (!href) return false;
+    try {
+      const u = new URL(href);
+      return u.protocol.toLowerCase() === 'https:';
+    } catch {
+      return false;
+    }
+  };
+}
 
-  if (!isSecure) {
+function WrapWithLink({ children, href }: { children: React.ReactNode; href?: string }) {
+  if (!isSecure(href)) {
     return children;
   }
 
@@ -46,6 +58,8 @@ function ImageRenderer({ src, title }: { src?: string; title?: string }) {
 }
 
 export default function NewsCard({ newItem }: NewsCardProps) {
+  const dateStr = unixToDate(newItem.datetime);
+
   return (
     <WrapWithLink href={newItem.url}>
       <div className="flex gap-4">
@@ -54,7 +68,8 @@ export default function NewsCard({ newItem }: NewsCardProps) {
         <div className="flex flex-col gap-1 h-24">
           <h3 className="font-bold line-clamp-1">{newItem.headline}</h3>
           <p className="text-gray-500">
-            {newItem.source} · {unixToDate(newItem.datetime)}
+            {newItem.source}
+            {dateStr ? ` · ${dateStr}` : ''}
           </p>
           <p className="text-sm text-wrap line-clamp-2">{newItem.summary}</p>
         </div>
