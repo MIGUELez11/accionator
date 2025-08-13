@@ -1,0 +1,288 @@
+{
+  "common": {
+    "buy": "Buy",
+    "doNotBuy": "Do not buy"
+  },
+  "component": {
+    "autocomplete": {
+      "noResults": "No results",
+      "searching": "Searching..."
+    },
+    "common": {
+      "loading": "Loading...",
+      "noDataAvailable": "No data available",
+      "somethingWentWrong": "Something went wrong"
+    },
+    "hero": {
+      "cta": "Get started now"
+    },
+    "loginButton": {
+      "signIn": "Sign in",
+      "signUp": "Sign up"
+    },
+    "remainingCredits": {
+      "lifetimeRemaining": "You have ${amount} remaining",
+      "monthlyRemaining": "This month you have ${amount} remaining",
+      "nextRenewal": "Next renewal: {date}",
+      "of": "of",
+      "usage": "Usage",
+      "usageThisMonth": "Usage this month"
+    },
+    "stockSearch": {
+      "placeholder": "Search for a stock"
+    },
+    "symbolList": {
+      "loadMoreHint": "Scroll to load more",
+      "loading": "Loading...",
+      "loadingMore": "Loading more..."
+    }
+  },
+  "nav": {
+    "operations": "Operations",
+    "plan": "Investment plan",
+    "screener": "Screener"
+  },
+  "page": {
+    "analysis": {
+      "aiAnalysis": {
+        "action": "Action",
+        "actionPlan": "Action plan ({estimatedTime})",
+        "entryRange": "Entry range",
+        "error": "Error generating analysis: {message}",
+        "exitStrategy": "Exit strategy",
+        "generate": "Generate analysis",
+        "generating": "Generating analysis...",
+        "notFound": "No analysis found",
+        "objectivePrice": "Target price",
+        "potentialLoss": "Potential loss",
+        "potentialProfit": "Potential profit",
+        "sell": "Sell",
+        "stopLoss": "Stop loss",
+        "targetPrice": "Target price",
+        "title": "AI Recommendation",
+        "unknownError": "unknown error"
+      },
+      "businessInfo": {
+        "capitalization": "Capitalization",
+        "currency": "Currency",
+        "exchange": "Exchange",
+        "sector": "Sector",
+        "title": "Business information"
+      },
+      "news": {
+        "empty": "No news available",
+        "title": "News"
+      },
+      "recommendations": {
+        "ariaLabel": "Analyst recommendations",
+        "axis": {
+          "analysts": "# Analysts",
+          "date": "Date"
+        },
+        "title": "Analyst recommendations"
+      }
+    },
+    "home": {
+      "features": {
+        "advancedScreener": {
+          "description": "Filter and analyze thousands of stocks in real-time with customizable criteria and advanced technical analysis.",
+          "title": "Advanced Screener"
+        },
+        "aiAnalysis": {
+          "description": "Get personalized recommendations based on AI models trained with millions of historical data points.",
+          "title": "AI Analysis"
+        },
+        "realTimeData": {
+          "description": "Access real-time market data, relevant news, and updated fundamental analysis.",
+          "title": "Real-time Data"
+        },
+        "title": "Main features"
+      },
+      "hero": {
+        "cta": "Get started now",
+        "description": "Make informed decisions with our AI-backed analysis. Discover unique investment opportunities with our expert analysis system.",
+        "imageAlt": "Stock market chart preview",
+        "title": "Intelligent stock market analysis"
+      }
+    },
+    "operations": {
+      "emptyState": {
+        "description": "Start by recording your first operation using the form on the left",
+        "title": "No operations recorded"
+      },
+      "tabs": {
+        "operations": "Operations",
+        "symbols": "By symbol"
+      },
+      "title": "Operations management"
+    },
+    "plan": {
+      "loading": {
+        "analyzing": "Analyzing market and calculating strategies",
+        "duration": "This may take between 10 seconds and 5 minutes",
+        "generating": "Generating personalized plan...",
+        "headerTitle": "Investment plan",
+        "infoDescription": "Generation time may vary between 10 seconds (cache) and 5 minutes depending on the complexity of the analysis and system load.",
+        "infoTitle": "Generating personalized investment plan"
+      },
+      "stock": {
+        "analysisButton": "See analysis",
+        "ariaLabel": "{symbol} investment plan",
+        "entryPriceRange": "Entry range",
+        "error": {
+          "description": "An error occurred when loading the information for this stock. Please, try again later",
+          "subtitle": "The information couldn't be loaded",
+          "title": "{symbol} error"
+        },
+        "exitStrategy": "Exit strategy",
+        "exitStrategy.percentage": "Capital {percentage}",
+        "investmentMetrics": {
+          "duration": "Duration",
+          "estimatedLoss": "Est. loss",
+          "estimatedProfit": "Est. profit",
+          "profitProbability": "Profit prob.",
+          "quantity": "Quantity",
+          "stopLoss": "Stop loss"
+        }
+      },
+      "stocksList": {
+        "title": "Stocks"
+      },
+      "title": "Investment plan"
+    },
+    "profile": {
+      "credits": {
+        "error": "Error: {message}",
+        "loading": "Loading...",
+        "mostAnalyzedSectors": "Most analyzed sectors",
+        "noStats": "No statistics",
+        "remainingCredits": "Remaining credits",
+        "stocksAnalyzed": "Stocks analyzed",
+        "title": "Credits",
+        "usageTrends": "Usage trends"
+      }
+    },
+    "screener": {
+      "error": "An error has occurred",
+      "loading": "Loading...",
+      "subtitle": "Select a screener to find stocks with short-term investment potential",
+      "title": "Discover investment opportunities"
+    }
+  },
+  "view": {
+    "operations": {
+      "bySymbol": {
+        "title": "Wallet by symbol"
+      },
+      "error": {
+        "buy": "Buy",
+        "description": "Please, refresh the page or edit the operation",
+        "details": "{quantity} shares at ${price}",
+        "sell": "Sell",
+        "title": "Error loading the operation"
+      },
+      "form": {
+        "buy": "Buy",
+        "cancel": "Cancel",
+        "date": "Date",
+        "descriptionEdit": "Modify the operation data",
+        "descriptionNew": "Add a new buy or sell operation",
+        "editMode": "Edit mode",
+        "price": "Unit price ($)",
+        "pricePlaceholder": "0.00",
+        "quantity": "Quantity",
+        "quantityPlaceholder": "0",
+        "sell": "Sell",
+        "submitAdd": "Add Operation",
+        "submitUpdate": "Update Operation",
+        "symbol": "Symbol",
+        "symbolPlaceholder": "e.g. AAPL",
+        "tags": "Tags",
+        "titleEdit": "Edit operation",
+        "titleNew": "New operation",
+        "type": "Operation type",
+        "validation": {
+          "date": "Date is required",
+          "price": "Price must be greater than 0.01",
+          "quantity": "Quantity must be greater than 0.0001",
+          "symbol": "Symbol is required",
+          "tagsMax": "Maximum 3 tags",
+          "type": "Operation type is required"
+        }
+      },
+      "list": {
+        "cancel": "Cancel",
+        "confirmDeleteDescription": "Are you sure you want to delete this operation?",
+        "confirmDeleteTitle": "Delete {quantity} shares of {symbol}",
+        "delete": "Delete operation",
+        "deleteAction": "Delete",
+        "edit": "Edit operation",
+        "editingBadge": "Editing"
+      },
+      "operationCard": {
+        "price": "Unit price ($)",
+        "quantity": "Quantity",
+        "tags": "Tags",
+        "total": "Total"
+      },
+      "operations": {
+        "title": "Wallet"
+      },
+      "symbolCard": {
+        "boughtShares": "Shares bought",
+        "holdingShares": "Shares held",
+        "profit": "Profit",
+        "profitPercentage": "Profit %",
+        "soldMoreTooltip": "{difference} more shares sold than bought",
+        "soldProfit": "Profit from sold shares",
+        "soldProfitPercentage": "Sold profit %",
+        "soldShares": "Shares sold",
+        "totalInvestment": "Total investment"
+      }
+    },
+    "planHeader": {
+      "generated": "Generated"
+    },
+    "portfolioPerformance": {
+      "holdingInvestment": "Current portfolio investment",
+      "relativeProfit": "Profit from completed operations",
+      "title": "Portfolio Performance",
+      "totalInvested": "Total Invested",
+      "totalProfit": "Total profit"
+    },
+    "screenerPicker": {
+      "highVolatilityWithGrow": {
+        "description": "Stocks with volatility and growth potential",
+        "title": "Volatility with growth"
+      },
+      "nasdaq100": {
+        "description": "NASDAQ 100 stocks",
+        "title": "NASDAQ 100"
+      },
+      "pennyHighBeta": {
+        "description": "Penny stocks with high beta",
+        "title": "Penny stocks"
+      },
+      "pennyStocksHighVolume": {
+        "description": "Penny stocks with high volume",
+        "title": "Penny stocks with volume"
+      }
+    },
+    "screenerTable": {
+      "columns": {
+        "analystRating": "Analyst recommendation",
+        "beta": "Beta",
+        "capitalization": "Capitalization",
+        "company": "Company",
+        "country": "Country",
+        "lastDividend": "Last dividend",
+        "movingAverageRating": "Moving average recommendation",
+        "oscillatorsRating": "Oscillator recommendation",
+        "price": "Price",
+        "sector": "Sector",
+        "techRating": "Technical recommendation",
+        "volume": "Volume"
+      }
+    }
+  }
+}

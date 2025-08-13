@@ -1,0 +1,290 @@
+{
+  "common": {
+    "buy": "Comprar",
+    "doNotBuy": "No comprar"
+  },
+  "component": {
+    "autocomplete": {
+      "noResults": "Sin resultados",
+      "searching": "Buscando..."
+    },
+    "common": {
+      "loading": "Cargando...",
+      "noDataAvailable": "No hay datos disponibles",
+      "somethingWentWrong": "Ha ocurrido un error"
+    },
+    "hero": {
+      "cta": "Comenzar ahora"
+    },
+    "loginButton": {
+      "signIn": "Iniciar sesión",
+      "signUp": "Crear cuenta"
+    },
+    "remainingCredits": {
+      "lifetimeRemaining": "Te quedan ${amount}",
+      "monthlyRemaining": "Este mes te quedan ${amount}",
+      "nextRenewal": "Próxima renovación: {date}",
+      "of": "de",
+      "usage": "Uso",
+      "usageThisMonth": "Uso este mes"
+    },
+    "stockSearch": {
+      "placeholder": "Busca una acción"
+    },
+    "symbolList": {
+      "loadMoreHint": "Desplaza para cargar más",
+      "loading": "Cargando...",
+      "loadingMore": "Cargando más..."
+    }
+  },
+  "nav": {
+    "operations": "Operaciones",
+    "plan": "Plan de inversión",
+    "screener": "Screener"
+  },
+  "page": {
+    "analysis": {
+      "aiAnalysis": {
+        "action": "Acción",
+        "actionPlan": "Plan de acción ({estimatedTime})",
+        "entryRange": "Rango de entrada",
+        "error": "Error al generar análisis: {message}",
+        "exitStrategy": "Estrategia de salida",
+        "generate": "Generar análisis",
+        "generating": "Generando análisis...",
+        "notFound": "No se encontró ningún análisis",
+        "objectivePrice": "Precio objetivo",
+        "potentialLoss": "Pérdida potencial",
+        "potentialProfit": "Beneficio potencial",
+        "sell": "Vender",
+        "stopLoss": "Stop loss",
+        "targetPrice": "Precio objetivo",
+        "title": "Recomendación IA",
+        "unknownError": "error desconocido"
+      },
+      "businessInfo": {
+        "capitalization": "Capitalización",
+        "currency": "Moneda",
+        "exchange": "Exchange",
+        "sector": "Sector",
+        "title": "Información del negocio"
+      },
+      "news": {
+        "empty": "No hay noticias disponibles",
+        "title": "Noticias"
+      },
+      "recommendations": {
+        "ariaLabel": "Recomendaciones de analistas",
+        "axis": {
+          "analysts": "# Analistas",
+          "date": "Fecha"
+        },
+        "title": "Recomendaciones de analistas"
+      }
+    },
+    "home": {
+      "features": {
+        "advancedScreener": {
+          "description": "Filtra y analiza miles de acciones en tiempo real con criterios personalizables y análisis técnico avanzado.",
+          "title": "Screener Avanzado"
+        },
+        "aiAnalysis": {
+          "description": "Obtén recomendaciones personalizadas basadas en modelos de IA entrenados con millones de datos históricos.",
+          "title": "Análisis por IA"
+        },
+        "realTimeData": {
+          "description": "Accede a datos del mercado en tiempo real, noticias relevantes y análisis fundamentales actualizados.",
+          "title": "Datos en Tiempo Real"
+        },
+        "title": "Características principales"
+      },
+      "hero": {
+        "cta": "Comenzar ahora",
+        "description": "Toma decisiones informadas con nuestro análisis respaldado por IA. Descubre oportunidades de inversión únicas con nuestro experto sistema de análisis.",
+        "imageAlt": "Vista previa del gráfico del mercado de valores",
+        "title": "Análisis inteligente del mercado de valores"
+      }
+    },
+    "operations": {
+      "emptyState": {
+        "description": "Comienza registrando tu primera operación utilizando el formulario de la izquierda",
+        "title": "No hay operaciones registradas"
+      },
+      "tabs": {
+        "operations": "Operaciones",
+        "symbols": "Por símbolo"
+      },
+      "title": "Gestión de operaciones"
+    },
+    "plan": {
+      "loading": {
+        "analyzing": "Analizando mercado y calculando estrategias",
+        "duration": "Esto puede tomar entre 10 segundos y 5 minutos",
+        "generating": "Generando plan personalizado...",
+        "headerTitle": "Plan de inversión",
+        "infoDescription": "El tiempo de generación puede variar entre 10 segundos (cache) y 5 minutos dependiendo de la complejidad del análisis y la carga del sistema.",
+        "infoTitle": "Generando plan de inversión personalizado"
+      },
+      "stock": {
+        "analysisButton": "Ver análisis",
+        "ariaLabel": "Plan de inversión de {symbol}",
+        "entryPriceRange": "Rango de entrada",
+        "error": {
+          "description": "Ocurrió un error al cargar la información de esta acción. Por favor, intente nuevamente más tarde.",
+          "subtitle": "No se pudo cargar la información",
+          "title": "Error de {symbol}"
+        },
+        "exitStrategy": "Estrategia de salida",
+        "exitStrategy.percentage": "{percentage} del capital",
+        "investmentMetrics": {
+          "duration": "Duración",
+          "estimatedLoss": "Pérdida est.",
+          "estimatedProfit": "Beneficio est.",
+          "profitProbability": "Prob. Beneficio",
+          "quantity": "Cantidad",
+          "stopLoss": "Stop Loss"
+        }
+      },
+      "stocksList": {
+        "title": "Acciones"
+      },
+      "strategy": "Estrategia",
+      "title": "Plan de inversión"
+    },
+    "profile": {
+      "credits": {
+        "error": "Error: {message}",
+        "loading": "Cargando...",
+        "mostAnalyzedSectors": "Sectores más analizados",
+        "noStats": "Sin estadísticas",
+        "remainingCredits": "Créditos restantes",
+        "stocksAnalyzed": "Acciones analizadas",
+        "title": "Créditos",
+        "usageTrends": "Tendencias de uso"
+      }
+    },
+    "screener": {
+      "error": "Ha ocurrido un error",
+      "loading": "Cargando...",
+      "subtitle": "Selecciona un screener para encontrar acciones con potencial de inversión a corto plazo",
+      "title": "Descubre oportunidades de inversión"
+    }
+  },
+  "view": {
+    "operations": {
+      "bySymbol": {
+        "title": "Cartera por símbolo"
+      },
+      "error": {
+        "buy": "Compra",
+        "description": "Por favor, intenta recargar la página o editar la operación",
+        "details": "{quantity} acciones a ${price}",
+        "sell": "Venta",
+        "title": "Error al cargar la operación"
+      },
+      "form": {
+        "buy": "Compra",
+        "cancel": "Cancelar",
+        "date": "Fecha",
+        "descriptionEdit": "Modifica los datos de la operación",
+        "descriptionNew": "Añade una nueva operación de compra o venta",
+        "editMode": "Modo edición",
+        "price": "Precio unitario ($)",
+        "pricePlaceholder": "0.00",
+        "quantity": "Cantidad",
+        "quantityPlaceholder": "0",
+        "sell": "Venta",
+        "submitAdd": "Añadir Operación",
+        "submitUpdate": "Actualizar Operación",
+        "symbol": "Símbolo",
+        "symbolPlaceholder": "Ej. AAPL",
+        "tags": "Etiquetas",
+        "titleEdit": "Editar operación",
+        "titleNew": "Nueva operación",
+        "type": "Tipo de operación",
+        "validation": {
+          "date": "La fecha es requerida",
+          "price": "El precio debe ser mayor a 0.01",
+          "quantity": "La cantidad debe ser mayor a 0.0001",
+          "symbol": "Símbolo es requerido",
+          "tagsMax": "Máximo 3 etiquetas",
+          "type": "Tipo de operación es requerido"
+        }
+      },
+      "list": {
+        "cancel": "Cancelar",
+        "confirmDeleteDescription": "¿Estás seguro de querer eliminar esta operación?",
+        "confirmDeleteTitle": "Eliminar {quantity} acciones de {symbol}",
+        "delete": "Eliminar operación",
+        "deleteAction": "Eliminar",
+        "edit": "Editar operación",
+        "editingBadge": "Editando"
+      },
+      "operationCard": {
+        "price": "Precio unitario ($)",
+        "quantity": "Cantidad",
+        "tags": "Etiquetas",
+        "total": "Total"
+      },
+      "operations": {
+        "title": "Cartera"
+      },
+      "symbolCard": {
+        "boughtShares": "Acciones compradas",
+        "holdingShares": "Acciones en cartera",
+        "profit": "Beneficios",
+        "profitPercentage": "% Beneficios",
+        "soldMoreTooltip": "{difference} acciones vendidas más que compradas",
+        "soldProfit": "Beneficios de acciones vendidas",
+        "soldProfitPercentage": "% Beneficios vendidos",
+        "soldShares": "Acciones vendidas",
+        "totalInvestment": "Inversión total",
+        "viewAnalysis": "Ver análisis de {name}"
+      }
+    },
+    "planHeader": {
+      "generated": "Generado"
+    },
+    "portfolioPerformance": {
+      "holdingInvestment": "Inversión actual en cartera",
+      "relativeProfit": "Beneficio de operaciones realizadas",
+      "title": "Rendimiento de la Cartera",
+      "totalInvested": "Total Invertido",
+      "totalProfit": "Beneficio total"
+    },
+    "screenerPicker": {
+      "highVolatilityWithGrow": {
+        "description": "Acciones con volatilidad y crecimiento potencial",
+        "title": "Volatilidad con crecimiento"
+      },
+      "nasdaq100": {
+        "description": "Acciones del NASDAQ 100",
+        "title": "NASDAQ 100"
+      },
+      "pennyHighBeta": {
+        "description": "Penny stocks con alta beta",
+        "title": "Penny stocks"
+      },
+      "pennyStocksHighVolume": {
+        "description": "Penny stocks con alto volumen",
+        "title": "Penny stocks con volumen"
+      }
+    },
+    "screenerTable": {
+      "columns": {
+        "analystRating": "Recomendación analistas",
+        "beta": "Beta",
+        "capitalization": "Capitalización",
+        "company": "Compañía",
+        "country": "País",
+        "lastDividend": "Último dividendo",
+        "movingAverageRating": "Recomendación medias móviles",
+        "oscillatorsRating": "Recomendación osciladores",
+        "price": "Precio",
+        "sector": "Sector",
+        "techRating": "Recomendación técnica",
+        "volume": "Volumen"
+      }
+    }
+  }
+}

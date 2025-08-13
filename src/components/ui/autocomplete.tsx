@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils';
 import { PopoverContent } from '@radix-ui/react-popover';
+import { useTranslate } from '@tolgee/react';
 import { Command as CommandPrimitive } from 'cmdk';
 import { useState } from 'react';
 import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from './command';
@@ -37,7 +38,9 @@ export function Autocomplete<T = { id: string; label: string }, R = (suggestion:
   maxWidth,
   renderComponent: RenderComponent = DefaultRenderComponent as R,
 }: AutocompleteProps<T, R>) {
+  const { t } = useTranslate();
   const [open, setOpen] = useState(false);
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <Command shouldFilter={false}>
@@ -67,7 +70,11 @@ export function Autocomplete<T = { id: string; label: string }, R = (suggestion:
             className="max-h-[300px] w-full overflow-y-auto bg-background border border-border rounded-md"
             style={{ width: maxWidth }}
           >
-            {isSearching ? <CommandEmpty>Searching...</CommandEmpty> : <CommandEmpty>No results found</CommandEmpty>}
+            {isSearching ? (
+              <CommandEmpty>{t('component.autocomplete.searching')}</CommandEmpty>
+            ) : (
+              <CommandEmpty>{t('component.autocomplete.noResults')}</CommandEmpty>
+            )}
             <CommandGroup>
               {suggestions?.map((suggestion) => (
                 <CommandItem

@@ -1,0 +1,64 @@
+'use client';
+
+import { InvestmentPlanResponse } from '@/server/types';
+import { useTranslate } from '@tolgee/react';
+import { Suspense, useMemo } from 'react';
+import AutoSizer from 'react-virtualized-auto-sizer';
+import { FixedSizeList as List } from 'react-window';
+import { StockInvestmentErrorBoundary, StockInvestmentPlanSkeleton } from '../skeleton';
+import { StockInvestmentPlan } from '../stock';
+
+const COLUMN_WIDTH = 350;
+const COLUMN_HEIGHT = 564;
+const COLUMN_GAP = 16;
+const ITEM_WIDTH = COLUMN_WIDTH + COLUMN_GAP;
+
+export function StocksList({
+  data,
+  investmentAmount,
+}: {
+  data: InvestmentPlanResponse['response']['investmentSuggestions'];
+  investmentAmount: number;
+}) {
+  const { t } = useTranslate();
+  const sortedData = useMemo(() => data.toSorted((a, b) => b.quantityToInvest - a.quantityToInvest), [data]);
+
+  const Column = ({ index, style }: { index: number; style: React.CSSProperties }) => {
+    const item = sortedData[index];
+
+    return (
+      <div style={style}>
+        <div style={{ width: COLUMN_WIDTH, height: COLUMN_HEIGHT - 16 }}>
+          <StockInvestmentErrorBoundary symbol={item.symbol}>
+            <Suspense fallback={<StockInvestmentPlanSkeleton />}>
+              <StockInvestmentPlan plan={item} investmentAmount={investmentAmount} />
+            </Suspense>
+          </StockInvestmentErrorBoundary>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <section className="flex flex-col gap-4 mb-16">
+      <div className="flex items-center gap-2">
+        <h2 className="text-lg font-bold">{t('page.plan.stocksList.title')}</h2>
+      </div>
+      <div className="mr-4 h-[512px]">
+        <AutoSizer>
+          {({ width }) => (
+            <List
+              height={COLUMN_HEIGHT}
+              width={width}
+              itemCount={sortedData.length}
+              itemSize={ITEM_WIDTH}
+              layout="horizontal"
+            >
+              {Column}
+            </List>
+          )}
+        </AutoSizer>
+      </div>
+    </section>
+  );
+}

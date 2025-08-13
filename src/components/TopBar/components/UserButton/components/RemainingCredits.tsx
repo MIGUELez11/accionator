@@ -1,4 +1,6 @@
 import { Progress } from '@/components/ui/progress';
+import { useLocale } from '@/hooks/useLocale';
+import { useTranslate } from '@tolgee/react';
 import { CalendarIcon } from 'lucide-react';
 
 interface RemainingCreditsProps {
@@ -9,20 +11,26 @@ interface RemainingCreditsProps {
 }
 
 export function RemainingCredits({ subscriptionType, credits, usedCredits, renewDate }: RemainingCreditsProps) {
+  const { t } = useTranslate();
+  const locale = useLocale();
+
   const remainingCredits = credits - usedCredits;
   return (
     <div className="border rounded-sm p-6 flex flex-col gap-4">
       <div className="flex flex-row gap-2 justify-between items-center">
         <div className="flex flex-col gap-2">
           <h2 className="text-2xl font-bold">
-            {subscriptionType === 'monthly' ? 'Este mes te' : 'Te'} quedan ${remainingCredits.toFixed(4)}
+            {subscriptionType === 'monthly'
+              ? t('component.remainingCredits.monthlyRemaining', { amount: remainingCredits.toFixed(4) })
+              : t('component.remainingCredits.lifetimeRemaining', { amount: remainingCredits.toFixed(4) })}
           </h2>
           {renewDate && (
             <div className="flex flex-row gap-2 items-center text-gray-500">
               <CalendarIcon className="w-4 h-4" />
               <p>
-                Próxima renovación:{' '}
-                {renewDate.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                {t('component.remainingCredits.nextRenewal', {
+                  date: renewDate.toLocaleDateString(locale, { day: '2-digit', month: '2-digit', year: 'numeric' }),
+                })}
               </p>
             </div>
           )}
@@ -33,9 +41,13 @@ export function RemainingCredits({ subscriptionType, credits, usedCredits, renew
       </div>
       <div className="flex flex-col gap-2">
         <div className="flex flex-row gap-2 justify-between">
-          <p>Uso{subscriptionType === 'monthly' ? ' este mes' : ''}</p>
           <p>
-            ${usedCredits.toFixed(4)} de ${credits.toFixed(4)}
+            {subscriptionType === 'monthly'
+              ? t('component.remainingCredits.usageThisMonth')
+              : t('component.remainingCredits.usage')}
+          </p>
+          <p>
+            ${usedCredits.toFixed(4)} {t('component.remainingCredits.of')} ${credits.toFixed(4)}
           </p>
         </div>
         <Progress value={credits > 0 ? (usedCredits / credits) * 100 : 0} className="w-full" />

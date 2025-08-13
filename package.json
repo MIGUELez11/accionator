@@ -8,9 +8,13 @@
     "start": "next start",
     "lint": "next lint",
     "prettier": "prettier --write .",
-    "check": "next lint --fix && prettier --write ."
+    "check": "next lint --fix && prettier --write .",
+    "i18n:pull": "pnpx @tolgee/cli pull",
+    "i18n:login": "pnpx @tolgee/cli login",
+    "i18n:push": "pnpx @tolgee/cli push"
   },
   "dependencies": {
+    "@clerk/localizations": "^3.20.9",
     "@clerk/nextjs": "^6.23.0",
     "@convex-dev/react-query": "0.0.0-alpha.11",
     "@google/genai": "^1.5.1",
@@ -34,6 +38,9 @@
     "@tanstack/react-query": "^5.80.10",
     "@tanstack/react-query-devtools": "^5.80.10",
     "@tanstack/react-table": "^8.21.3",
+    "@tolgee/format-icu": "^6.2.7",
+    "@tolgee/react": "^6.2.7",
+    "@tolgee/web": "^6.2.7",
     "@types/react-window": "^1.8.8",
     "@upstash/redis": "^1.35.0",
     "class-variance-authority": "^0.7.1",
@@ -44,6 +51,7 @@
     "finnhub-ts": "^1.0.7",
     "lucide-react": "^0.518.0",
     "next": "15.3.3",
+    "next-intl": "^4.3.4",
     "posthog-js": "^1.255.1",
     "posthog-node": "^5.1.1",
     "raw-loader": "^4.0.2",
