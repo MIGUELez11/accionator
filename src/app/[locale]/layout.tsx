@@ -25,7 +25,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {' '}
       {/* TODO: add locale */}
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Providers>{children}</Providers>

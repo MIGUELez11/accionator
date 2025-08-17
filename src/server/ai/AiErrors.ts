@@ -56,3 +56,15 @@ export class AIUnknownModelError extends Data.TaggedError('AIUnknownModelError')
     });
   }
 }
+
+export class AIChatNotFoundError extends Data.TaggedError('AIChatNotFoundError')<{
+  readonly message: 'Chat not found';
+  readonly provider: AIProviders;
+}> {
+  constructor(props: { provider: AIProviders }) {
+    super({
+      message: 'Chat not found',
+      provider: props.provider,
+    });
+  }
+}

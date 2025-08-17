@@ -11,15 +11,15 @@ const providerByModel: Record<AIModels, AIProviders> = {
   'gemini-2.5-flash': 'gemini',
 };
 
-const ServicePerModel: Record<AIModels, AIService['Type']> = {
+const ServicePerModel: Record<AIModels, Effect.Effect<AIService['Type']>> = {
   ...GeminiModelServices,
 };
 
-export function getAIService(model: AIModels): Effect.Effect<AIService['Type'], AIUnknownModelError> {
-  const service = ServicePerModel[model];
+export const getAIService = Effect.fn(function* (model: AIModels) {
+  const service = yield* ServicePerModel[model];
 
   if (!service) {
-    return Effect.fail(
+    return yield* Effect.fail(
       new AIUnknownModelError({
         provider: providerByModel[model],
         model,
@@ -27,11 +27,13 @@ export function getAIService(model: AIModels): Effect.Effect<AIService['Type'], 
     );
   }
 
-  return Effect.succeed(
-    AIService.of({
-      ...service,
-      model,
-      generateResponse: (prompt) => Effect.provideService(withTokens(prompt), AIService, service),
-    }),
-  );
-}
+  return AIService.of({
+    ...service,
+    model,
+    generateResponse: (prompt) => Effect.provideService(withTokens(prompt), AIService, service),
+    chat: {
+      ...service.chat,
+      sendMessage: (message) => Effect.provideService(withTokens(message), AIService, service),
+    },
+  });
+});
