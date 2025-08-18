@@ -1,4 +1,4 @@
-import { getAIService } from '@/server/ai/getAIService';
+import { AIService } from '@/server/ai/AIService';
 import { Effect } from 'effect';
 
 function jsonParser(response: string): object {
@@ -11,23 +11,22 @@ export interface AnalysisResponse<T extends boolean = false> {
   outputTokens: number;
 }
 
-export function getAnalysis<T extends boolean = false>(
+export const getAnalysis = Effect.fn(function* <T extends boolean = false>(
   prompt: string,
   parseResponse: T = false as T,
-): Effect.Effect<AnalysisResponse<T>, Error> {
-  return Effect.gen(function* () {
-    const aiService = yield* getAIService('gemini-2.0-flash-lite');
-    const response = yield* aiService.generateResponse(prompt);
+) {
+  const aiService = yield* AIService;
 
-    const promptTokens = yield* aiService.countTokens(prompt);
-    const responseTokens = yield* aiService.countTokens(response);
+  const response = yield* aiService.chat.sendMessage(prompt);
 
-    const responseObject: AnalysisResponse<T> = {
-      response: (parseResponse ? jsonParser(response) : response) as T extends true ? object : string,
-      inputTokens: promptTokens,
-      outputTokens: responseTokens,
-    };
+  const promptTokens = yield* aiService.countTokens(prompt);
+  const responseTokens = yield* aiService.countTokens(response);
 
-    return responseObject;
-  });
-}
+  const responseObject: AnalysisResponse<T> = {
+    response: (parseResponse ? jsonParser(response) : response) as T extends true ? object : string,
+    inputTokens: promptTokens,
+    outputTokens: responseTokens,
+  };
+
+  return responseObject;
+});

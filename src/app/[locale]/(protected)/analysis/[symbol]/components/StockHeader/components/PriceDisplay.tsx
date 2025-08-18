@@ -16,7 +16,7 @@ export function PriceDisplay({ symbol }: { symbol: string }) {
       ) : (
         <p className="text-2xl font-bold">${(price ?? 0).toFixed(2)}</p>
       )}
-      {percentChange === undefined ? (
+      {percentChange === undefined || percentChange === null ? (
         <Skeleton className="w-16 h-4" />
       ) : (
         <p

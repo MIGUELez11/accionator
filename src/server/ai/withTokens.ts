@@ -8,18 +8,19 @@ type UpdateTokensErrors = Effect.Effect.Error<ReturnType<typeof updateTokens>>;
 
 export type ThrowableErrors = ValidateTokensAvailableErrors | UpdateTokensErrors;
 
-export function withTokens(prompt: string) {
-  return Effect.gen(function* () {
-    const aiService = yield* AIService;
+type Fn = AIService['Type']['generateResponse'] | AIService['Type']['chat']['sendMessage'];
 
-    const promptTokens = yield* aiService.countTokens(prompt);
-    yield* validateTokensAvailable(promptTokens);
+export const withTokens = Effect.fn(function* <TFn extends Fn>(fn: TFn, prompt: string) {
+  const aiService = yield* AIService;
 
-    const response = yield* aiService.generateResponse(prompt);
+  const promptTokens = yield* aiService.countTokens(prompt);
+  yield* validateTokensAvailable(promptTokens);
 
-    const responseTokens = yield* aiService.countTokens(response);
-    yield* updateTokens(promptTokens, responseTokens);
+  const callabledFn = fn as (prompt: string) => Effect.Effect<string, ThrowableErrors>;
+  const response = yield* callabledFn(prompt);
 
-    return response;
-  });
-}
+  const responseTokens = yield* aiService.countTokens(response);
+  yield* updateTokens(promptTokens, responseTokens);
+
+  return response;
+});

@@ -1,4 +1,5 @@
 import { Effect } from 'effect';
+import { AIService } from '../ai/AIService';
 import { StocksService } from '../stocks/data/service';
 import { generateFinancialAnalysis } from './generateFinancialAnalysis';
 import { generateNewsSummary } from './generateNewsSummary';
@@ -13,6 +14,9 @@ export const getStockAnalysis = Effect.fn(function* (symbol: string) {
     stocksService.getBasicFinancials(symbol),
     stocksService.getStockPrice(symbol),
   ]);
+
+  const aiService = yield* AIService;
+  yield* aiService.chat.initialize();
 
   const newsSummary = yield* generateNewsSummary(news, stockProfile);
   const financialAnalysis = yield* generateFinancialAnalysis(newsSummary.response, basicFinancials, stockPrice);

@@ -30,10 +30,12 @@ export const getAIService = Effect.fn(function* (model: AIModels) {
   return AIService.of({
     ...service,
     model,
-    generateResponse: (prompt) => Effect.provideService(withTokens(prompt), AIService, service),
+    generateResponse: (prompt) =>
+      Effect.provideService(withTokens(service.generateResponse, prompt), AIService, service),
     chat: {
       ...service.chat,
-      sendMessage: (message) => Effect.provideService(withTokens(message), AIService, service),
+      sendMessage: (message) =>
+        Effect.provideService(withTokens(service.chat.sendMessage, message), AIService, service),
     },
   });
 });
