@@ -19,7 +19,7 @@ export function getPrompt<T extends PromptsNames>(
         ...replaces,
         ...{
           Date: `The current date is: ${new Date().toISOString()}`,
-          Language: `You should always answer in: "Spanish - Spain"`,
+          Language: `You should always answer in: "English - United States"`,
         },
       };
 
