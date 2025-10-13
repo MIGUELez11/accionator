@@ -148,6 +148,7 @@
       "stocksList": {
         "title": "Stocks"
       },
+      "strategy": "Strategy",
       "title": "Investment plan"
     },
     "profile": {
