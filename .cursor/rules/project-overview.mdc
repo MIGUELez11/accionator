@@ -3,12 +3,15 @@ description: When developing, architecting or designing features for the project
 globs:
 alwaysApply: false
 ---
-# Accionator Project Overview
+
+# Stockator Project Overview
 
 ## Project Description
-Accionator is a Next.js 15 application with a Convex backend focused on financial data analysis and stock/sector tracking. The application uses modern React patterns, TypeScript, and includes features for token usage tracking and historical data analysis.
+
+Stockator is a Next.js 15 application with a Convex backend focused on financial data analysis and stock/sector tracking. The application uses modern React patterns, TypeScript, and includes features for token usage tracking and historical data analysis.
 
 ## Tech Stack
+
 - **Frontend**: Next.js 15 with App Router, React 19, TypeScript
 - **Backend**: Convex (real-time database and backend)
 - **Styling**: Tailwind CSS 4.1, Radix UI components
@@ -20,6 +23,7 @@ Accionator is a Next.js 15 application with a Convex backend focused on financia
 ## Project Structure
 
 ### Root Directory
+
 - [package.json](mdc:package.json) - Project dependencies and scripts
 - [next.config.ts](mdc:next.config.ts) - Next.js configuration
 - [tsconfig.json](mdc:tsconfig.json) - TypeScript configuration
@@ -28,6 +32,7 @@ Accionator is a Next.js 15 application with a Convex backend focused on financia
 - [components.json](mdc:components.json) - UI components configuration
 
 ### Source Code (`src/`)
+
 - [src/app/](mdc:src/app) - Next.js App Router pages and layouts
 - [src/components/](mdc:src/components) - Reusable React components
 - @src/components/ui - React component atoms
@@ -38,6 +43,7 @@ Accionator is a Next.js 15 application with a Convex backend focused on financia
 - [src/server/](mdc:src/server) - Server-side utilities
 
 ### Backend (`convex/`)
+
 - [convex/schema.ts](mdc:convex/schema.ts) - Database schema definition
 - [convex/auth.config.ts](mdc:convex/auth.config.ts) - Authentication configuration
 - [convex/queries/](mdc:convex/queries) - Database query functions
@@ -45,6 +51,7 @@ Accionator is a Next.js 15 application with a Convex backend focused on financia
 - [convex/helpers/](mdc:convex/helpers) - Shared utility functions
 
 ## Key Features
+
 - User authentication and authorization
 - Token usage tracking and limits
 - Stock and sector search tracking
@@ -53,6 +60,7 @@ Accionator is a Next.js 15 application with a Convex backend focused on financia
 - Financial data visualization with Nivo charts
 
 ## Development Commands
+
 - `pnpm dev` - Start development server with Turbopack
 - `pnpm build` - Build for production
 - `pnpm lint` - Run ESLint
