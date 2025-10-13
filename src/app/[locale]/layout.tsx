@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Accionator',
+  title: 'Stockator',
   description: 'An AI-powered stock market research assistant',
 };
 

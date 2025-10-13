@@ -16,7 +16,7 @@ export function TopBar() {
           <div className="flex flex-row items-center gap-6 max-w-7xl w-full mx-auto px-4">
             <Link href="/" className="text-xl font-semibold flex gap-2 items-center">
               <TrendingUpIcon />
-              ACCIONATOR
+              STOCKATOR
             </Link>
             <Authenticated>
               <NavBar />

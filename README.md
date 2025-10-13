@@ -1,118 +1,118 @@
-# Accionator 📈
+# Stockator 📈
 
-> **Transforma tu forma de invertir con inteligencia artificial y datos en tiempo real**
+> **Transform your way of investing with artificial intelligence and real-time data**
 
-¿Te imaginas tener un asistente financiero que te ayude a tomar decisiones de inversión más inteligentes? ¡Eso es exactamente lo que es Accionator!
+Imagine having a financial assistant that helps you make smarter investment decisions? That's exactly what Stockator is!
 
-Una plataforma moderna de análisis financiero construida con las últimas tecnologías web, diseñada para ayudar a inversores como tú a tomar decisiones basadas en datos a través de screening de acciones, seguimiento de portafolio y planificación de inversiones impulsada por IA.
+A modern financial analysis platform built with the latest web technologies, designed to help investors like you make data-driven decisions through stock screening, portfolio tracking, and AI-powered investment planning.
 
-## ✨ ¿Qué hace Accionator especial?
+## ✨ What makes Stockator special?
 
-### 📊 **Stock Screener Inteligente**
+### 📊 **Intelligent Stock Screener**
 
-¿Cansado de perder tiempo buscando las acciones perfectas? Nuestro screener te permite:
+Tired of wasting time searching for the perfect stocks? Our screener allows you to:
 
-- Filtrar acciones con criterios avanzados y personalizables
-- Datos de mercado en tiempo real que se actualizan automáticamente
-- Visualizaciones interactivas que te ayudan a entender los datos de un vistazo
-- Guardar tus filtros favoritos para uso futuro
+- Filter stocks with advanced and customizable criteria
+- Real-time market data that updates automatically
+- Interactive visualizations that help you understand data at a glance
+- Save your favorite filters for future use
 
-### 📈 **Análisis Profundo de Acciones**
+### 📈 **Deep Stock Analysis**
 
-Conoce cada acción como si fuera tu mejor amigo:
+Get to know each stock as if it were your best friend:
 
-- Información completa y perfiles detallados de cada empresa
-- Noticias en tiempo real que afectan el mercado
-- Herramientas de análisis técnico y fundamental
-- Gráficos históricos que cuentan la historia completa
+- Complete information and detailed profiles of each company
+- Real-time news that affects the market
+- Technical and fundamental analysis tools
+- Historical charts that tell the complete story
 
-### 💼 **Gestión de Operaciones**
+### 💼 **Operations Management**
 
-Mantén el control total de tu portafolio:
+Maintain total control of your portfolio:
 
-- Registra cada compra y venta con precisión
-- Monitorea el rendimiento de tu portafolio en tiempo real
-- Organiza tus operaciones con etiquetas personalizadas
-- Analiza tu historial para mejorar tus decisiones futuras
+- Record each buy and sell with precision
+- Monitor your portfolio performance in real-time
+- Organize your operations with custom tags
+- Analyze your history to improve your future decisions
 
-### 🎯 **Planificación de Inversiones con IA**
+### 🎯 **AI-Powered Investment Planning**
 
-Deja que la inteligencia artificial te ayude a planificar:
+Let artificial intelligence help you plan:
 
-- Estrategias de inversión generadas por IA
-- Evaluación de riesgos y proyecciones de ganancias/pérdidas
-- Recomendaciones personalizadas basadas en tu perfil
-- Sugerencias de optimización de portafolio
+- AI-generated investment strategies
+- Risk assessment and profit/loss projections
+- Personalized recommendations based on your profile
+- Portfolio optimization suggestions
 
-### 🔍 **Búsqueda y Analytics Inteligentes**
+### 🔍 **Intelligent Search and Analytics**
 
-Aprende de tus patrones de búsqueda:
+Learn from your search patterns:
 
-- Seguimiento de búsquedas de acciones y sectores
-- Analytics de uso y insights valiosos
-- Patrones históricos de búsqueda
-- Recomendaciones personalizadas
+- Tracking of stock and sector searches
+- Usage analytics and valuable insights
+- Historical search patterns
+- Personalized recommendations
 
-## 🛠️ Tecnologías que hacen magia
+## 🛠️ Technologies that make the magic
 
-### Frontend (Lo que ves)
+### Frontend (What you see)
 
-- **Next.js 15** - El framework React más moderno con App Router
-- **React 19** - React con características concurrentes de última generación
-- **TypeScript** - Desarrollo seguro y sin errores de tipos
-- **Tailwind CSS 4.1** - Estilos modernos y responsivos
-- **shadcn/ui** - Componentes hermosos y accesibles construidos con Radix UI
-- **Nivo** - Visualizaciones de datos que enamoran
+- **Next.js 15** - The most modern React framework with App Router
+- **React 19** - React with cutting-edge concurrent features
+- **TypeScript** - Safe development without type errors
+- **Tailwind CSS 4.1** - Modern and responsive styles
+- **shadcn/ui** - Beautiful and accessible components built with Radix UI
+- **Nivo** - Data visualizations that captivate
 
-### Backend (Lo que no ves pero hace todo funcionar)
+### Backend (What you don't see but makes everything work)
 
-- **Convex** - Base de datos en tiempo real que se actualiza automáticamente
-- **Effect TS** - Programación funcional para lógica robusta
-- **Finnhub** - Datos financieros reales y confiables
+- **Convex** - Real-time database that updates automatically
+- **Effect TS** - Functional programming for robust logic
+- **Finnhub** - Real and reliable financial data
 
-### Estado y Datos
+### State and Data
 
-- **TanStack React Query** - Gestión inteligente del estado del servidor
-- **Convex React Query** - Sincronización de datos en tiempo real
+- **TanStack React Query** - Intelligent server state management
+- **Convex React Query** - Real-time data synchronization
 
-### Autenticación e Internacionalización
+### Authentication and Internationalization
 
-- **Clerk** - Autenticación segura y fácil de usar
-- **Tolgee** - Soporte multiidioma para llegar a más personas
+- **Clerk** - Secure and easy-to-use authentication
+- **Tolgee** - Multi-language support to reach more people
 
-### Herramientas de Desarrollo
+### Development Tools
 
-- **ESLint** - Código limpio y consistente
-- **Prettier** - Formato automático para código hermoso
-- **pnpm** - Gestor de paquetes rápido y eficiente
+- **ESLint** - Clean and consistent code
+- **Prettier** - Automatic formatting for beautiful code
+- **pnpm** - Fast and efficient package manager
 
-## 🚀 ¡Empecemos la aventura!
+## 🚀 Let's start the adventure!
 
-### Lo que necesitas
+### What you need
 
-- **Node.js 18+** - El motor de JavaScript
-- **pnpm** (recomendado) o npm - Para instalar dependencias
-- **Cuenta de Convex** - Para la base de datos en tiempo real
-- **Cuenta de Clerk** - Para autenticación de usuarios
-- **API key de Finnhub** - Para datos financieros reales
+- **Node.js 18+** - The JavaScript engine
+- **pnpm** (recommended) or npm - To install dependencies
+- **Convex account** - For the real-time database
+- **Clerk account** - For user authentication
+- **Finnhub API key** - For real financial data
 
-### Instalación paso a paso
+### Step-by-step installation
 
-1. **Clona el repositorio**
+1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yourusername/accionator.git
-   cd accionator
+   git clone https://github.com/miguelez11/accionator.git stockator
+   cd stockator
    ```
 
-2. **Instala las dependencias**
+2. **Install dependencies**
 
    ```bash
    pnpm install
    ```
 
-3. **Configura las variables de entorno**
-   Crea un archivo `.env.local` en el directorio raíz:
+3. **Configure environment variables**
+   Create a `.env.local` file in the root directory:
 
    ```env
    # Clerk Authentication
@@ -125,182 +125,182 @@ Aprende de tus patrones de búsqueda:
    # Finnhub API
    FINNHUB_API_KEY=your_finnhub_api_key
 
-   # PostHog Analytics (opcional)
+   # PostHog Analytics (optional)
    NEXT_PUBLIC_POSTHOG_KEY=your_posthog_key
    POSTHOG_SECRET=your_posthog_secret
 
-   # Tolgee i18n (opcional)
+   # Tolgee i18n (optional)
    NEXT_PUBLIC_TOLGEE_API_KEY=your_tolgee_api_key
    TOLGEE_API_KEY=your_tolgee_api_key
    ```
 
-4. **Configura Convex**
+4. **Set up Convex**
 
    ```bash
-   npx convex dev
+   pnpx convex dev
    ```
 
-5. **¡Inicia el servidor de desarrollo!**
+5. **Start the development server!**
 
    ```bash
    pnpm dev
    ```
 
-6. **Abre tu navegador**
-   Ve a [http://localhost:3000](http://localhost:3000) y ¡disfruta!
+6. **Open your browser**
+   Go to [http://localhost:3000](http://localhost:3000) and enjoy!
 
-## 📁 Estructura del proyecto
+## 📁 Project structure
 
 ```
-accionator/
+stockator/
 ├── src/
 │   ├── app/                    # Next.js App Router
-│   │   ├── [locale]/          # Rutas internacionalizadas
-│   │   │   ├── (protected)/   # Rutas protegidas
-│   │   │   │   ├── screener/  # Screening de acciones
-│   │   │   │   ├── analysis/  # Análisis de acciones
-│   │   │   │   ├── operations/# Operaciones de portafolio
-│   │   │   │   └── plan/      # Planificación de inversiones
+│   │   ├── [locale]/          # Internationalized routes
+│   │   │   ├── (protected)/   # Protected routes
+│   │   │   │   ├── screener/  # Stock screening
+│   │   │   │   ├── analysis/  # Stock analysis
+│   │   │   │   ├── operations/# Portfolio operations
+│   │   │   │   └── plan/      # Investment planning
 │   │   │   └── layout.tsx
-│   │   ├── api/               # Rutas de API
-│   │   └── providers/         # Proveedores de contexto
-│   ├── components/            # Componentes reutilizables
-│   │   └── ui/               # Biblioteca de componentes UI
-│   ├── hooks/                # Hooks personalizados de React
-│   ├── lib/                  # Funciones utilitarias
-│   ├── queries/              # Hooks de React Query
-│   ├── mutations/            # Mutaciones de React Query
-│   └── server/               # Utilidades del lado del servidor
-├── convex/                   # Backend de Convex
-│   ├── schema.ts            # Esquema de la base de datos
-│   ├── queries/             # Consultas de la base de datos
-│   ├── mutations/           # Mutaciones de la base de datos
-│   └── helpers/             # Utilidades compartidas
-├── public/                  # Activos estáticos
-└── i18n/                   # Archivos de internacionalización
+│   │   ├── api/               # API routes
+│   │   └── providers/         # Context providers
+│   ├── components/            # Reusable components
+│   │   └── ui/               # UI component library
+│   ├── hooks/                # Custom React hooks
+│   ├── lib/                  # Utility functions
+│   ├── queries/              # React Query hooks
+│   ├── mutations/            # React Query mutations
+│   └── server/               # Server-side utilities
+├── convex/                   # Convex backend
+│   ├── schema.ts            # Database schema
+│   ├── queries/             # Database queries
+│   ├── mutations/           # Database mutations
+│   └── helpers/             # Shared utilities
+├── public/                  # Static assets
+└── i18n/                   # Internationalization files
 ```
 
-## 🗄️ Base de datos inteligente
+## 🗄️ Intelligent database
 
-La aplicación usa Convex con las siguientes tablas principales:
+The application uses Convex with the following main tables:
 
-- **tokens** - Seguimiento de uso de tokens y suscripciones
-- **historicalUsage** - Analytics de uso y reportes
-- **stocksSearched** - Patrones de búsqueda de acciones
-- **sectorsSearched** - Patrones de búsqueda de sectores
-- **operations** - Operaciones de compra/venta del portafolio
-- **operationTags** - Categorización de operaciones
+- **tokens** - Token usage tracking and subscriptions
+- **historicalUsage** - Usage analytics and reports
+- **stocksSearched** - Stock search patterns
+- **sectorsSearched** - Sector search patterns
+- **operations** - Portfolio buy/sell operations
+- **operationTags** - Operation categorization
 
-## 🎨 Componentes UI hermosos
+## 🎨 Beautiful UI components
 
-La aplicación usa una biblioteca de componentes personalizada construida con:
+The application uses a custom component library built with:
 
-- **Radix UI** primitivos para accesibilidad
-- **Tailwind CSS** para estilos modernos
-- **Class Variance Authority** para variantes de componentes
-- **Lucide React** para iconos hermosos
+- **Radix UI** primitives for accessibility
+- **Tailwind CSS** for modern styles
+- **Class Variance Authority** for component variants
+- **Lucide React** for beautiful icons
 
-## 🌐 Internacionalización
+## 🌐 Internationalization
 
-La aplicación soporta múltiples idiomas usando Tolgee:
+The application supports multiple languages using Tolgee:
 
-- Inglés (por defecto)
-- Español
-- ¡Se pueden agregar más idiomas fácilmente!
+- English (default)
+- Spanish
+- More languages can be easily added!
 
-## 📊 Visualización de datos que enamora
+## 📊 Captivating data visualization
 
-Los gráficos y visualizaciones están impulsados por Nivo:
+Charts and visualizations are powered by Nivo:
 
-- Gráficos de línea para tendencias de precios
-- Gráficos de barras para comparaciones
-- Gráficos de pastel para asignación de portafolio
-- Visualizaciones interactivas personalizadas
+- Line charts for price trends
+- Bar charts for comparisons
+- Pie charts for portfolio allocation
+- Custom interactive visualizations
 
-## 🔐 Autenticación segura
+## 🔐 Secure authentication
 
-La autenticación de usuarios está manejada por Clerk:
+User authentication is handled by Clerk:
 
-- Registro y login seguro de usuarios
-- Rutas protegidas y middleware
-- Gestión de perfiles de usuario
-- Control de acceso basado en roles
+- Secure user registration and login
+- Protected routes and middleware
+- User profile management
+- Role-based access control
 
-## 🚀 Despliegue
+## 🚀 Deployment
 
-### Vercel (Recomendado)
+### Vercel (Recommended)
 
-1. Conecta tu repositorio de GitHub a Vercel
-2. Configura las variables de entorno en el dashboard de Vercel
-3. ¡Despliegue automático en cada push a la rama principal!
+1. Connect your GitHub repository to Vercel
+2. Configure environment variables in the Vercel dashboard
+3. Automatic deployment on every push to the main branch!
 
-### Otras plataformas
+### Other platforms
 
-La aplicación se puede desplegar en cualquier plataforma que soporte Next.js:
+The application can be deployed on any platform that supports Next.js:
 
 - Netlify
 - Railway
 - DigitalOcean App Platform
 - AWS Amplify
 
-## 🤝 ¡Únete a la comunidad!
+## 🤝 Join the community!
 
-1. Haz fork del repositorio
-2. Crea una rama para tu feature (`git checkout -b feature/feature-increible`)
-3. Haz commit de tus cambios (`git commit -m 'Agrega feature increíble'`)
-4. Haz push a la rama (`git push origin feature/feature-increible`)
-5. ¡Abre un Pull Request!
+1. Fork the repository
+2. Create a branch for your feature (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request!
 
-### Guías de desarrollo
+### Development guidelines
 
-- Sigue las mejores prácticas de TypeScript
-- Usa ESLint y Prettier para formateo de código
-- Escribe mensajes de commit significativos
-- Prueba tus cambios exhaustivamente
-- Actualiza la documentación según sea necesario
+- Follow TypeScript best practices
+- Use ESLint and Prettier for code formatting
+- Write meaningful commit messages
+- Test your changes thoroughly
+- Update documentation as needed
 
-## 📝 Comandos disponibles
+## 📝 Available commands
 
 ```bash
-# Desarrollo
-pnpm dev          # Inicia servidor de desarrollo con Turbopack
-pnpm build        # Construye para producción
-pnpm start        # Inicia servidor de producción
+# Development
+pnpm dev          # Start development server with Turbopack
+pnpm build        # Build for production
+pnpm start        # Start production server
 
-# Calidad de código
-pnpm lint         # Ejecuta ESLint
-pnpm prettier     # Formatea código con Prettier
-pnpm check        # Ejecuta linting y formateo
+# Code quality
+pnpm lint         # Run ESLint
+pnpm prettier     # Format code with Prettier
+pnpm check        # Run linting and formatting
 
-# Internacionalización
-pnpm i18n:login   # Login a Tolgee
-pnpm i18n:pull    # Obtiene las últimas traducciones
-pnpm i18n:push    # Envía nuevas traducciones
+# Internationalization
+pnpm i18n:login   # Login to Tolgee
+pnpm i18n:pull    # Get latest translations
+pnpm i18n:push    # Send new translations
 ```
 
-## 📄 Licencia
+## 📄 License
 
-Este proyecto está licenciado bajo la Licencia MIT - mira el archivo [LICENSE](LICENSE) para más detalles.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Agradecimientos
+## 🙏 Acknowledgments
 
-- [Next.js](https://nextjs.org/) - El framework React que hace todo posible
-- [Convex](https://convex.dev/) - Backend en tiempo real que mola
-- [Clerk](https://clerk.com/) - Autenticación que funciona de maravilla
-- [Finnhub](https://finnhub.io/) - Datos financieros reales y confiables
-- [Nivo](https://nivo.rocks/) - Visualizaciones que enamoran
-- [Tailwind CSS](https://tailwindcss.com/) - CSS que hace la vida más fácil
+- [Next.js](https://nextjs.org/) - The React framework that makes everything possible
+- [Convex](https://convex.dev/) - Real-time backend that rocks
+- [Clerk](https://clerk.com/) - Authentication that works wonderfully
+- [Finnhub](https://finnhub.io/) - Real and reliable financial data
+- [Nivo](https://nivo.rocks/) - Visualizations that captivate
+- [Tailwind CSS](https://tailwindcss.com/) - CSS that makes life easier
 
-## 📞 ¿Necesitas ayuda?
+## 📞 Need help?
 
-Si tienes preguntas o necesitas ayuda:
+If you have questions or need help:
 
-- Abre un issue en GitHub
-- Revisa la documentación
-- Únete a nuestras discusiones comunitarias
+- Open an issue on GitHub
+- Check the documentation
+- Join our community discussions
 
 ---
 
-**Accionator** - Haciendo el análisis financiero accesible e inteligente. 📈✨
+**Stockator** - Making financial analysis accessible and intelligent. 📈✨
 
-_¿Listo para transformar tu forma de invertir? ¡Empecemos! 🚀_
+_Ready to transform your way of investing? Let's get started! 🚀_
